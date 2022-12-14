@@ -1,7 +1,7 @@
 package Server;
 
-import java.net.ServerSocket;
-import java.util.ArrayList;
+import Server.Trips.TripsModel;
+
 import java.util.stream.Stream;
 
 public class Parser {
@@ -10,7 +10,7 @@ public class Parser {
         return Server.Tickets.Model;
     }
 
-    static public Stream parse(Server.Trips.Model[] trips){
+    static public Stream parse(TripsModel[] trips){
         return Stream;
     }
 
