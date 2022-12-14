@@ -18,7 +18,6 @@ public class ClientHandler implements Runnable{
         try{
             while (true){
                 int code = in.readInt();
-
             }
         } catch (IOException ignore) {}
     }
