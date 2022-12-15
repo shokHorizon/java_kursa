@@ -28,7 +28,7 @@ public class MainServer {
 
                 String request = reader.readLine();
                 System.out.println("Request: " + request);
-                String response = (int)(Math.random() * 30 - 10) + "";
+                String response = (int)(Math.random() * 30 - 10) + ""; // Рандомное значение ответа от сервера в клиент
                 System.out.println("Response: " + response);
                 writer.write(response);
                 writer.newLine();
