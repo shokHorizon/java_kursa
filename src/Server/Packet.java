@@ -2,7 +2,7 @@ package Server;
 
 import MVC.IModel;
 
-import java.util.HashMap;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -20,7 +20,8 @@ public class Packet {
     }
 
     public Packet(int code, IModel models){
-
+        this.code = code;
+        this.models = models;
     }
 
     public void write_to_stream(Stream stream){

@@ -17,6 +17,10 @@ public class MainServer {
             while (true)
             try {
                 Socket socket = server.accept(); // сокет под сервак
+
+                ObjectOutputStream ous = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
                 BufferedWriter writer =
                         new BufferedWriter(
                             new OutputStreamWriter(
@@ -27,9 +31,11 @@ public class MainServer {
                                     socket.getInputStream()));
 
                 String request = reader.readLine();
-                System.out.println("Request: " + request);
-                String response = (int)(Math.random() * 30 - 10) + ""; // Рандомное значение ответа от сервера в клиент
-                System.out.println("Response: " + response);
+                //8String req1 = (String) ois.readObject();
+                //System.out.println(req1 + "ааааааааааааа я чурка");
+                System.out.println("You have asked for " + request);
+                String response = request + "+ additional info";
+                System.out.println("I gave you " + response);
                 writer.write(response);
                 writer.newLine();
                 writer.flush();
