@@ -7,11 +7,9 @@ public class JMainFrame extends JFrame {
     JPanel currentPanel = null;
     public JMainFrame(){
         // создание окна
-        super("Example LayeredTest");
+        super("SERVERSIDE");
         // выход при закрытии окна
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        // определение многослойной панели
-        JLayeredPane lp = getLayeredPane();
         setSize(280, 250);
         setVisible(true);
     }
@@ -20,5 +18,6 @@ public class JMainFrame extends JFrame {
         if (this.currentPanel != null)
             this.remove(this.currentPanel);
         this.currentPanel = panel;
+        setContentPane(panel);
     }
 }
