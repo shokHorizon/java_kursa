@@ -1,3 +1,4 @@
+import Protocols.Packet;
 import Server.SocketServer;
 
 import java.io.*;
@@ -21,25 +22,15 @@ public class MainServer {
                 ObjectOutputStream ous = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-                BufferedWriter writer =
-                        new BufferedWriter(
-                            new OutputStreamWriter(
-                                    socket.getOutputStream()));
-                BufferedReader reader =
-                        new BufferedReader(
-                            new InputStreamReader(
-                                    socket.getInputStream()));
+                Packet response = (Packet) ois.readObject();
+                response.Print();
+                response.setCode(228);
+                ous.writeObject(response);
+                ous.flush();
 
-                String request = reader.readLine();
-                //8String req1 = (String) ois.readObject();
-                //System.out.println(req1 + "ааааааааааааа я чурка");
-                System.out.println("You have asked for " + request);
-                String response = request + "+ additional info";
-                System.out.println("I gave you " + response);
-                writer.write(response);
-                writer.newLine();
-                writer.flush();
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         } catch (IOException e) {throw new RuntimeException(e);}
