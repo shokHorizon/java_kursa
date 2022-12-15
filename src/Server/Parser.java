@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 public class Parser {
 
+    // По стримам тогда надо юзать ObjectIn/OutputStream
+
     static public Server.Tickets.Model parse(Stream stream){
         return Server.Tickets.Model;
     }
