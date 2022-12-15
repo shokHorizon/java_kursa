@@ -2,6 +2,7 @@ package Protocols;
 
 import MVC.IModel;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.stream.Stream;
 
