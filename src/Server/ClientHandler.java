@@ -24,8 +24,8 @@ public class ClientHandler implements Runnable{
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < len; i++)
                     sb.append(in.readChar());
-                IController controller = QueryController.get_controller(sb.toString());
-                Stream stream = controller.process();
+                //IController controller = QueryController.get_controller(sb.toString());
+                //Stream stream = controller.process();
             }
         } catch (IOException ignore) {}
     }
