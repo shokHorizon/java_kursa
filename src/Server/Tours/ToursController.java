@@ -12,6 +12,8 @@ public class ToursController implements IController {
 
     @Override
     public Packet process(Packet tours) {
-        return null;
+        return new Packet(1, null);
     }
+
+
 }

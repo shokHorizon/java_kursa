@@ -6,7 +6,9 @@ public class QueryController {
     static Packet query_request(Packet packet){
         switch (Packet.CODES.get(packet.code).toLowerCase()){
             case "tours"->{
-                return ToursController.INSTANCE.process(packet);
+                Packet packet_return = ToursController.INSTANCE.process(packet);
+                packet_return.code = packet.code;
+                return packet;
             }
             case "trips"->{
                 return null;

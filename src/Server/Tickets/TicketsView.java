@@ -1,4 +1,4 @@
 package Server.Tickets;
 
-public class Model {
+public class TicketsView {
 }
