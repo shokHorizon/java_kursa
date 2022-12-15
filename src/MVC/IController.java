@@ -1,8 +1,6 @@
 package MVC;
 
-import Server.Packet;
-
-import java.util.stream.Stream;
+import Protocols.Packet;
 
 public interface IController {
     public Packet process(Packet packet);

@@ -1,8 +1,7 @@
-package Server;
+package Protocols;
 
 import MVC.IModel;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -20,10 +19,23 @@ public class Packet {
     }
 
     public Packet(int code, IModel models){
-
+        this.code = code;
+        this.models = models;
     }
 
     public void write_to_stream(Stream stream){
         return;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getCodeName(int code){
+        return this.CODES.get(code);
     }
 }
