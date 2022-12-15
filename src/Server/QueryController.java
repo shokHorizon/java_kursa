@@ -1,20 +1,17 @@
 package Server;
 
 import Server.Tours.ToursController;
-import java.util.stream.Stream;
 
 public class QueryController {
-    static Stream query_request(String status, Stream stream){
-        switch (status){
-            case "TOUR"->{
-                return Parser.parse(
-                        ToursController.INSTANCE.process(
-                                Parser.parse(stream)));
+    static Packet query_request(Packet packet){
+        switch (Packet.CODES.get(packet.code).toLowerCase()){
+            case "tours"->{
+                return ToursController.INSTANCE.process(packet);
             }
-            case "TRIP"->{
+            case "trips"->{
                 return null;
             }
-            case "TICK"->{
+            case "ticket"->{
                 return null;
             }
         }
