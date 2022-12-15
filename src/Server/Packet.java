@@ -1,3 +1,5 @@
+package Server;
+
 import MVC.IModel;
 
 import java.util.stream.Stream;
