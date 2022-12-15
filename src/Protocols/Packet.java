@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class Packet {
+public class Packet implements Serializable {
     int code;
     IModel models;
 
@@ -14,6 +14,16 @@ public class Packet {
             Map.entry(1, "Tours"),
             Map.entry(2, "Parser")
     );
+
+    public Packet() {
+
+    }
+
+    public void Print(){
+        System.out.println(this.code);
+        System.out.println(this.models);
+
+    }
 
     public Packet(Stream stream){
 
