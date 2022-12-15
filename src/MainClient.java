@@ -6,10 +6,5 @@ public class MainClient {
         Inet4Address ip;
         int port;
 
-        try{
-
-        } catch (IOException exception){
-
-        }
     }
 }
