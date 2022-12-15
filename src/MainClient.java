@@ -1,4 +1,4 @@
-import Server.Packet;
+import Protocols.Packet;
 
 import java.io.*;
 import java.net.Inet4Address;

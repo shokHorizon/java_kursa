@@ -1,5 +1,9 @@
+import MVC.JMainFrame;
+import Server.Tours.ToursView;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        JMainFrame jMainFrame = new JMainFrame();
+        jMainFrame.add(new ToursView());
     }
 }
