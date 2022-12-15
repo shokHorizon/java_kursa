@@ -1,4 +1,4 @@
-package Server;
+package Protocols;
 
 import MVC.IModel;
 
@@ -26,5 +26,17 @@ public class Packet {
 
     public void write_to_stream(Stream stream){
         return;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getCodeName(int code){
+        return this.CODES.get(code);
     }
 }

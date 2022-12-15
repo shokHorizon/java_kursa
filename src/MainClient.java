@@ -1,4 +1,4 @@
-import Server.Packet;
+import Protocols.Packet;
 
 import java.io.*;
 import java.net.Inet4Address;
@@ -38,8 +38,8 @@ public class MainClient {
             String request = "tours "; // Client -> outputStream -> server
 
             Packet packet = new Packet(1,null);
-            //ous.writeObject(packet); // Только в ous есть write object
-            //ous.flush();
+            ous.writeObject(packet); // Только в ous есть write object
+            ous.flush();
             writer.write(request);
             writer.newLine();
             writer.flush();

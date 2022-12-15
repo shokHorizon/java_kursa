@@ -31,7 +31,7 @@ public class MainServer {
                                     socket.getInputStream()));
 
                 String request = reader.readLine();
-                //8String req1 = (String) ois.readObject();
+                String req1 = (String) ois.readObject();
                 //System.out.println(req1 + "ааааааааааааа я чурка");
                 System.out.println("You have asked for " + request);
                 String response = request + "+ additional info";
@@ -40,6 +40,8 @@ public class MainServer {
                 writer.newLine();
                 writer.flush();
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         } catch (IOException e) {throw new RuntimeException(e);}

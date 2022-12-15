@@ -1,10 +1,7 @@
 package Server.Tours;
 
+import Protocols.Packet;
 import MVC.IController;
-import MVC.IModel;
-import Server.Packet;
-
-import java.util.stream.Stream;
 
 public class ToursController implements IController {
 
