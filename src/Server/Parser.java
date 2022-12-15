@@ -1,20 +1,18 @@
 package Server;
 
+import MVC.IModel;
+import Server.Tours.ToursModel;
 import Server.Trips.TripsModel;
 
 import java.util.stream.Stream;
 
 public class Parser {
 
-    static public Server.Tickets.Model parse(Stream stream){
-        return Server.Tickets.Model;
+    static public IModel[] parse(Stream stream){
+        return null;
     }
 
-    static public Stream parse(TripsModel[] trips){
-        return Stream;
-    }
-
-    static public Stream parse(Server.Tours.Model[] tours){
-        return Stream;
+    static public Stream parse(IModel[] models){
+        return null;
     }
 }

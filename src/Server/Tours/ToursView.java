@@ -1,4 +1,4 @@
 package Server.Tours;
 
-public class View {
+public class ToursView {
 }

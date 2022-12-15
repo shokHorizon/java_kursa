@@ -1,17 +1,16 @@
 package Server.Tours;
 
 import MVC.IController;
+import MVC.IModel;
 
 import java.util.stream.Stream;
 
 public class ToursController implements IController {
 
-    public ToursController(){
-
-    }
+    public static final ToursController INSTANCE = new ToursController();
 
     @Override
-    public Stream process() {
+    public IModel[] process(IModel[] tours) {
         return null;
     }
 }
