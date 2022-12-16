@@ -9,9 +9,14 @@ public class ToursView extends JPanel {
         super();
         JTable jTable = new JTable(10, 3);
         JButton jButton = new JButton("Суп из семи залуп");
-        jButton.setBounds(10, 40, 120, 120);
-        this.add(jButton);
-        this.setSize(200, 200);
+        jTable.setBounds(0, 0, 600, 800);
+        jTable.setRowHeight(75);
+        for (int i = 0; i < jTable.getColumnCount(); i++){
+            jTable.getColumnModel().getColumn(i).setWidth(200);
+            jTable.getColumnModel().getColumn(i).setPreferredWidth(200);
+        }
+        this.add(jTable);
+        this.setSize(600, 800);
         this.setVisible(true);
     }
 

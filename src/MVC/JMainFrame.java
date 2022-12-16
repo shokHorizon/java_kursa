@@ -10,7 +10,7 @@ public class JMainFrame extends JFrame {
         super("SERVERSIDE");
         // выход при закрытии окна
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(280, 250);
+        setSize(600, 800);
         setVisible(true);
     }
 
