@@ -1,17 +1,16 @@
 package Server.Tours;
 
+import Protocols.Packet;
 import MVC.IController;
-
-import java.util.stream.Stream;
 
 public class ToursController implements IController {
 
-    public ToursController(){
-
-    }
+    public static final ToursController INSTANCE = new ToursController();
 
     @Override
-    public Stream process() {
-        return null;
+    public Packet process(Packet tours) {
+        return new Packet(1, null);
     }
+
+
 }

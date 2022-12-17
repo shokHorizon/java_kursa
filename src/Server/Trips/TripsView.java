@@ -1,4 +1,4 @@
 package Server.Trips;
 
-public class View {
+public class TripsView {
 }

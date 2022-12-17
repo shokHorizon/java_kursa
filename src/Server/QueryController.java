@@ -1,22 +1,24 @@
 package Server;
 
-import MVC.IController;
+
+import Protocols.Packet;
 import Server.Tours.ToursController;
 
-import java.util.stream.Stream;
-
 public class QueryController {
-    static IController get_controller(String status, Stream stream){
-        switch (status){
-            case "TOUR"->{
-                return Parser.parse(new ToursController());
+    static Packet query_request(Packet packet){
+        switch (Packet.CODES.get(packet.getCode()).toLowerCase()){
+            case "tours"->{
+                Packet packet_return = ToursController.INSTANCE.process(packet);
+                packet_return.setCode(packet.getCode());
+                return packet;
             }
-            case "TRIP"->{
-                return Parser.parse(new TripsController());
+            case "trips"->{
+                return null;
             }
-            case "TICK"->{
-                return Parser.parse(new TicketController(Parser.parse(stream)));
+            case "ticket"->{
+                return null;
             }
         }
+        return null;
     }
 }

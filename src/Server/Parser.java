@@ -1,20 +1,23 @@
 package Server;
 
-import java.net.ServerSocket;
-import java.util.ArrayList;
+import MVC.IModel;
+import Server.Tours.ToursModel;
+import Server.Trips.TripsModel;
+
+import java.io.ObjectInputStream;
 import java.util.stream.Stream;
 
 public class Parser {
 
-    static public Server.Tickets.Model parse(Stream stream){
-        return Server.Tickets.Model;
+    static public IModel[] parse(ObjectInputStream stream) {
+        int id;
+        IModel models;
+        //Packet
+
+        return null;
     }
 
-    static public Stream parse(Server.Trips.Model[] trips){
-        return Stream;
-    }
-
-    static public Stream parse(Server.Tours.Model[] tours){
-        return Stream;
+    static public Stream parse(IModel[] models){
+        return null;
     }
 }

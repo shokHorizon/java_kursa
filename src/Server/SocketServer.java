@@ -2,12 +2,9 @@ package Server;
 
 import java.io.IOException;
 import java.net.*;
-import java.nio.channels.AsynchronousServerSocketChannel;
-import java.nio.channels.AsynchronousSocketChannel;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class SocketServer {
     private ServerSocket server;
@@ -31,4 +28,5 @@ public class SocketServer {
             pool.execute(clientHandler);
         }
     }
+
 }
