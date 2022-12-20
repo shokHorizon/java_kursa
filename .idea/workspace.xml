@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
+    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/IModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DBWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Tours.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Tours.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +115,6 @@
       <workItem from="1671552728478" duration="707000" />
       <workItem from="1671557579518" duration="3650000" />
       <workItem from="1671561796711" duration="4577000" />
-
     </task>
     <task id="LOCAL-00001" summary="Zalupa elzina">
       <created>1671041229857</created>

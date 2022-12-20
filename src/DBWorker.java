@@ -11,7 +11,11 @@ public class DBWorker {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "9228lalala";
 
-        public DBWorker()  {
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public DBWorker()  {
             //JMainFrame jMainFrame = new JMainFrame();
             //jMainFrame.set_panel(ToursView.INSTANCE);
 
