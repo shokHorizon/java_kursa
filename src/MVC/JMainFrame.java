@@ -1,6 +1,7 @@
 package MVC;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class JMainFrame extends JFrame {
 
@@ -10,7 +11,10 @@ public class JMainFrame extends JFrame {
         super("SERVERSIDE");
         // выход при закрытии окна
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(600, 800);
+        this.setLayout(new BorderLayout());
+        this.setPreferredSize(new Dimension(600, 800));
+        this.setResizable(false);
+        pack();
         setVisible(true);
     }
 
