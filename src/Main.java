@@ -42,6 +42,7 @@ public class Main {
             System.out.println(set);
             //statement.addBatch(""); // Добавление набора команд (некая транзакция) в batch
             //statement.executeBatch(); // Выполнения набора команд
+            statement.clearBatch();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
