@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 public class Main {
-    private static final String URL = "jdbc:mysql://localhost:3306/kursa";
+    private static final String URL = "jdbc:mysql://192.168.192:3306/kursa";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "9228lalala";
     public static void main(String[] args)  {
@@ -45,6 +45,7 @@ public class Main {
             statement.clearBatch();
 
         } catch (SQLException e) {
+            System.out.println("ЖОПА");
             throw new RuntimeException(e);
         }
 

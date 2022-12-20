@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
-      <change afterPath="$PROJECT_DIR$/kurs_maven.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/IModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
   <component name="InvalidFacetManager">
     <ignored-facets>
       <facet id="kursa/invalid/Hibernate" />
+      <facet id="kursa/invalid/JPA" />
     </ignored-facets>
   </component>
   <component name="MarkdownSettingsMigration">
@@ -86,21 +89,6 @@
       <recent name="Server" />
       <recent name="Client" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="kurs_maven" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="kurs_maven" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
