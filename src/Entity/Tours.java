@@ -31,9 +31,15 @@ public class Tours {
         Tours tours = (Tours) o;
         return id == tours.id && Objects.equals(city, tours.city);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, city);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", username: " + city
+                + ")";
     }
 }
