@@ -57,4 +57,13 @@ public class Trips {
     public int hashCode() {
         return Objects.hash(id, tour, price, date);
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", tour: " + tour
+                + ", price: " + price
+                + ", date: " + date.toString()
+                + "}";
+    }
 }

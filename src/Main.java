@@ -1,10 +1,9 @@
-import Entity.Tours;
-import MVC.JMainFrame;
-import Server.Tours.ToursView;
+import Entity.Tickets;
+import MVC.DAO.TicketsDao;
+import MVC.IDao;
+import Server.DBWorker;
 
 
-import javax.swing.plaf.nimbus.State;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 public class Main {
@@ -14,19 +13,37 @@ public class Main {
     public static void main(String[] args)  {
         DBWorker worker = new DBWorker();
 
-        String query = "select * from tours";
-        try {
-            Statement statement = worker.getConnection().createStatement();
-            ResultSet set = statement.executeQuery(query);
+        String query = "select * from tickets";
+//        try {
+            //Statement statement = worker.getConnection().createStatement();
+            //ResultSet set = statement.executeQuery(query);
+            IDao TD = new TicketsDao();
+            TD.getAll();
 
-            while (set.next()){
-                Tours tour = new Tours();
-                tour.setId(set.getInt(1));
-                tour.setCity(set.getString(2));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//            while (set.next()){
+//                Tickets tick = new Tickets();
+//                tick.setId(set.getInt("id"));
+//                tick.setName(set.getString("name"));
+//                tick.setTrip(set.getInt("trip"));
+//                System.out.println(tick);
+//            }
+//                while (set.next()){
+//                    Trips trip = new Trips();
+//                    trip.setId(set.getInt("id"));
+//                    trip.setTour(set.getInt("tour"));
+//                    trip.setPrice(set.getInt("price"));
+//                    trip.setDate(set.getTimestamp("date"));
+//                    System.out.println(trip);
+//                }
+//            while (set.next()){
+//                Tours tour = new Tours();
+//                tour.setId(set.getInt("id"));
+//                tour.setCity(set.getString("city"));
+//                System.out.println(tour);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//          }
 
 
     }

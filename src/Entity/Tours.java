@@ -39,7 +39,7 @@ public class Tours {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{id: " + id
-                + ", username: " + city
-                + ")";
+                + ", city: " + city
+                + "}";
     }
 }
