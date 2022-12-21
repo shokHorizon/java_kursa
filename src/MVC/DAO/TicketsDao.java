@@ -14,7 +14,7 @@ public class TicketsDao implements IDao {
 
     String Tname = "tickets";
     @Override
-    public Optional get(long id) {
+    public Optional get(int id) {
         return Optional.empty();
     }
 
