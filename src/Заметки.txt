@@ -3,12 +3,12 @@ import java.sql.*;
 import MVC.JMainFrame;
 import Server.Tours.ToursView;
 
-public class DBWorker {
+public class Server.DBWorker {
 
         private static final String URL = "jdbc:mysql://localhost:3306/kursa";
         private static final String USERNAME = "root";
         private static final String PASSWORD = "9228lalala";
-        public static void DBWorker()  {
+        public static void Server.DBWorker()  {
             //JMainFrame jMainFrame = new JMainFrame();
             //jMainFrame.set_panel(ToursView.INSTANCE);
 

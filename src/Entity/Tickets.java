@@ -59,4 +59,13 @@ public class Tickets {
     public int hashCode() {
         return Objects.hash(id, name, trip);
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", name: " + name
+                + ", trip: " + trip
+                + "}";
+    }
+
 }

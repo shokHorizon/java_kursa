@@ -1,10 +1,9 @@
-import Entity.Tours;
-import MVC.JMainFrame;
-import Server.Tours.ToursView;
+import Entity.Tickets;
+import MVC.DAO.TicketsDao;
+import MVC.IDao;
+import Server.DBWorker;
 
 
-import javax.swing.plaf.nimbus.State;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 public class Main {
@@ -12,56 +11,15 @@ public class Main {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "9228lalala";
     public static void main(String[] args)  {
-        //JMainFrame jMainFrame = new JMainFrame();
-        //jMainFrame.set_panel(ToursView.INSTANCE);
+        DBWorker worker = new DBWorker();
 
-        String query = "select * from tours";
-        try {
-            Statement statement = worker.getConnection().createStatement();
-            ResultSet set = statement.executeQuery(query);
+        String query = "select * from tickets";
+//        try {
+            //Statement statement = worker.getConnection().createStatement();
+            //ResultSet set = statement.executeQuery(query);
+            IDao TD = new TicketsDao();
+            TD.getAll();
 
-            while (set.next()){
-                Tours tour = new Tours();
-                tour.setId(set.getInt(1));
-                tour.setCity(set.getString(2));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-            try {
-                Driver driver = (Driver) Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-                DriverManager.registerDriver(driver);
-
-
-//                if (!connection.isClosed()){
-//                    System.out.println("Соединение с БД установлено!");
-//                }
-//                connection.close();
-//                if (connection.isClosed()){
-//                    System.out.println("Соединение с БД закрыто!");
-//                }
-            } catch (SQLException | ClassNotFoundException | NoSuchMethodException | InstantiationException |
-                     IllegalAccessException | InvocationTargetException e){
-                System.out.println("ЖОПА");
-            }
-
-        try (Connection connection = DriverManager.getConnection(URL,USERNAME,PASSWORD); Statement statement = connection.createStatement()) {
-            System.out.println(connection.isClosed());
-            //statement.execute("insert into tours (id,city) values(9,'Янечорт');");
-            int change =  statement.executeUpdate("UPDATE tours SET city='Я чорт' where id > 5"); // Кол-во изменений
-            System.out.println(change);
-            ResultSet set = statement.executeQuery("SELECT * from tickets");
-            System.out.println(set);
-            //statement.addBatch(""); // Добавление набора команд (некая транзакция) в batch
-            //statement.executeBatch(); // Выполнения набора команд
-            statement.clearBatch();
-
-        } catch (SQLException e) {
-            System.out.println("ЖОПА");
-            throw new RuntimeException(e);
-        }
 
 
     }
