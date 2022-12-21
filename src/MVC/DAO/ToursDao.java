@@ -64,10 +64,9 @@ public class ToursDao implements IDao<ToursModel> {
         try {
             String query = "insert into tours values (?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,ToursModel.id);
-            preparedStatement.setString(2,ToursModel.city);
+            preparedStatement.setInt(1,toursModel.getId());
+            preparedStatement.setString(2,toursModel.getCity());
             preparedStatement.execute();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,12 +74,12 @@ public class ToursDao implements IDao<ToursModel> {
     }
 
     @Override
-    public void update(ToursModel toursModel, String[] params) {
+    public void update(ToursModel toursModel) {
         try {
             String query = "update tours set city = ? where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setString(1,ToursModel.city); // Будет меняться на одно и то же, поэтому надо замену придумать
-            preparedStatement.setInt(2,ToursModel.id);
+            preparedStatement.setString(1,toursModel.getCity()); // Будет меняться на одно и то же, поэтому надо замену придумать
+            preparedStatement.setInt(2,toursModel.getId());
             preparedStatement.execute();
 
         } catch (SQLException e) {
@@ -95,7 +94,7 @@ public class ToursDao implements IDao<ToursModel> {
         try {
             String query = "delete from tours where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,ToursModel.id); // Будет меняться на одно и то же, поэтому надо замену придумать
+            preparedStatement.setInt(1,toursModel.getId()); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.execute();
 
         } catch (SQLException e) {

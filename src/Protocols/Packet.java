@@ -1,14 +1,15 @@
 package Protocols;
 
-import MVC.IModel;
+import MVC.Model;
+import MVC.Models.ToursModel;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Packet implements Serializable {
     int code;
-    IModel models;
+    List<Object> models;
 
     public static final Map<Integer, String> CODES = Map.ofEntries(
             Map.entry(1, "Tours"),
@@ -17,6 +18,11 @@ public class Packet implements Serializable {
 
     public Packet() {
 
+    }
+
+    public Packet(Integer integer, List<ToursModel> all) {
+        this.code = integer;
+        this.models = Collections.singletonList(all);
     }
 
     public void Print(){
@@ -29,9 +35,16 @@ public class Packet implements Serializable {
 
     }
 
-    public Packet(int code, IModel models){
+    public Packet(int code, Model model){
+        List<Object> temp = new ArrayList<>();
+        temp.add(model);
         this.code = code;
-        this.models = models;
+        this.models = temp;
+    }
+
+    public Packet(int code, List<Model> models){
+        this.code = code;
+        this.models = Collections.singletonList(models);
     }
 
     public void write_to_stream(Stream stream){
@@ -44,6 +57,10 @@ public class Packet implements Serializable {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public List<Object> getModels(){
+        return models;
     }
 
     public String getCodeName(int code){

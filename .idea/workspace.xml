@@ -4,14 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
+      <change afterPath="$PROJECT_DIR$/src/MVC/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/TicketsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/TicketsDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/TripsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/TripsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/Dao.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/IDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/IModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/Models/ToursModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/ToursModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Protocols/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Protocols/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Tours/ToursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tours/ToursController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Tours/ToursModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Trips/TripsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Trips/TripsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Trips/TripsModel.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

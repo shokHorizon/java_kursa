@@ -1,11 +1,9 @@
 package MVC.DAO;
 
-import Entity.Tickets;
 import Entity.Trips;
 import MVC.IDao;
 import Server.DBWorker;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,7 +41,7 @@ public class TripsDao implements IDao {
     }
 
     @Override
-    public void update(Object o, String[] params) {
+    public void update(Object o) {
 
     }
 
