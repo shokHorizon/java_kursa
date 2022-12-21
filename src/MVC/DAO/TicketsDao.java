@@ -56,7 +56,7 @@ public class TicketsDao implements IDao {
     }
 
     @Override
-    public void update(Object o, String[] params) {
+    public void update(Object o) {
 
     }
 

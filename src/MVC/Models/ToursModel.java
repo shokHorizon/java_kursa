@@ -14,4 +14,16 @@ public class ToursModel extends Model {
         this.price = price;
         this.city = city;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getCity() {
+        return city;
+    }
 }
