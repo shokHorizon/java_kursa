@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args)  {
         DBWorker worker = new DBWorker();
 
-        String query = "select * from tickets";
 //        try {
             //Statement statement = worker.getConnection().createStatement();
             //ResultSet set = statement.executeQuery(query);

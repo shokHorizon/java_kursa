@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class TripsDao implements IDao {
     @Override
-    public Optional get(long id) {
+    public Optional get(int id) {
         return Optional.empty();
     }
 
