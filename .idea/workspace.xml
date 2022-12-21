@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_19_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kursa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/kursa.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DBWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/Models/TicketsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/TicketsModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/Models/TripsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/TripsModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" afterDir="false" />
-    </list>
+    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
