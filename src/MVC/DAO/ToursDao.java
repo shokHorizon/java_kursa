@@ -15,15 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class ToursDao implements IDao<ToursModel> {
-    private List<ToursModel> toursModels = new ArrayList<>();
 
-    public ToursDao(){};
-    public ToursDao(ToursModel toursModel){
-        toursModels.add(toursModel);
-    }
-    public ToursDao(List<ToursModel> toursModels){
-        this.toursModels.addAll(toursModels);
-    }
+    public static final ToursDao INSTANCE = new ToursDao();
     @Override
     public Optional<ToursModel> get(int id) {
 
@@ -90,11 +83,11 @@ public class ToursDao implements IDao<ToursModel> {
     }
 
     @Override
-    public void delete(ToursModel toursModel) {
+    public void delete(int id) {
         try {
             String query = "delete from tours where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,toursModel.getId()); // Будет меняться на одно и то же, поэтому надо замену придумать
+            preparedStatement.setInt(1,id); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.execute();
 
         } catch (SQLException e) {

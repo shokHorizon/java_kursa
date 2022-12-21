@@ -1,6 +1,28 @@
 package MVC.Models;
+import MVC.Model;
+import java.sql.Timestamp;
 
-import MVC.IModel;
+public class TripsModel extends Model {
 
-public class TripsModel implements IModel {
+    int id;
+    int price;
+    Timestamp date;
+
+    public TripsModel(int id, int price, Timestamp date) {
+        this.id = id;
+        this.price = price;
+        this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
 }

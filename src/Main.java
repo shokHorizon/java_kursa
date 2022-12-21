@@ -1,5 +1,6 @@
 import Entity.Tickets;
 import MVC.DAO.TicketsDao;
+import MVC.DAO.TripsDao;
 import MVC.IDao;
 import Server.DBWorker;
 
@@ -18,6 +19,11 @@ public class Main {
             //ResultSet set = statement.executeQuery(query);
             IDao TD = new TicketsDao();
             TD.getAll();
+            IDao TRD = new TripsDao();
+            System.out.println();
+            TRD.getAll();
+            TRD.delete(3);
+            TRD.getAll();
 
 
 

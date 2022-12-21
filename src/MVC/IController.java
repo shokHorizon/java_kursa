@@ -2,6 +2,6 @@ package MVC;
 
 import Protocols.Packet;
 
-public interface IController {
-    public Packet process(Packet packet);
+public interface IController <T> {
+    public Packet<T> process(Packet<T> packet);
 }

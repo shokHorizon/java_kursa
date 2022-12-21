@@ -5,42 +5,37 @@ import MVC.IController;
 import MVC.Models.TripsModel;
 import Protocols.Packet;
 
-public class TripsController implements IController {
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public class TripsController implements IController <TripsModel>{
 
     public static final TripsController INSTANCE = new TripsController();
 
     @Override
-    public Packet process(Packet trips) {
-        return new Packet(null, new TripsDao().getAll());
+    public Packet<TripsModel> process(Packet<TripsModel> trips) {
+        return new Packet<TripsModel>(0, new TripsDao().getAll());
     }
 
-    public void getTrips(int tourId){
-        TripsModel[] tripsModels = TripsModel.objects.filter(tour=tourId);
-        TripsView.update(tripsModels);
+    public void getTrips(){
+        List<TripsModel> tripsModels = new TripsDao().getAll();
+        //TripsView.update(tripsModels);
     }
 
-    public boolean getTrip(int id){
-        TripsModel tripsModel = TripsModel.objects.get(id);
-        if (tripsModel == null)
-            return false;
-        return true;
+    public void getTrip(int id){
+        Optional<TripsModel> tripsModel = new TripsDao().get(id);
     }
 
-    public boolean insertTrip(TripsModel model){
-        if (model.save() == null)
-            return false;
-        return true;
+    public void insertTrip(TripsModel model){
+        new TripsDao().save(model);
     }
 
-    public boolean deleteTrip(int id){
-        if (TripsModel.objects.delete(id) == null)
-            return false;
-        return true;
+    public void deleteTrip(int id){
+        new TripsDao().delete(id);
     }
 
-    public boolean updateTrip(TripsModel model){
-        if (TripsModel.objects.update(model) == null)
-            return false;
-        return true;
+    public void updateTrip(TripsModel model){
+        new TripsDao().update(model);
     }
 }

@@ -4,24 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
-      <change afterPath="$PROJECT_DIR$/src/MVC/Model.java" afterDir="false" />
+    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_21_2022_6_04_PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_21_2022_6_04_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_19_4.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kursa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/kursa.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DBWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBWorker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/TicketsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/TicketsDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/TripsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/TripsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/Dao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/IController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/IDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/IModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/Models/ToursModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/ToursModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/Models/TicketsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/TicketsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MVC/Models/TripsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/TripsModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Protocols/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Protocols/Packet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsModel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Tours/ToursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tours/ToursController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Tours/ToursModel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Trips/TripsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Trips/TripsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Trips/TripsModel.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,25 +74,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Dev/java/kursa/src/MVC&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Dev/java/kursa/src/MVC",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.39195403",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Client" />
@@ -131,7 +133,7 @@
       <workItem from="1671561796711" duration="4577000" />
       <workItem from="1671609737673" duration="2537000" />
       <workItem from="1671622373410" duration="87000" />
-      <workItem from="1671627683954" duration="1060000" />
+      <workItem from="1671627683954" duration="757000" />
     </task>
     <task id="LOCAL-00001" summary="Zalupa elzina">
       <created>1671041229857</created>

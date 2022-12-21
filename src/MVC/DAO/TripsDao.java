@@ -2,6 +2,7 @@ package MVC.DAO;
 
 import Entity.Trips;
 import MVC.IDao;
+import MVC.Models.TripsModel;
 import Server.DBWorker;
 
 import java.sql.ResultSet;
@@ -10,14 +11,16 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
-public class TripsDao implements IDao {
+public class TripsDao implements IDao<TripsModel> {
+
+    public static final TripsDao INSTANCE = new TripsDao();
     @Override
-    public Optional get(int id) {
+    public Optional<TripsModel> get(int id) {
         return Optional.empty();
     }
 
     @Override
-    public List getAll() {
+    public List<TripsModel> getAll() {
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from trips";
@@ -25,7 +28,7 @@ public class TripsDao implements IDao {
             while (set.next()){
                 Trips trip = new Trips();
                 trip.setId(set.getInt("id"));
-                trip.setTour(set.getInt("name"));
+                trip.setTour(set.getInt("tour"));
                 trip.setPrice(set.getInt("price"));
                 trip.setDate(set.getTimestamp("date"));
                 System.out.println(trip);}
@@ -36,17 +39,17 @@ public class TripsDao implements IDao {
     }
 
     @Override
-    public void save(Object o) {
+    public void save(TripsModel tripsModel) {
 
     }
 
     @Override
-    public void update(Object o) {
+    public void update(TripsModel tripsModel) {
 
     }
 
     @Override
-    public void delete(Object o) {
+    public void delete(int id) {
 
     }
 }

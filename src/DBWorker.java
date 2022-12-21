@@ -1,7 +1,5 @@
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import MVC.JMainFrame;
-import Server.Tours.ToursView;
 
 
 
