@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
