@@ -34,7 +34,6 @@ public class ToursController implements IController <ToursModel>{
     public void deleteTour(int id){
         new ToursDao().delete(id);
     }
-
     public void updateTour(ToursModel model){
         new ToursDao().update(model);
     }
