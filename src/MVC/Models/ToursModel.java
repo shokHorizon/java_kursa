@@ -1,8 +1,10 @@
 package MVC.Models;
 
-import MVC.IModel;
+import MVC.DAO.ToursDao;
+import MVC.IDao;
+import MVC.Model;
 
-public class ToursModel implements IModel {
+public class ToursModel extends Model {
     int id;
     int price;
     String city;

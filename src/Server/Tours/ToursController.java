@@ -1,8 +1,13 @@
 package Server.Tours;
 
+import MVC.DAO.ToursDao;
+import MVC.Model;
 import MVC.Models.ToursModel;
 import Protocols.Packet;
 import MVC.IController;
+
+import java.util.List;
+import java.util.Optional;
 
 public class ToursController implements IController {
 
@@ -10,36 +15,28 @@ public class ToursController implements IController {
 
     @Override
     public Packet process(Packet tours) {
-        return new Packet(1, null);
+        return new Packet(null, new ToursDao().getAll());
     }
 
     public void getTours(){
-        ToursModel[] toursModels = ToursModel.objects.all();
+        List<ToursModel> toursModels = new ToursDao().getAll();
         ToursView.update(toursModels);
     }
 
     public boolean getTour(int id){
-        ToursModel toursModel = ToursModel.objects.get(id);
-        if (toursModel == null)
-            return false;
-        return true;
+        Optional<ToursModel> toursModel = new ToursDao().get(id);
+        return toursModel.isPresent();
     }
 
-    public boolean insertTour(ToursModel model){
-        if (model.save() == null)
-            return false;
-        return true;
+    public void insertTour(ToursModel model){
+        new ToursDao().save(model);
     }
 
-    public boolean deleteTour(int id){
-        if (ToursModel.objects.delete(id) == null)
-            return false;
-        return true;
+    public void deleteTour(int id){
+        new ToursDao().delete(id);
     }
 
-    public boolean updateTour(ToursModel model){
-        if (ToursModel.objects.update(model) == null)
-            return false;
-        return true;
+    public void updateTour(ToursModel model){
+        new ToursDao().update(model);
     }
 }
