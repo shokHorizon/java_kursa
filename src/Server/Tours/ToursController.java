@@ -9,23 +9,22 @@ import MVC.IController;
 import java.util.List;
 import java.util.Optional;
 
-public class ToursController implements IController {
+public class ToursController implements IController <ToursModel>{
 
     public static final ToursController INSTANCE = new ToursController();
 
     @Override
-    public Packet process(Packet tours) {
-        return new Packet(null, new ToursDao().getAll());
+    public Packet<ToursModel> process(Packet<ToursModel> tours) {
+        return new Packet<ToursModel>(0, new ToursDao().getAll());
     }
 
     public void getTours(){
         List<ToursModel> toursModels = new ToursDao().getAll();
-        ToursView.update(toursModels);
+        //ToursView.update(toursModels);
     }
 
-    public boolean getTour(int id){
+    public void getTour(int id){
         Optional<ToursModel> toursModel = new ToursDao().get(id);
-        return toursModel.isPresent();
     }
 
     public void insertTour(ToursModel model){
