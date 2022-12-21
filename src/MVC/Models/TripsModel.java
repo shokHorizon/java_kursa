@@ -1,6 +1,6 @@
 package MVC.Models;
 
-import MVC.IModel;
+import MVC.Model;
 
-public class TripsModel implements IModel {
+public class TripsModel extends Model {
 }

@@ -1,14 +1,10 @@
 package Server.Tickets;
 
 import MVC.DAO.TicketsDao;
-import MVC.DAO.ToursDao;
 import MVC.IController;
-import MVC.IModel;
 import MVC.Models.TicketsModel;
 import MVC.Models.ToursModel;
 import Protocols.Packet;
-import Server.Tours.ToursController;
-import Server.Tours.ToursView;
 
 import java.util.List;
 import java.util.Optional;

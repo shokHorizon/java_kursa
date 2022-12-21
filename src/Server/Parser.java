@@ -1,21 +1,21 @@
 package Server;
 
-import MVC.IModel;
+import MVC.Model;
 
 import java.io.ObjectInputStream;
 import java.util.stream.Stream;
 
 public class Parser {
 
-    static public IModel[] parse(ObjectInputStream stream) {
+    static public Model[] parse(ObjectInputStream stream) {
         int id;
-        IModel models;
+        Model models;
         //Packet
 
         return null;
     }
 
-    static public Stream parse(IModel[] models){
+    static public Stream parse(Model[] models){
         return null;
     }
 }
