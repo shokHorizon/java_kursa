@@ -1,8 +1,13 @@
 package MVC.DAO;
 
+import Entity.Tickets;
+import Entity.Tours;
 import MVC.IDao;
 import MVC.Models.ToursModel;
+import Server.DBWorker;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,19 @@ public class ToursDao implements IDao<ToursModel> {
 
     @Override
     public List<ToursModel> getAll() {
-        return null;
+
+        try {
+            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
+            String query = "select * from tours";
+            ResultSet set = statement.executeQuery(query);
+            while (set.next()){
+                Tours tours = new Tours();
+                tours.setId(set.getInt("id"));
+                tours.setCity(set.getString("city"));
+                System.out.println(tours);}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return null;
     }
 
     @Override

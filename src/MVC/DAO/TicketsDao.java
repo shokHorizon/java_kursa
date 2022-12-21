@@ -35,10 +35,23 @@ public class TicketsDao implements IDao {
         }
 
         return null;
-    } // select * from tickets;
+    }
 
     @Override
     public void save(Object o) {
+        try {
+            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
+            String query = "insert into tickets values (?,?,?)";
+            ResultSet set = statement.executeQuery(query);
+            while (set.next()){
+                Tickets tick = new Tickets();
+                tick.setId(set.getInt("id"));
+                tick.setName(set.getString("name"));
+                tick.setTrip(set.getInt("trip"));
+                System.out.println(tick);}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

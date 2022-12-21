@@ -20,30 +20,6 @@ public class Main {
             IDao TD = new TicketsDao();
             TD.getAll();
 
-//            while (set.next()){
-//                Tickets tick = new Tickets();
-//                tick.setId(set.getInt("id"));
-//                tick.setName(set.getString("name"));
-//                tick.setTrip(set.getInt("trip"));
-//                System.out.println(tick);
-//            }
-//                while (set.next()){
-//                    Trips trip = new Trips();
-//                    trip.setId(set.getInt("id"));
-//                    trip.setTour(set.getInt("tour"));
-//                    trip.setPrice(set.getInt("price"));
-//                    trip.setDate(set.getTimestamp("date"));
-//                    System.out.println(trip);
-//                }
-//            while (set.next()){
-//                Tours tour = new Tours();
-//                tour.setId(set.getInt("id"));
-//                tour.setCity(set.getString("city"));
-//                System.out.println(tour);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//          }
 
 
     }
