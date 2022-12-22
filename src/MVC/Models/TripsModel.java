@@ -16,6 +16,9 @@ public class TripsModel extends Model {
         this.date = date;
     }
 
+    public TripsModel() {
+    }
+
     public int getId() {
         return id;
     }
@@ -31,4 +34,6 @@ public class TripsModel extends Model {
     public Timestamp getDate() {
         return date;
     }
+
+
 }

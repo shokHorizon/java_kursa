@@ -23,10 +23,10 @@ public class ToursDao implements IDao<ToursModel> {
             String query = "select * from tours where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            Tours tours = new Tours();
             ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
-            tours.setId(set.getInt("id"));
-            tours.setCity(set.getString("city"));
+            ToursModel tours = new ToursModel(
+                    set.getInt("id"),
+                    set.getString("city"));
             System.out.println(tours);
 
         } catch (SQLException e) {
@@ -42,9 +42,9 @@ public class ToursDao implements IDao<ToursModel> {
             String query = "select * from tours";
             ResultSet set = statement.executeQuery(query);
             while (set.next()){
-                Tours tours = new Tours();
-                tours.setId(set.getInt("id"));
-                tours.setCity(set.getString("city"));
+                ToursModel tours = new ToursModel(
+                set.getInt("id"),
+                set.getString("city"));
                 System.out.println(tours);}
         } catch (SQLException e) {
             throw new RuntimeException(e);

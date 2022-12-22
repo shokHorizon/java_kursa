@@ -23,11 +23,11 @@ public class TicketsDao implements IDao<TicketsModel> {
             String query = "select * from tickets where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            Tickets tickets = new Tickets();
             ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
-            tickets.setId(set.getInt("id"));
-            tickets.setName(set.getString("name"));
-            tickets.setTrip(set.getInt("trip"));
+            TicketsModel tickets = new TicketsModel(
+                set.getInt("id"),
+                set.getString("name"),
+                set.getInt("trip"));
             System.out.println(tickets);
 
         } catch (SQLException e) {
@@ -42,10 +42,10 @@ public class TicketsDao implements IDao<TicketsModel> {
             String query = "select * from tickets";
             ResultSet set = statement.executeQuery(query);
             while (set.next()){
-                Tickets tick = new Tickets();
-                tick.setId(set.getInt("id"));
-                tick.setName(set.getString("name"));
-                tick.setTrip(set.getInt("trip"));
+                TicketsModel tick = new TicketsModel(
+                set.getInt("id"),
+                set.getString("name"),
+                set.getInt("trip"));
                 System.out.println(tick);}
         } catch (SQLException e) {
             throw new RuntimeException(e);
