@@ -36,8 +36,8 @@ public class TicketsController implements IController <TicketsModel>{
         Optional<TicketsModel> ticketsModel = new TicketsDao().get(id);
     }
 
-    public boolean insertTicket(TicketsModel model){
-        new TicketsDao().save(model);
+    public boolean insertTicket(ToursModel model){
+        //new TicketsDao().save(model);
         return true;
     }
 
@@ -46,8 +46,8 @@ public class TicketsController implements IController <TicketsModel>{
         return true;
     }
 
-    public boolean updateTicket(TicketsModel model){
-        new TicketsDao().update(model);
+    public boolean updateTicket(ToursModel model){
+        //new TicketsDao().update(model);
         return true;
     }
 }
