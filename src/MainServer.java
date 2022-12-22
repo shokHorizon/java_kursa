@@ -1,13 +1,28 @@
 import Protocols.Packet;
+import Server.AppController;
 import Server.SocketServer;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class MainServer {
+public class MainServer extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("Server/serverApp.fxml"));
+        primaryStage.setTitle("Server");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
     public static void main(String[] args) {
+        launch(args);
         Inet4Address ip;
         int port;
 

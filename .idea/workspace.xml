@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina" />
+    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/AppController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/serverApp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/serverApp.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,11 +72,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Dev/java/kursa/src/MVC",
+    "last_opened_file_path": "C:/Dev/java/kursa/src/MVC/TableModels",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.37356323",
-    "settings.editor.selected.configurable": "preferences.JavaFX"
+    "settings.editor.selected.configurable": "project.propCompiler"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -77,15 +85,29 @@
       <recent name="Server" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Dev\java\kursa\src\MVC\TableModels" />
       <recent name="C:\Dev\java\kursa\src\MVC" />
       <recent name="C:\Dev\java\kursa\src\Client" />
       <recent name="C:\Dev\java\kursa\src\Server\Tickets" />
       <recent name="C:\Dev\java\kursa\src\Server\Trips" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Dev\java\kursa\openjfx" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="Server" />
       <recent name="Client" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainServer" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainServer" />
+      <module name="kursa" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\Guard\Downloads\openjfx-19_windows-x64_bin-sdk\javafx-sdk-19\lib --add-modules javafx.controls,javafx.graphics,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
