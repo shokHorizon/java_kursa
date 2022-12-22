@@ -5,17 +5,23 @@ import java.sql.Timestamp;
 public class TripsModel extends Model {
 
     int id;
+    int tour;
     int price;
     Timestamp date;
 
-    public TripsModel(int id, int price, Timestamp date) {
+    public TripsModel(int id, int tour, int price, Timestamp date) {
         this.id = id;
+        this.tour = tour;
         this.price = price;
         this.date = date;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getTour() {
+        return tour;
     }
 
     public int getPrice() {

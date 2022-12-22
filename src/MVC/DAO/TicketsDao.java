@@ -1,7 +1,6 @@
 package MVC.DAO;
 
-import Entity.Tickets;
-import Entity.Tours;
+
 import MVC.IDao;
 import MVC.Models.TicketsModel;
 import Server.DBWorker;
@@ -20,7 +19,20 @@ public class TicketsDao implements IDao<TicketsModel> {
     String Tname = "tickets";
     @Override
     public Optional<TicketsModel> get(int id) {
-        return Optional.empty();
+        try {
+            String query = "select * from tickets where id = ?";
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,id);
+            Tickets tickets = new Tickets();
+            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            tickets.setId(set.getInt("id"));
+            tickets.setName(set.getString("name"));
+            tickets.setTrip(set.getInt("trip"));
+            System.out.println(tickets);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return null;
     }
 
     @Override
@@ -44,19 +56,17 @@ public class TicketsDao implements IDao<TicketsModel> {
 
     @Override
     public void save(TicketsModel ticketsModel) {
-//        try {
-//            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
-//            String query = "insert into tickets values (?,?,?)";
-//            ResultSet set = statement.executeQuery(query);
-//            while (set.next()){
-//                Tickets tick = new Tickets();
-//                ticketsModel.setId(set.getInt("id"));
-//                ticketsModel.setName(set.getString("name"));
-//                ticketsModel.setTrip(set.getInt("trip"));
-//                System.out.println(tick);}
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            String query = "insert into tickets values (?,?,?)";
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+
+                preparedStatement.setInt(1,ticketsModel.getId());
+                preparedStatement.setString(2,ticketsModel.getName());
+                preparedStatement.setInt(3,ticketsModel.getTrip());
+                preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -77,7 +87,16 @@ public class TicketsDao implements IDao<TicketsModel> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id){
+    try{
+        String query = "delete from tickets where id = ?";
+        PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+        preparedStatement.setInt(1,id); // Будет меняться на одно и то же, поэтому надо замену придумать
+        preparedStatement.execute();
 
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+        return;
     }
 }

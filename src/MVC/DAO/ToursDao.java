@@ -1,7 +1,6 @@
 package MVC.DAO;
 
-import Entity.Tickets;
-import Entity.Tours;
+
 import MVC.IDao;
 import MVC.Models.ToursModel;
 import Server.DBWorker;
@@ -79,7 +78,6 @@ public class ToursDao implements IDao<ToursModel> {
             throw new RuntimeException(e);
         }
         return;
-
     }
 
     @Override

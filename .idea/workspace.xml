@@ -4,27 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_21_2022_6_04_PM_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_12_21_2022_6_04_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_19_4.xml" beforeDir="false" />
+    <list default="true" id="fec86a42-b884-4332-8b7e-84ac4cc61118" name="Changes" comment="Zalupa elzina">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kursa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/kursa.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DBWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Tickets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Tours.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Trips.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/TicketsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/TicketsDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/ToursDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/DAO/TripsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/DAO/TripsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/IController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/IDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/IDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MVC/Models/TicketsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/TicketsModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MVC/Models/TripsModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MVC/Models/TripsModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Protocols/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Protocols/Packet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tickets/TicketsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Tours/ToursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Tours/ToursController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Trips/TripsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Trips/TripsController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,24 +66,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Dev/java/kursa/src/MVC",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.39195403",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Dev/java/kursa/src/MVC&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.39195403&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Client" />
@@ -111,7 +103,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="" />
+      <changelist id="fec86a42-b884-4332-8b7e-84ac4cc61118" name="Changes" comment="" />
       <created>1671033685617</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -134,6 +126,7 @@
       <workItem from="1671609737673" duration="2537000" />
       <workItem from="1671622373410" duration="87000" />
       <workItem from="1671627683954" duration="757000" />
+      <workItem from="1671658018873" duration="444000" />
     </task>
     <task id="LOCAL-00001" summary="Zalupa elzina">
       <created>1671041229857</created>
@@ -185,5 +178,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Zalupa elzina" />
     <option name="LAST_COMMIT_MESSAGE" value="Zalupa elzina" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/MVC/DAO/TripsDao.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/MVC/DAO/TripsDao.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
