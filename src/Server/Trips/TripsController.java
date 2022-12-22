@@ -18,8 +18,8 @@ public class TripsController implements IController <TripsModel>{
         return new Packet<TripsModel>(0, new TripsDao().getAll());
     }
 
-    public void getTrips(){
-        List<TripsModel> tripsModels = new TripsDao().getAll();
+    public List<TripsModel> getTrips(){
+        return new TripsDao().getAll();
         //TripsView.update(tripsModels);
     }
 

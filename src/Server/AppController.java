@@ -3,6 +3,9 @@ package Server;
 import MVC.Models.TicketsModel;
 import MVC.Models.ToursModel;
 import MVC.Models.TripsModel;
+import Server.Tickets.TicketsController;
+import Server.Tours.ToursController;
+import Server.Trips.TripsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.List;
 import java.util.Map;
 
 public class AppController {
@@ -127,13 +131,7 @@ public class AppController {
         textField.setPromptText("City");
 
         // Getting data
-        ObservableList<ToursModel> toursModels = FXCollections.observableArrayList(
-                new ToursModel(1, 200, "Paris"),
-                new ToursModel(2, 333, "Leno"),
-                new ToursModel(3, 4444, "Vietcong"),
-                new ToursModel(4, 5555, "Tokyo")
-        );
-        toursTable.setItems(toursModels);
+        updateToursTable();
     }
 
     public void switchToTrips(){
@@ -187,6 +185,32 @@ public class AppController {
             TicketsModel model = ticketsTable.getSelectionModel().getSelectedItem();
             textField.setText(model.getName());
             btn_delete.setDisable(false);
+        }
+    }
+
+    private void updateToursTable(){
+        List<ToursModel> toursModel = ToursController.INSTANCE.getTours();
+        toursTable.setItems(FXCollections.observableArrayList(toursModel));
+    }
+
+    private void updateTripsTable(){
+        List<TripsModel> tripsModels = TripsController.INSTANCE.getTrips();
+        tripsTable.setItems(FXCollections.observableArrayList(tripsModels));
+    }
+
+    private void updateTicketsTable(){
+        List<TicketsModel> ticketsModels = TicketsController.INSTANCE.getTickets();
+        ticketsTable.setItems(FXCollections.observableArrayList(ticketsModels));
+    }
+
+    public void btnRemoveHandler(){
+        if (toursTable.isVisible() && !toursTable.getSelectionModel().isEmpty()){
+            ToursModel model = toursTable.getSelectionModel().getSelectedItem();
+            ToursController.INSTANCE.deleteTour(model.getId());
+            updateToursTable();
+            btn_delete.setDisable(false);
+            btn_enter.setDisable(false);
+            return;
         }
     }
 
