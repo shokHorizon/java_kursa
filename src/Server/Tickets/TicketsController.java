@@ -27,8 +27,8 @@ public class TicketsController implements IController <TicketsModel>{
         return new Packet<TicketsModel>();
     }
 
-    public void getTickets(){
-        List<TicketsModel> ticketsModels = new TicketsDao().getAll();
+    public List<TicketsModel> getTickets(){
+        return new TicketsDao().getAll();
         //ToursView.update(toursModels);
     }
 

@@ -18,9 +18,8 @@ public class ToursController implements IController <ToursModel>{
         return new Packet<ToursModel>(0, new ToursDao().getAll());
     }
 
-    public void getTours(){
-        List<ToursModel> toursModels = new ToursDao().getAll();
-        //ToursView.update(toursModels);
+    public List<ToursModel> getTours(){
+       return new ToursDao().getAll();
     }
 
     public void getTour(int id){
