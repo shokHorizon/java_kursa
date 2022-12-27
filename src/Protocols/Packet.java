@@ -1,41 +1,41 @@
 package Protocols;
 
-import MVC.Model;
-import MVC.Models.TicketsModel;
-import MVC.Models.ToursModel;
-import MVC.Models.TripsModel;
-
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Stream;
 
 public class Packet <T> implements Serializable {
-    int code;
     List<T> models;
-
-    public static final Map<Integer, String> CODES = Map.ofEntries(
-            Map.entry(1, "Tours"),
-            Map.entry(2, "Parser")
-    );
+    QueryModel queryModel;
+    QueryMethod queryMethod;
 
     public Packet() {
 
     }
 
-    public Packet(int code, T model){
+    public Packet(QueryModel queryModel, T model){
         List<T> temp = new ArrayList<>();
         temp.add(model);
-        this.code = code;
+        this.queryModel = queryModel;
         this.models = temp;
     }
 
-    public Packet(int code, List<T> models){
-        this.code = code;
+    public Packet(QueryModel queryModel, QueryMethod queryMethod, T model){
+        List<T> temp = new ArrayList<>();
+        temp.add(model);
+        this.queryModel = queryModel;
+        this.models = temp;
+        this.queryMethod = queryMethod;
+    }
+
+    public Packet(QueryModel queryModel, QueryMethod queryMethod, List<T> models){
+        this.queryModel = queryModel;
         this.models = models;
+        this.queryMethod = queryMethod;
     }
 
     public void Print(){
-        System.out.println(this.code);
+        System.out.println(this.queryModel);
         System.out.println(this.models);
 
     }
@@ -47,20 +47,17 @@ public class Packet <T> implements Serializable {
     public void write_to_stream(Stream stream){
         return;
     }
-
-    public int getCode() {
-        return code;
+    public QueryModel getQueryModel() {
+        return queryModel;
     }
-
-    public void setCode(int code) {
-        this.code = code;
+    public void setQueryModel(QueryModel queryModel) {
+        this.queryModel = queryModel;
     }
+    public QueryMethod getQueryMethod() {return queryMethod;}
+
+    public void setQueryMethod(QueryMethod queryMethod) {this.queryMethod = queryMethod;}
 
     public List<T> getModels(){
         return models;
-    }
-
-    public String getCodeName(int code){
-        return this.CODES.get(code);
     }
 }

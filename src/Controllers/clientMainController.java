@@ -1,4 +1,4 @@
-package Views;
+package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class clientMainView {
+public class clientMainController {
 
     @FXML
     private Button btnBook;

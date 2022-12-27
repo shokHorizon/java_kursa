@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.loginView">
+<AnchorPane maxHeight="800.0" maxWidth="1200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.loginController">
    <children>
       <VBox alignment="CENTER" layoutX="200.0" layoutY="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" spacing="20.0">
          <children>
@@ -19,7 +19,7 @@
             </TextField>
             <PasswordField fx:id="textBoxPassword" alignment="CENTER" promptText="Пароль" />
             <Button fx:id="btnSubmit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSubmitClick" text="Войти" textAlignment="CENTER" />
-            <Label text="Логин и/или пароль не совпадают" textFill="RED" visible="false" />
+            <Label fx:id="label" text="Логин и/или пароль не совпадают" textFill="RED" visible="false" />
          </children>
       </VBox>
    </children>

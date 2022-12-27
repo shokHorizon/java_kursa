@@ -1,16 +1,29 @@
 package Client;
 
-import Server.Tours.ToursController;
-
+import Models.Model;
+import Models.Users;
 import Protocols.Packet;
 
 public class QueryController {
-    static Packet query_request(Packet packet){
-        switch (Packet.CODES.get(packet.getCode()).toLowerCase()){
-            case "tours"->{
-                Packet packet_return = ToursController.INSTANCE.process(packet);
-                packet_return.setCode(packet.getCode());
-                return packet;
+    public static Model query_request(Packet packet){
+        switch (packet.getQueryModel()){
+            case Users ->{
+                return new Users(0, "asd", "asd", 1);
+            }
+            case Books -> {
+                return null;
+            }
+            case Cities -> {
+                return null;
+            }
+            case Travels -> {
+                return null;
+            }
+            case Countries -> {
+                return null;
+            }
+            case TravelTypes -> {
+                return null;
             }
         }
         return null;

@@ -1,7 +1,5 @@
 package Server;
 
-import MVC.IController;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.stream.Stream;

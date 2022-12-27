@@ -1,11 +1,6 @@
-import DAO.IDao;
 import Protocols.Packet;
+import Protocols.QueryModel;
 import Server.DBWorker;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Inet4Address;
@@ -55,7 +50,7 @@ public class MainServer {
 
                 Packet response = (Packet) ois.readObject();
                 response.Print();
-                response.setCode(228);
+                response.setQueryModel(QueryModel.Users);
                 ous.writeObject(response);
                 ous.flush();
 

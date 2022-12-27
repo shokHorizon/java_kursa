@@ -1,18 +1,28 @@
 package Server;
 
 
+import Models.Model;
 import Protocols.Packet;
 
 public class QueryController {
-    static Packet query_request(Packet packet){
-        switch (Packet.CODES.get(packet.getCode()).toLowerCase()){
-            case "tours"->{
+    static Packet<Model> query_request(Packet<Model> packet){
+        switch (packet.getQueryModel()){
+            case Users->{
                 return null;
             }
-            case "trips"->{
+            case Books->{
                 return null;
             }
-            case "ticket"->{
+            case Countries->{
+                return null;
+            }
+            case Travels->{
+                return null;
+            }
+            case TravelTypes->{
+                return null;
+            }
+            case Cities->{
                 return null;
             }
         }
