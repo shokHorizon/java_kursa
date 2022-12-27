@@ -1,6 +1,7 @@
+import MVC.DAO.TicketsDao;
+import MVC.IDao;
 import Protocols.Packet;
-import Server.AppController;
-import Server.SocketServer;
+import Server.DBWorker;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,23 +15,37 @@ import java.net.Socket;
 
 
 
-public class MainServer extends Application {
+public class MainServer {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Server/serverApp.fxml"));
-        primaryStage.setTitle("Server");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
+
     public static void main(String[] args) {
-        launch(args);
         Inet4Address ip;
         int port;
 
         try (ServerSocket server = new ServerSocket(8000))
         {
             System.out.println("Server started");
+
+            DBWorker worker = new DBWorker();
+
+//        try {
+            //Statement statement = worker.getConnection().createStatement();
+            //ResultSet set = statement.executeQuery(query);
+            IDao TD = new TicketsDao();
+            TD.getAll();
+            //TD.get(1);
+            //IDao TRD = new TripsDao();
+//            System.out.println();
+//            //TRD.getAll();
+//            TRD.get(1);
+//            System.out.println();
+//            TRD.delete(2);
+//            TRD.getAll();
+//            System.out.println();
+            //TRD.get(1);
+
+
+
 
             while (true)
             try {
