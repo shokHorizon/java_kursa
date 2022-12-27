@@ -1,1 +1,0 @@
-insert into tours (id,city) values(8,'Ячорт');
