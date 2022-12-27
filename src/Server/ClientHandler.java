@@ -1,7 +1,10 @@
 package Server;
 
+import MVC.IController;
+
 import java.io.*;
 import java.net.Socket;
+import java.util.stream.Stream;
 
 public class ClientHandler implements Runnable{
     private Socket client;
@@ -17,7 +20,12 @@ public class ClientHandler implements Runnable{
     public void run() {
         try{
             while (true){
-                String request = in.readLine();
+                int len = in.readInt();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < len; i++)
+                    sb.append(in.readChar());
+                //IController controller = QueryController.get_controller(sb.toString());
+                //Stream stream = controller.process();
             }
         } catch (IOException ignore) {}
     }
