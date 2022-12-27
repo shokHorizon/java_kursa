@@ -46,7 +46,7 @@ public class TicketsDao implements IDao<TicketsModel> {
                 set.getInt("id"),
                 set.getString("name"),
                 set.getInt("trip"));
-                System.out.println(tick);}
+                System.out.println(tick.toString());}
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

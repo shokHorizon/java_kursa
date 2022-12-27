@@ -19,14 +19,14 @@ public class Main {
             IDao TD = new TicketsDao();
             TD.getAll();
             //TD.get(1);
-            IDao TRD = new TripsDao();
-            System.out.println();
-            //TRD.getAll();
-            TRD.get(1);
-            System.out.println();
-            TRD.delete(2);
-            TRD.getAll();
-            System.out.println();
+            //IDao TRD = new TripsDao();
+//            System.out.println();
+//            //TRD.getAll();
+//            TRD.get(1);
+//            System.out.println();
+//            TRD.delete(2);
+//            TRD.getAll();
+//            System.out.println();
             //TRD.get(1);
 
 

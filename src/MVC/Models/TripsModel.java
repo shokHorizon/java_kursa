@@ -35,5 +35,14 @@ public class TripsModel extends Model {
         return date;
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", tour: " + tour
+                + ", price: " + price
+                + ", date: " + date.toString()
+                + "}";
+    }
+
 
 }

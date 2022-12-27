@@ -24,4 +24,12 @@ public class TicketsModel extends Model {
         this.name = name;
         this.trip = trip;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", name: " + name
+                + ", trip: " + trip
+                + "}";
+    }
 }

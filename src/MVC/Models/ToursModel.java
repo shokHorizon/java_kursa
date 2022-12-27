@@ -21,4 +21,11 @@ public class ToursModel extends Model {
     public String getCity() {
         return city;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", city: " + city
+                + "}";
+    }
 }
