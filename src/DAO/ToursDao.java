@@ -1,8 +1,6 @@
 package DAO;
 
 
-import MVC.IDao;
-import MVC.Models.ToursModel;
 import Server.DBWorker;
 
 import java.sql.PreparedStatement;

@@ -1,5 +1,4 @@
-import MVC.DAO.TicketsDao;
-import MVC.IDao;
+import DAO.IDao;
 import Protocols.Packet;
 import Server.DBWorker;
 import javafx.application.Application;
@@ -31,8 +30,8 @@ public class MainServer {
 //        try {
             //Statement statement = worker.getConnection().createStatement();
             //ResultSet set = statement.executeQuery(query);
-            IDao TD = new TicketsDao();
-            TD.getAll();
+            //IDao TD = new TicketsDao();
+            //TD.getAll();
             //TD.get(1);
             //IDao TRD = new TripsDao();
 //            System.out.println();
