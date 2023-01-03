@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="618f191d-679f-4753-ad0d-33cf27a26437" name="Changes" comment="Zalupa elzina">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../kurs_maven.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../kurs_maven.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Client/QueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Client/QueryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/DAO/ToursDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/DAO/ToursDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Models/Books.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Models/Books.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Models/Travels.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Models/Travels.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Models/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Models/Users.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +153,7 @@
       <workItem from="1671627683954" duration="757000" />
       <workItem from="1672166277181" duration="4978000" />
       <workItem from="1672325538060" duration="1671000" />
-      <workItem from="1672328691448" duration="13463000" />
+      <workItem from="1672328691448" duration="14967000" />
     </task>
     <task id="LOCAL-00001" summary="Zalupa elzina">
       <created>1671041229857</created>
