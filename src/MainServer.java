@@ -1,3 +1,5 @@
+import DAO.CitiesDao;
+import DAO.IDao;
 import Protocols.Packet;
 import Protocols.QueryModel;
 import Server.DBWorker;
@@ -6,7 +8,9 @@ import java.io.*;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class MainServer {
@@ -22,22 +26,10 @@ public class MainServer {
 
             DBWorker worker = new DBWorker();
 
-//        try {
-            //Statement statement = worker.getConnection().createStatement();
-            //ResultSet set = statement.executeQuery(query);
-            //IDao TD = new TicketsDao();
-            //TD.getAll();
-            //TD.get(1);
-            //IDao TRD = new TripsDao();
-//            System.out.println();
-//            //TRD.getAll();
-//            TRD.get(1);
-//            System.out.println();
-//            TRD.delete(2);
-//            TRD.getAll();
-//            System.out.println();
-            //TRD.get(1);
-
+            IDao CD = new CitiesDao();
+            CD.getAll();
+            CD.get(2);
+            CD.update(2);
 
 
 

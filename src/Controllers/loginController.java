@@ -36,12 +36,12 @@ public class loginController {
                 new Users(
                         0,
                         login,
-                        password,
+                        0000,
                         0
                 )
         );
         Users user = (Users) QueryController.query_request(userPacket);
-        if (user.getHashedPassword() == null)
+        if (user.getHashedPassword() == 0)
             label.setVisible(true);
         label.setVisible(false);
 

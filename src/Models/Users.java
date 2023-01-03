@@ -44,4 +44,13 @@ public class Users extends Model {
     public void setAccessLevel(int accessLevel) {
         this.accessLevel = accessLevel;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", name: " + login
+                + ", hashedpassword: " + hashedPassword
+                + ", accessLevel: " + accessLevel
+                + "}";
+    }
 }

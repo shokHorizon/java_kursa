@@ -45,4 +45,13 @@ public class Books extends Model {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", travel: " + travel
+                + ", user: " + user
+                + ", status: " + status
+                + "}";
+    }
 }

@@ -7,9 +7,9 @@ public class DBWorker {
 
     public static final DBWorker INSTANCE = new DBWorker();
     private Connection connection;
-    private static final String URL = "jdbc:mysql://localhost:3306/kursa";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "9228lalala";
+    private static final String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_kursa_java";
+    private static final String USERNAME = "freedb_root_name1"; // root
+    private static final String PASSWORD = "EDXJd!v!SAY8%d7";
 
     public Connection getConnection() {
         return connection;

@@ -24,4 +24,11 @@ public class TravelTypes extends Model {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", name: " + name
+                + "}";
+    }
 }

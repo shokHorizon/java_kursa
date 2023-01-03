@@ -84,4 +84,18 @@ public class Travels extends Model {
     public void setSupplier(String supplier) {
         this.supplier = supplier;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", type: " + type
+                + ", name: " + name
+                + ", city: " + city
+                + ", image: " + image
+                + ", coords: " + coordinates
+                + ", price: " + price
+                + ", supplier: " + supplier
+                + "}";
+    }
+
 }

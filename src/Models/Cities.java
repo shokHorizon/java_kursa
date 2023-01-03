@@ -34,4 +34,13 @@ public class Cities extends Model {
     public void setCountry(int country) {
         country = country;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", name: " + name
+                + ", country: " + country
+                + "}";
+    }
+
 }

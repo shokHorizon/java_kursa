@@ -17,7 +17,7 @@ public class MainClient {
 
             System.out.println("Connected to server");
 
-            Packet packet = new Packet(1, null);
+            Packet packet = new Packet(null, null);
             ous.writeObject(packet); // Только в ous есть writeobject
             ous.flush();
 

@@ -1,6 +1,5 @@
 package DAO;
 
-
 import Models.Books;
 import Server.DBWorker;
 
@@ -10,8 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
-
-
 
 public class BooksDao implements IDao<Books> {
 
