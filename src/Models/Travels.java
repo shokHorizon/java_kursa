@@ -1,23 +1,25 @@
 package Models;
 
 public class Travels extends Model {
-    private int id;
-    private int city;
-    private String name;
-    private int user;
-    private int price;
-    private String coordinates;
-    private String image;
-
-    public Travels(int id, int city, String name, int user, int price, String coordinates, String image) {
+    public Travels(int id, int type, String name, int city, String image, String coordinates, int price, String supplier) {
         this.id = id;
-        this.city = city;
+        this.type = type;
         this.name = name;
-        this.user = user;
-        this.price = price;
-        this.coordinates = coordinates;
+        this.city = city;
         this.image = image;
+        this.coordinates = coordinates;
+        this.price = price;
+        this.supplier = supplier;
     }
+
+    private int id;
+    private int type;
+    private String name;
+    private int city;
+    private String image;
+    private String coordinates;
+    private int price;
+    private String supplier;
 
     public int getId() {
         return id;
@@ -27,12 +29,12 @@ public class Travels extends Model {
         this.id = id;
     }
 
-    public int getCity() {
-        return city;
+    public int getType() {
+        return type;
     }
 
-    public void setCity(int city) {
-        this.city = city;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {
@@ -43,20 +45,20 @@ public class Travels extends Model {
         this.name = name;
     }
 
-    public int getUser() {
-        return user;
+    public int getCity() {
+        return city;
     }
 
-    public void setUser(int user) {
-        this.user = user;
+    public void setCity(int city) {
+        this.city = city;
     }
 
-    public int getPrice() {
-        return price;
+    public String getImage() {
+        return image;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getCoordinates() {
@@ -67,11 +69,19 @@ public class Travels extends Model {
         this.coordinates = coordinates;
     }
 
-    public String getImage() {
-        return image;
+    public int getPrice() {
+        return price;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 }

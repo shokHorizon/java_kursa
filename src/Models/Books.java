@@ -5,10 +5,13 @@ public class Books extends Model {
     private int user;
     private int travel;
 
-    public Books(int id, int user, int travel) {
+    private int status;
+
+    public Books(int id, int user, int travel, int status) {
         this.id = id;
         this.user = user;
         this.travel = travel;
+        this.status = status;
     }
 
     public int getId() {
@@ -33,5 +36,13 @@ public class Books extends Model {
 
     public void setTravel(int travel) {
         this.travel = travel;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
