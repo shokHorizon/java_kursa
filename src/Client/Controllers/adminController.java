@@ -1,5 +1,6 @@
-package Controllers;
+package Client.Controllers;
 
+import Models.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,94 +23,94 @@ public class adminController {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<?, ?> citiesCountry;
+    private TableColumn<Cities, Integer> citiesCountry;
 
     @FXML
-    private TableColumn<?, ?> citiesId;
+    private TableColumn<Cities, Integer> citiesId;
 
     @FXML
-    private TableColumn<?, ?> citiesName;
+    private TableColumn<Cities, String> citiesName;
 
     @FXML
-    private ComboBox<?> combo1;
+    private ComboBox<String> combo1;
 
     @FXML
-    private ComboBox<?> combo2;
+    private ComboBox<String> combo2;
 
     @FXML
-    private ComboBox<?> combo3;
+    private ComboBox<String> combo3;
 
     @FXML
-    private ComboBox<?> combo4;
+    private ComboBox<String> combo4;
 
     @FXML
-    private ComboBox<?> combo5;
+    private ComboBox<String> combo5;
 
     @FXML
-    private ComboBox<?> combo6;
+    private ComboBox<String> combo6;
 
     @FXML
-    private TableColumn<?, ?> countriesId;
+    private TableColumn<Countries, Integer> countriesId;
 
     @FXML
-    private TableColumn<?, ?> countriesName;
+    private TableColumn<Countries, String> countriesName;
 
     @FXML
     private TabPane tabPane;
 
     @FXML
-    private TableView<?> tableCities;
+    private TableView<Cities> tableCities;
 
     @FXML
-    private TableView<?> tableCountries;
+    private TableView<Countries> tableCountries;
 
     @FXML
-    private TableView<?> tableTickets;
+    private TableView<Books> tableTickets;
 
     @FXML
-    private TableView<?> tableTravels;
+    private TableView<Travels> tableTravels;
 
     @FXML
-    private TableView<?> tableUsers;
+    private TableView<Users> tableUsers;
 
     @FXML
-    private TableColumn<?, ?> ticketsId;
+    private TableColumn<Books, Integer> ticketsId;
 
     @FXML
-    private TableColumn<?, ?> ticketsStatus;
+    private TableColumn<Books, Integer> ticketsStatus;
 
     @FXML
-    private TableColumn<?, ?> ticketsTravel;
+    private TableColumn<Books, Integer> ticketsTravel;
 
     @FXML
-    private TableColumn<?, ?> ticketsUser;
+    private TableColumn<Books, Integer> ticketsUser;
 
     @FXML
-    private TableColumn<?, ?> travelsCity;
+    private TableColumn<Travels, Integer> travelsCity;
 
     @FXML
-    private TableColumn<?, ?> travelsCoordinates;
+    private TableColumn<Travels, String> travelsCoordinates;
 
     @FXML
-    private TableColumn<?, ?> travelsId;
+    private TableColumn<Travels, Integer> travelsId;
 
     @FXML
-    private TableColumn<?, ?> travelsName;
+    private TableColumn<Travels, String> travelsName;
 
     @FXML
-    private TableColumn<?, ?> travelsPrice;
+    private TableColumn<Travels, Integer> travelsPrice;
 
     @FXML
-    private TableColumn<?, ?> travelsUser;
+    private TableColumn<Travels, Integer> travelsUser;
 
     @FXML
-    private TableColumn<?, ?> usersAccessLevel;
+    private TableColumn<Users, Integer> usersAccessLevel;
 
     @FXML
-    private TableColumn<?, ?> usersHashedPassword;
+    private TableColumn<Users, Integer> usersHashedPassword;
 
     @FXML
-    private TableColumn<?, ?> usersId;
+    private TableColumn<Users, Integer> usersId;
 
     @FXML
     private VBox vbox;

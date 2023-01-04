@@ -1,5 +1,9 @@
 package Models;
 
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Users extends Model {
     private int id;
     private String login;
@@ -45,12 +49,12 @@ public class Users extends Model {
         this.accessLevel = accessLevel;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{id: " + id
-                + ", name: " + login
-                + ", hashedpassword: " + hashedPassword
-                + ", accessLevel: " + accessLevel
-                + "}";
+    public int hashPassword(){
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(ByteBuffer.allocate(4).putInt(hashedPassword).array());
+            return ByteBuffer.wrap(messageDigest).getInt();
+        } catch (NoSuchAlgorithmException ignore) {};
+        return 0;
     }
 }
