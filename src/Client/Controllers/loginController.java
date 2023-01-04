@@ -1,4 +1,4 @@
-package Controllers;
+package Client.Controllers;
 
 import Client.App;
 import Client.QueryController;
@@ -36,14 +36,16 @@ public class loginController {
                 new Users(
                         0,
                         login,
-                        password,
+                        password.hashCode(),
                         0
                 )
         );
         Users user = (Users) QueryController.query_request(userPacket);
-        if (user.getHashedPassword() == null)
-            label.setVisible(true);
+
         label.setVisible(false);
+        if (user.getAccessLevel() == -1)
+            label.setVisible(true);
+
 
         switch (user.getAccessLevel()){
             case 0->{App.setClientMain();}

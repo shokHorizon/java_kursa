@@ -1,4 +1,4 @@
-package Controllers;
+package Client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
