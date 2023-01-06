@@ -11,45 +11,86 @@ import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
-public class MainServer {
+public class MainServer extends Thread {
+
+    private final Socket clientSocket;
+    //private final ObjectInputStream reader;
+    //private final ObjectOutputStream writer;
+    public MainServer(Socket clientSocket) throws IOException {
+        this.clientSocket = clientSocket;
+        //reader = new ObjectInputStream(clientSocket.getInputStream());
+        //writer = new ObjectOutputStream(clientSocket.getOutputStream());
+        start();
+    }
+
+    public void run() {
+        try {
+            //Package incomingPackage = (Package) reader.readObject();
+
+            //Package outgoingPackage  = ControllerServer.processRequest(incomingPackage);
+
+            //writer.writeObject(outgoingPackage);
+            ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
+            Packet response = (Packet) reader.readObject();
+            response.Print();
+            response.setQueryModel(QueryModel.Users);
+
+            writer.writeObject(response);
+            writer.flush();
+
+            writer.close();
+            reader.close();
+        }
+        catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                clientSocket.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
-    public static void main(String[] args) {
+
+ public static void main(String[] args) {
         Inet4Address ip;
         int port;
 
-        try (ServerSocket server = new ServerSocket(8000))
-        {
+        try (ServerSocket server = new ServerSocket(8000)) {
             System.out.println("Server started");
 
             DBWorker worker = new DBWorker();
 
             IDao CD = new CitiesDao();
             CD.getAll();
-            CD.get(2);
-            CD.update(2);
+            //CD.get(2);
+            //CD.update(2);
 
+            while (true){
+                //new Thread(() -> {
+                    try {
+                        Socket socket = server.accept(); // сокет под сервак
 
+                        ObjectOutputStream ous = new ObjectOutputStream(socket.getOutputStream());
+                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-            while (true)
-            try {
-                Socket socket = server.accept(); // сокет под сервак
-
-                ObjectOutputStream ous = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
-                Packet response = (Packet) ois.readObject();
-                response.Print();
-                response.setQueryModel(QueryModel.Users);
-                ous.writeObject(response);
-                ous.flush();
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
+                        Packet response = (Packet) ois.readObject();
+                        response.Print();
+                        response.setQueryModel(QueryModel.Users);
+                        ous.writeObject(response);
+                        ous.flush();
+                    } catch (IOException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+               // }).start();
             }
         } catch (IOException e) {throw new RuntimeException(e);}
     }

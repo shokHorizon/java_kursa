@@ -21,7 +21,8 @@ public class CitiesDao implements IDao<Cities> {
             String query = "select * from cities where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
+            set.next();
             Cities cities = new Cities(
                     set.getInt("id"),
                     set.getString("name"),

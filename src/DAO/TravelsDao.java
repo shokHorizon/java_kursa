@@ -20,7 +20,7 @@ public class TravelsDao implements IDao<Travels>{
             String query = "select * from travels where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
             Travels travels = new Travels(
                     set.getInt("id"),
                     set.getInt("type"),

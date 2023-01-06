@@ -1,4 +1,7 @@
+import Models.Users;
 import Protocols.Packet;
+import Protocols.QueryMethod;
+import Protocols.QueryModel;
 
 import java.io.*;
 import java.net.Inet4Address;
@@ -17,13 +20,31 @@ public class MainClient {
 
             System.out.println("Connected to server");
 
-            Packet packet = new Packet(null, null);
-            ous.writeObject(packet); // Только в ous есть writeobject
+                Packet packet = new Packet(QueryModel.Users, null);
+                Packet packet1 = new Packet(null, null);
+
+            Packet<Users> userPacket = new Packet<>(
+                    QueryModel.Users,
+                    QueryMethod.Read,
+                    new Users(
+                            0,
+                            "opa",
+                            0000,
+                            0
+                    )
+            );
+
+
+//                for (int i = 0; i < 10; i++) {
+//                    System.out.println(i);
+//                }
+
+            ous.writeObject(userPacket); // Только в ous есть writeobject
             ous.flush();
 
-            Packet receive_packet = new Packet();
-            receive_packet = (Packet) ois.readObject();
-            receive_packet.Print();
+                Packet receive_packet = new Packet();
+                receive_packet = (Packet) ois.readObject();
+                receive_packet.Print();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

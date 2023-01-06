@@ -20,7 +20,7 @@ public class BooksDao implements IDao<Books> {
             String query = "select * from books where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
             Books books = new Books(
                     set.getInt("id"),
                     set.getInt("travel"),

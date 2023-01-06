@@ -21,7 +21,7 @@ public class UsersDao implements IDao<Users>{
             String query = "select * from users where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
             Users users = new Users(
                     set.getInt("id"),
                     set.getString("login"),

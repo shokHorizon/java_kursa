@@ -24,7 +24,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
             String query = "select * from travelTypes where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
             TravelTypes travelTypes = new TravelTypes(
                     set.getInt("id"),
                     set.getString("name")

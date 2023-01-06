@@ -57,4 +57,14 @@ public class Users extends Model {
         } catch (NoSuchAlgorithmException ignore) {};
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{id: " + id
+                + ", login: " + login
+                + ", hashedPassword: " + hashedPassword
+                + ", accessLevel: " + accessLevel
+                + "}";
+    }
+
 }

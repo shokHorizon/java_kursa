@@ -20,7 +20,7 @@ public class CountriesDao implements IDao<Countries> {
             String query = "select * from countries where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(query); // В save - аналог
+            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
             Countries countries = new Countries(
                     set.getInt("id"),
                     set.getString("name")
