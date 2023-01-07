@@ -9,7 +9,7 @@ public class QueryController {
     public static Model query_request(Packet packet) {
         switch (packet.getQueryModel()) {
             case Users -> {
-                return new Users(0, "asd", 0000, 1);
+                return new Users(0, "asd", 0000, 1); // socketClient.sendPacket(packet)
             }
             case Books -> {
                 return null;

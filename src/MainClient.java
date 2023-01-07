@@ -1,3 +1,4 @@
+import Models.Travels;
 import Models.Users;
 import Protocols.Packet;
 import Protocols.QueryMethod;
@@ -20,31 +21,29 @@ public class MainClient {
 
             System.out.println("Connected to server");
 
-                Packet packet = new Packet(QueryModel.Users, null);
-                Packet packet1 = new Packet(null, null);
+            Packet packet = new Packet(QueryModel.Users, null);
 
-            Packet<Users> userPacket = new Packet<>(
-                    QueryModel.Users,
+            Packet<Travels> userPacket = new Packet<>(
+                    QueryModel.Travels,
                     QueryMethod.Read,
-                    new Users(
+                    new Travels(
                             0,
-                            "opa",
-                            0000,
-                            0
+                            0,
+                            null,
+                            0,
+                            null,
+                            null,
+                            0,
+                            null
                     )
             );
-
-
-//                for (int i = 0; i < 10; i++) {
-//                    System.out.println(i);
-//                }
 
             ous.writeObject(userPacket); // Только в ous есть writeobject
             ous.flush();
 
-                Packet receive_packet = new Packet();
-                receive_packet = (Packet) ois.readObject();
-                receive_packet.Print();
+            Packet receive_packet = new Packet();
+            receive_packet = (Packet) ois.readObject();
+            receive_packet.Print();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

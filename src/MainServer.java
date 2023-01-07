@@ -3,6 +3,7 @@ import DAO.IDao;
 import Protocols.Packet;
 import Protocols.QueryModel;
 import Server.DBWorker;
+import Server.QueryController;
 
 import java.io.*;
 import java.net.Inet4Address;
@@ -37,6 +38,7 @@ public class MainServer extends Thread {
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
             Packet response = (Packet) reader.readObject();
+            QueryController.query_request(response).Print();
             response.Print();
             response.setQueryModel(QueryModel.Users);
 

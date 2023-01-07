@@ -10,7 +10,8 @@ import Protocols.QueryModel;
 import java.util.Optional;
 
 public class QueryController {
-    static Packet<? extends Model> query_request(Packet<? extends Model> packet){
+
+   public static Packet<? extends Model> query_request(Packet<? extends Model> packet){
         switch (packet.getQueryModel()){
             case Users->{
                 Users user = (Users) packet.getModels().get(0);

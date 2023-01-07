@@ -1,4 +1,4 @@
-package Controllers;
+package Client.Controllers;
 
 import Client.App;
 import Client.QueryController;
