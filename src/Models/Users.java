@@ -58,6 +58,15 @@ public class Users extends Model {
         return 0;
     }
 
+    public static int hashString(String str){
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigest = md.digest(str.getBytes());
+            return ByteBuffer.wrap(messageDigest).getInt();
+        } catch (NoSuchAlgorithmException ignore) {};
+        return 0;
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{id: " + id

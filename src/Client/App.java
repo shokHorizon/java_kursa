@@ -26,7 +26,7 @@ public class App extends Application {
     public void start(Stage stage) {
         AppStage = stage;
         try {
-            loginPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+            loginPage = FXMLLoader.load(getClass().getResource("login.fxml"));
             clientMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("client_main.fxml")));
             clientBooks = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("client_books.fxml")));
             //adminMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin_main.fxml")));
