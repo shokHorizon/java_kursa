@@ -16,13 +16,14 @@ public class UsersDao implements IDao<Users>{
     public static final UsersDao INSTANCE = new UsersDao();
     @Override
     public Optional<Users> get(int id) {
-
+        Users users;
         try {
             String query = "select * from users where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
-            Users users = new Users(
+
+            users = new Users(
                     set.getInt("id"),
                     set.getString("login"),
                     set.getInt("hashpassword"),
@@ -32,7 +33,7 @@ public class UsersDao implements IDao<Users>{
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return Optional.of(users);
     }
 
     @Override
@@ -100,8 +101,28 @@ public class UsersDao implements IDao<Users>{
             throw new RuntimeException(e);
         }
         return;
-
         //usersModels.remove(users); Снос списка
     }
-    
+
+    public Optional<Users> getByLogin(String login) {
+        Users users;
+        try {
+            String query = "select * from users where login = ?";
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, login);
+            ResultSet set = preparedStatement.executeQuery();
+            set.next();
+            users = new Users(
+                    set.getInt("id"),
+                    set.getString("login"),
+                    set.getInt("hashpassword"),
+                    set.getInt("accessLevel")
+            );
+            System.out.println(users);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.of(users);
+    }
 }

@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,63 +38,57 @@ public class MainServer extends Thread {
             //writer.writeObject(outgoingPackage);
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
-            Packet response = (Packet) reader.readObject();
-            QueryController.query_request(response).Print();
+            Packet request = (Packet) reader.readObject();
+            Packet response = QueryController.query_request(request);
+
             response.Print();
-            response.setQueryModel(QueryModel.Users);
+            request.setQueryModel(QueryModel.Users);
 
             writer.writeObject(response);
-            writer.flush();
 
+            writer.flush();
             writer.close();
             reader.close();
-        }
-        catch (IOException | ClassNotFoundException e) {
+            clientSocket.close();
+        } catch (SocketException e) {e.printStackTrace();} catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                clientSocket.close();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
 
 
- public static void main(String[] args) {
-        Inet4Address ip;
-        int port;
-
-        try (ServerSocket server = new ServerSocket(8000)) {
-            System.out.println("Server started");
-
-            DBWorker worker = new DBWorker();
-
-            IDao CD = new CitiesDao();
-            CD.getAll();
-            //CD.get(2);
-            //CD.update(2);
-
-            while (true){
-                //new Thread(() -> {
-                    try {
-                        Socket socket = server.accept(); // сокет под сервак
-
-                        ObjectOutputStream ous = new ObjectOutputStream(socket.getOutputStream());
-                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
-                        Packet response = (Packet) ois.readObject();
-                        response.Print();
-                        response.setQueryModel(QueryModel.Users);
-                        ous.writeObject(response);
-                        ous.flush();
-                    } catch (IOException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-               // }).start();
-            }
-        } catch (IOException e) {throw new RuntimeException(e);}
-    }
+// public static void main(String[] args) {
+//        Inet4Address ip;
+//        int port;
+//
+//        try (ServerSocket server = new ServerSocket(8000)) {
+//            System.out.println("Server started");
+//
+//            DBWorker worker = new DBWorker();
+//
+//            IDao CD = new CitiesDao();
+//            CD.getAll();
+//            //CD.get(2);
+//            //CD.update(2);
+//
+//            while (true){
+//                //new Thread(() -> {
+//                    try {
+//                        Socket socket = server.accept(); // сокет под сервак
+//
+//                        ObjectOutputStream ous = new ObjectOutputStream(socket.getOutputStream());
+//                        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+//
+//                        Packet response = (Packet) ois.readObject();
+//                        response.Print();
+//                        response.setQueryModel(QueryModel.Users);
+//                        ous.writeObject(response);
+//                        ous.flush();
+//                    } catch (IOException | ClassNotFoundException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//               // }).start();
+//            }
+//        } catch (IOException e) {throw new RuntimeException(e);}
+//    }
 }

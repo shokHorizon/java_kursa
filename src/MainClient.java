@@ -41,7 +41,7 @@ public class MainClient {
             ous.writeObject(userPacket); // Только в ous есть writeobject
             ous.flush();
 
-            Packet receive_packet = new Packet();
+            Packet receive_packet;
             receive_packet = (Packet) ois.readObject();
             receive_packet.Print();
 

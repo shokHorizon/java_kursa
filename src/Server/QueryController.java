@@ -15,6 +15,23 @@ public class QueryController {
         switch (packet.getQueryModel()){
             case Users->{
                 Users user = (Users) packet.getModels().get(0);
+                if (packet.getQueryMethod() == null) {
+                    if (user == null) return null;
+                    System.out.println(user);
+                    Optional<Users> db_user = UsersDao.INSTANCE.getByLogin(user.getLogin());
+                    System.out.println("ААААААААААА, НЕГРЫ");
+                    System.out.println(user.hashPassword() + " " + db_user.get().getHashedPassword());
+                    if (db_user != null && user.hashPassword() == db_user.get().getHashedPassword()) {
+                        user.setAccessLevel(db_user.get().getAccessLevel());
+                    } else user.setAccessLevel(-1);
+                    Packet<Users> userPacket = new Packet<>(
+                            QueryModel.Users,
+                            null,
+                            user
+                    );
+                    System.out.println(packet.getModels().get(0));
+                    return userPacket;
+                }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         return new Packet<>(
@@ -33,13 +50,6 @@ public class QueryController {
                     }
                     case Delete -> {
                         UsersDao.INSTANCE.delete(user.getId());
-                    }
-                    default -> {
-                        if (user == null) return null;
-                        Optional<Users> db_user = UsersDao.INSTANCE.get(user.getId());
-                        if (db_user.isPresent() && user.hashPassword() == db_user.get().getHashedPassword()) {
-                            user.setHashedPassword(0);
-                        } else user.setAccessLevel(-1);
                     }
                 }
             }

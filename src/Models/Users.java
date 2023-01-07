@@ -21,6 +21,10 @@ public class Users extends Model {
         return id;
     }
 
+
+
+
+
     public void setId(int id) {
         this.id = id;
     }
@@ -64,6 +68,7 @@ public class Users extends Model {
             byte[] messageDigest = md.digest(str.getBytes());
             return ByteBuffer.wrap(messageDigest).getInt();
         } catch (NoSuchAlgorithmException ignore) {};
+        System.out.println("Кто бы что ни говорил, а в анал - это ОК");
         return 0;
     }
 

@@ -32,7 +32,7 @@ public class loginController {
         String password = textBoxPassword.getText();
         Packet<Users> userPacket = new Packet<>(
                 QueryModel.Users,
-                QueryMethod.Read,
+                null,
                 new Users(
                         0,
                         login,
@@ -41,9 +41,11 @@ public class loginController {
                 )
         );
         Users user = (Users) QueryController.query_request(userPacket);
+        System.out.println(user.toString());
+        label.setVisible(false);
         if (user.getAccessLevel() == -1)
             label.setVisible(true);
-        label.setVisible(false);
+
 
         switch (user.getAccessLevel()){
             case 0->{App.setClientMain();}
