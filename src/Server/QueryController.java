@@ -18,7 +18,7 @@ public class QueryController {
                     case Read -> {
                         return new Packet<>(
                                 QueryModel.Users,
-                                null,
+                                QueryMethod.Read,
                                 UsersDao.INSTANCE.getAll()
                         );
                     }
@@ -34,8 +34,9 @@ public class QueryController {
                         UsersDao.INSTANCE.delete(user.getId());
                     }
                     default -> {
+                        if (user == null) return null;
                         Optional<Users> db_user = UsersDao.INSTANCE.get(user.getId());
-                        if (user.hashPassword() == db_user.get().getHashedPassword()) {
+                        if (db_user.isPresent() && user.hashPassword() == db_user.get().getHashedPassword()) {
                             user.setHashedPassword(0);
                         } else user.setAccessLevel(-1);
                     }

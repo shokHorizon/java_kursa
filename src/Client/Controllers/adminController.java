@@ -210,4 +210,18 @@ public class adminController {
 
     }
 
+    void disable_buttons(){
+        btnAdd.setDisable(true);
+        btnRemove.setDisable(true);
+        btnUpdate.setDisable(true);
+    }
+
+    void disable_combos(){
+        combo1.setDisable(true);
+        combo2.setDisable(true);
+        combo3.setDisable(true);
+        combo4.setDisable(true);
+        combo5.setDisable(true);
+    }
+
 }
