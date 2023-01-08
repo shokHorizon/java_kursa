@@ -3,6 +3,7 @@ package Client.Controllers;
 import Client.App;
 import Client.QueryController;
 import Models.Users;
+import Protocols.Crypto;
 import Protocols.Packet;
 import Protocols.QueryMethod;
 import Protocols.QueryModel;
@@ -36,7 +37,7 @@ public class loginController {
                 new Users(
                         0,
                         login,
-                        Users.hashString(password),
+                        Crypto.hashString(password),
                         0
                 )
         );

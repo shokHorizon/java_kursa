@@ -7,61 +7,76 @@ import Protocols.Packet;
 import Protocols.QueryMethod;
 import Protocols.QueryModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class QueryController {
 
    public static Packet<? extends Model> query_request(Packet<? extends Model> packet){
+       // Отбрасывание пакетов без указания модели
+       if (packet.getQueryModel() == null) return packet;
+
+       int token = packet.getToken();
+
+       // Минимизация дальнейшей работы путем раннего создания пакета
+       List<Model> response_models = new ArrayList<>();
+       Packet<? extends Model> response_packet = new Packet<>(null, null, response_models);
+
         switch (packet.getQueryModel()){
             case Users->{
                 Users user = (Users) packet.getModels().get(0);
-                if (packet.getQueryMethod() == null) {
-                    if (user == null) return null;
-                    System.out.println(user);
-                    Optional<Users> db_user = UsersDao.INSTANCE.getByLogin(user.getLogin());
-                    System.out.println("ААААААААААА, НЕГРЫ");
-                    System.out.println(user.hashPassword() + " " + db_user.get().getHashedPassword());
-                    if (db_user != null && user.hashPassword() == db_user.get().getHashedPassword()) {
-                        user.setAccessLevel(db_user.get().getAccessLevel());
-                    } else user.setAccessLevel(-1);
-                    Packet<Users> userPacket = new Packet<>(
-                            QueryModel.Users,
-                            null,
-                            user
-                    );
-                    System.out.println(packet.getModels().get(0));
-                    return userPacket;
+                if (user == null){
+                    // Чтобы получить ВСЕХ пользователей, фильтры не нужны -> модель не передается
+                    if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
+                        response_models.addAll(UsersDao.INSTANCE.getAll());
+                    return response_packet;
                 }
-                switch (packet.getQueryMethod()) {
-                    case Read -> {
-                        return new Packet<>(
-                                QueryModel.Users,
-                                QueryMethod.Read,
-                                UsersDao.INSTANCE.getAll()
-                        );
+                // Вторичное хэширование пароля
+                user.hashPassword();
+
+                if (packet.getQueryMethod() != null) {
+                    switch (packet.getQueryMethod()) {
+                        case Read -> {
+                            if (AccessManager.hasRequiredAccess(token, 1))
+                                response_models.addAll(UsersDao.INSTANCE.get(user));
+                        }
+                        case Update -> {
+                            if (AccessManager.hasRequiredAccess(token, 1))
+                                UsersDao.INSTANCE.update(user);
+                        }
+                        case Create -> {
+                            if (AccessManager.hasRequiredAccess(token, 2))
+                                UsersDao.INSTANCE.save(user);
+                        }
+                        case Delete -> {
+                            if (AccessManager.hasRequiredAccess(token, 2))
+                                UsersDao.INSTANCE.delete(user.getId());
+                        }
                     }
-                    case Update -> {
-                        user.setHashedPassword(user.hashPassword());
-                        UsersDao.INSTANCE.update(user);
-                    }
-                    case Create -> {
-                        user.setHashedPassword(user.hashPassword());
-                        UsersDao.INSTANCE.save(user);
-                    }
-                    case Delete -> {
-                        UsersDao.INSTANCE.delete(user.getId());
-                    }
+                    break;
                 }
+                Optional<Users> db_user = UsersDao.INSTANCE.getByLogin(user.getLogin());
+                // Ставим доступ -1 модели, которую передал пользователь
+                user.setAccessLevel(-1);
+                // Передаём пользователю корректную модель из бд с нормальным уровнем доступа,
+                // либо отправляем ему свою же модель, но с уровнем доступа -1
+                user = db_user.orElse(user);
+                response_models.add(user);
+                // Добавляем токен, если пользователь успешно авторизовался
+                if (user.getAccessLevel() >= 0)
+                    user.setHashedPassword(AccessManager.generateToken(user.getLogin(), user.getHashedPassword(), user.getAccessLevel()));
             }
             case Books->{
                 Books book = (Books) packet.getModels().get(0);
+                if (book == null){
+                    if (packet.getQueryMethod() == QueryMethod.Read)
+                        response_models.addAll(CountriesDao.INSTANCE.getAll());
+                    return response_packet;
+                }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        return new Packet<>(
-                                QueryModel.Books,
-                                null,
-                                BooksDao.INSTANCE.getAll()
-                        );
+                        response_models.addAll(BooksDao.INSTANCE.get(book));
                     }
                     case Update -> {
                         BooksDao.INSTANCE.update(book);
@@ -76,13 +91,14 @@ public class QueryController {
             }
             case Countries->{
                 Countries country = (Countries) packet.getModels().get(0);
+                if (country == null){
+                    if (packet.getQueryMethod() == QueryMethod.Read)
+                        response_models.addAll(CountriesDao.INSTANCE.getAll());
+                    return response_packet;
+                }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        return new Packet<>(
-                                QueryModel.Countries,
-                                null,
-                                CountriesDao.INSTANCE.getAll()
-                        );
+                        response_models.addAll(CountriesDao.INSTANCE.get(country));
                     }
                     case Update -> {
                         CountriesDao.INSTANCE.update(country);
@@ -97,13 +113,14 @@ public class QueryController {
             }
             case Travels->{
                 Travels travel = (Travels) packet.getModels().get(0);
+                if (travel == null){
+                    if (packet.getQueryMethod() == QueryMethod.Read)
+                        response_models.addAll(TravelsDao.INSTANCE.getAll());
+                    return response_packet;
+                }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        return new Packet<>(
-                                QueryModel.Travels,
-                                null,
-                                TravelsDao.INSTANCE.getAll()
-                        );
+                        response_models.addAll(TravelsDao.INSTANCE.get(travel));
                     }
                     case Update -> {
                         TravelsDao.INSTANCE.update(travel);
@@ -118,13 +135,14 @@ public class QueryController {
             }
             case TravelTypes->{
                 TravelTypes travelType = (TravelTypes) packet.getModels().get(0);
+                if (travelType == null){
+                    if (packet.getQueryMethod() == QueryMethod.Read)
+                        response_models.addAll(TravelTypesDao.INSTANCE.getAll());
+                    return response_packet;
+                }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        return new Packet<>(
-                                QueryModel.TravelTypes,
-                                null,
-                                TravelTypesDao.INSTANCE.getAll()
-                        );
+                        response_models.addAll(TravelTypesDao.INSTANCE.get(travelType));
                     }
                     case Update -> {
                         TravelTypesDao.INSTANCE.update(travelType);
@@ -139,13 +157,14 @@ public class QueryController {
             }
             case Cities->{
                 Cities city = (Cities) packet.getModels().get(0);
+                if (city == null){
+                    if (packet.getQueryMethod() == QueryMethod.Read)
+                        response_models.addAll(CitiesDao.INSTANCE.getAll());
+                    return response_packet;
+                }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        return new Packet<>(
-                                QueryModel.Cities,
-                                null,
-                                CitiesDao.INSTANCE.getAll()
-                        );
+                        response_models.addAll(CitiesDao.INSTANCE.get(city));
                     }
                     case Update -> {
                         CitiesDao.INSTANCE.update(city);
@@ -159,6 +178,6 @@ public class QueryController {
                 }
             }
         }
-        return packet;
+        return response_packet;
     }
 }

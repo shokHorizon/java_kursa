@@ -9,6 +9,8 @@ public class Packet <T> implements Serializable {
     QueryModel queryModel;
     QueryMethod queryMethod;
 
+    int token;
+
     public Packet() {
 
     }
@@ -56,6 +58,10 @@ public class Packet <T> implements Serializable {
     public QueryMethod getQueryMethod() {return queryMethod;}
 
     public void setQueryMethod(QueryMethod queryMethod) {this.queryMethod = queryMethod;}
+
+    public int getToken() {return token;}
+
+    public void setToken(int token) {this.token = token;}
 
     public List<T> getModels(){
         return models;
