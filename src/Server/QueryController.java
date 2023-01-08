@@ -38,8 +38,14 @@ public class QueryController {
                 if (packet.getQueryMethod() != null) {
                     switch (packet.getQueryMethod()) {
                         case Read -> {
-                            if (AccessManager.hasRequiredAccess(token, 1))
+                            if (AccessManager.hasRequiredAccess(token, 1)) {
+                                // Не позволяем менеджеру фильтровать по паролю и уровню доступа
+                                if (!AccessManager.hasRequiredAccess(token, 2)){
+                                    user.setHashedPassword(0);
+                                    user.setAccessLevel(-1);
+                                }
                                 response_models.addAll(UsersDao.INSTANCE.get(user));
+                            }
                         }
                         case Update -> {
                             if (AccessManager.hasRequiredAccess(token, 1))
@@ -76,16 +82,28 @@ public class QueryController {
                 }
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        response_models.addAll(BooksDao.INSTANCE.get(book));
+                        if (AccessManager.hasRequiredAccess(token, 0)) {
+                            response_models.addAll(BooksDao.INSTANCE.get(book));
+                        }
                     }
                     case Update -> {
-                        BooksDao.INSTANCE.update(book);
+                        if (AccessManager.hasRequiredAccess(token, 1)) {
+                            if (!AccessManager.hasRequiredAccess(token, 2)){
+                                book.setId(0);
+                                book.setTravel(0);
+                                book.setUser(0);
+                            }
+                            BooksDao.INSTANCE.update(book);
+                        }
                     }
                     case Create -> {
-                        BooksDao.INSTANCE.save(book);
+                        if (AccessManager.hasRequiredAccess(token, 0))
+                            BooksDao.INSTANCE.save(book);
                     }
                     case Delete -> {
-                        BooksDao.INSTANCE.delete(book.getId());
+                        if (AccessManager.hasRequiredAccess(token, 0)) {
+                            BooksDao.INSTANCE.delete(book.getId());
+                        }
                     }
                 }
             }
