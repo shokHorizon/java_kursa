@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +15,43 @@ public class TravelsDao implements IDao<Travels>{
 
     public static final TravelsDao INSTANCE = new TravelsDao();
     @Override
-    public Optional<Travels> get(int id) {
+    public Optional<Travels> get(Travels travels) {
+        String query = "select * from travels";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        if (travels != null)
+        {
+            if (travels.getId() > 0)
+                parameters.add(" id = " + travels.getId());
+            if (travels.getType() > 0)
+                parameters.add(" type = " + travels.getType());
+            if (travels.getName() != null)
+                parameters.add(" name = " + travels.getName());
+            if (travels.getCity() > 0)
+                parameters.add(" city = " + travels.getCity());
+            if (travels.getImage() != null)
+                parameters.add(" image = " + travels.getImage());
+            if (travels.getCoordinates() != null)
+                parameters.add(" coords = " + travels.getCoordinates());
+            if (travels.getPrice() > 0)
+                parameters.add(" price = " + travels.getPrice());
+            if (travels.getSupplier() != null)
+                parameters.add(" supplier = " + travels.getSupplier());
 
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
         try {
-            String query = "select * from travels where id = ?";
+
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            //preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
-            Travels travels = new Travels(
+            travels = new Travels(
                     set.getInt("id"),
                     set.getInt("type"),
                     set.getString("name"),
@@ -35,7 +65,7 @@ public class TravelsDao implements IDao<Travels>{
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return Optional.of(travels);
     }
 
     @Override

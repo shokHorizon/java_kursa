@@ -8,19 +8,41 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
+ // Фильтровать юзеров. То, что null - ск
 public class UsersDao implements IDao<Users>{
 
     public static final UsersDao INSTANCE = new UsersDao();
+
     @Override
-    public Optional<Users> get(int id) {
-        Users users;
+    public Optional<Users> get(Users users) {
+        String query = "select * from users";
+        StringBuilder sb = new StringBuilder();
+        LinkedList <String> parameters = new LinkedList<>();
+        if (users != null)
+        {
+            if (users.getId() > 0)
+                parameters.add(" id = " + users.getId());
+            if (users.getLogin() != null)
+                parameters.add(" login = " + users.getLogin());
+            if (users.getHashedPassword() != 0)
+                parameters.add(" hashpassword = " + users.getHashedPassword());
+            if (users.getAccessLevel() >= 0)
+                parameters.add(" accessLevel = " + users.getAccessLevel());
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
         try {
-            String query = "select * from users where id = ?";
+
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            //preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
 
             users = new Users(

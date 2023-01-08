@@ -2,11 +2,7 @@ package Client.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -55,7 +51,22 @@ public class adminController {
     private TableColumn<?, ?> countriesName;
 
     @FXML
+    private Tab tabCities;
+
+    @FXML
+    private Tab tabCountries;
+
+    @FXML
     private TabPane tabPane;
+
+    @FXML
+    private Tab tabTickets;
+
+    @FXML
+    private Tab tabTravel;
+
+    @FXML
+    private Tab tabUsers;
 
     @FXML
     private TableView<?> tableCities;
@@ -208,6 +219,8 @@ public class adminController {
     void usersTabSelected(ActionEvent event) {
 
     }
+
+
 
     void disable_buttons(){
         btnAdd.setDisable(true);

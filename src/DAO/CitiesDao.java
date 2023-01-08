@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,15 +16,33 @@ public class CitiesDao implements IDao<Cities> {
     
     public static final CitiesDao INSTANCE = new CitiesDao();
     @Override
-    public Optional<Cities> get(int id) {
-
+    public Optional<Cities> get(Cities cities) {
+        String query = "select * from cities";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        if (cities != null)
+        {
+            if (cities.getId() > 0)
+                parameters.add(" id = " + cities.getId());
+            if (cities.getName() != null)
+                parameters.add(" name = " + cities.getName());
+            if (cities.getCountry() > 0)
+                parameters.add(" country = " + cities.getCountry());
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
         try {
-            String query = "select * from cities where id = ?";
+
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            //preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
             set.next();
-            Cities cities = new Cities(
+            cities = new Cities(
                     set.getInt("id"),
                     set.getString("name"),
                     set.getInt("country")
@@ -32,7 +51,7 @@ public class CitiesDao implements IDao<Cities> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return Optional.of(cities);
     }
 
     @Override

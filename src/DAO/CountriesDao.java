@@ -1,12 +1,14 @@
 package DAO;
 
 import Models.Countries;
+import Models.Users;
 import Server.DBWorker;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +16,30 @@ public class CountriesDao implements IDao<Countries> {
 
     public static final CountriesDao INSTANCE = new CountriesDao();
     @Override
-    public Optional<Countries> get(int id) {
-
+    public Optional<Countries> get(Countries countries) {
+        String query = "select * from countries";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        if (countries != null)
+        {
+            if (countries.getId() > 0)
+                parameters.add(" id = " + countries.getId());
+            if (countries.getName() != null)
+                parameters.add(" name = " + countries.getName());
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
         try {
-            String query = "select * from countries where id = ?";
+
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            //preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
-            Countries countries = new Countries(
+            countries = new Countries(
                     set.getInt("id"),
                     set.getString("name")
             );
@@ -29,7 +47,7 @@ public class CountriesDao implements IDao<Countries> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return Optional.of(countries);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +15,34 @@ public class BooksDao implements IDao<Books> {
 
     public static final BooksDao INSTANCE = new BooksDao();
     @Override
-    public Optional<Books> get(int id) {
-
+    public Optional<Books> get(Books books) {
+        String query = "select * from books";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        if (books != null)
+        {
+            if (books.getId() > 0)
+                parameters.add(" id = " + books.getId());
+            if (books.getTravel() > 0)
+                parameters.add(" travel = " + books.getTravel());
+            if (books.getUser() > 0)
+                parameters.add(" user = " + books.getUser());
+            if (books.getStatus() >= 0)
+                parameters.add(" status = " + books.getStatus());
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
         try {
-            String query = "select * from books where id = ?";
+
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            //preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
-            Books books = new Books(
+            books = new Books(
                     set.getInt("id"),
                     set.getInt("travel"),
                     set.getInt("user"),
@@ -31,7 +52,7 @@ public class BooksDao implements IDao<Books> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return Optional.of(books);
     }
 
     @Override

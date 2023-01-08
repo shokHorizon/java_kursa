@@ -8,7 +8,6 @@ public class Packet <T> implements Serializable {
     List<T> models;
     QueryModel queryModel;
     QueryMethod queryMethod;
-
     int token;
 
     public Packet() {

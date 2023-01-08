@@ -29,7 +29,7 @@ public class App extends Application {
             loginPage = FXMLLoader.load(getClass().getResource("login.fxml"));
             clientMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("client_main.fxml")));
             clientBooks = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("client_books.fxml")));
-            //adminMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin_main.fxml")));
+            adminMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("admin_main.fxml")));
             //managerMain = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("manager_main.fxml")));
         } catch (IOException e){
             e.printStackTrace();

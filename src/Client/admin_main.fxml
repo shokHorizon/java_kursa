@@ -26,7 +26,7 @@
       </VBox>
       <TabPane fx:id="tabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-            <Tab fx:id="tableTravels" onSelectionChanged="#travelsTabSelected" text="Travels">
+            <Tab fx:id="tabTravel" text="Travels">
                <content>
                   <TableView fx:id="tableTravels" onMouseClicked="#travelsClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
@@ -43,7 +43,7 @@
                   </TableView>
                </content>
             </Tab>
-          <Tab fx:id="tableTickets" onSelectionChanged="#ticketsTabSelected" text="Tickets">
+          <Tab fx:id="tabTickets" text="Tickets">
                <content>
                   <TableView fx:id="tableTickets" onMouseClicked="#ticketsClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
@@ -58,7 +58,7 @@
                   </TableView>
                </content>
             </Tab>
-            <Tab fx:id="tableUsers" onSelectionChanged="#usersTabSelected" text="Users">
+            <Tab fx:id="tabUsers" text="Users">
                <content>
                   <TableView fx:id="tableUsers" onMouseClicked="#usersClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
@@ -73,7 +73,7 @@
                   </TableView>
                </content>
             </Tab>
-            <Tab fx:id="tableCities" onSelectionChanged="#citiesTabSelected" text="Cities">
+            <Tab fx:id="tabCities" text="Cities">
                <content>
                   <TableView fx:id="tableCities" onMouseClicked="#citiesClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
@@ -87,7 +87,7 @@
                   </TableView>
                </content>
             </Tab>
-            <Tab fx:id="tableCountries" onSelectionChanged="#countriesTabSelected" text="Countries">
+            <Tab fx:id="tabCountries" text="Countries">
                <content>
                   <TableView fx:id="tableCountries" onMouseClicked="#countriesClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>

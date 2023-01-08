@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,17 +16,32 @@ import java.util.Optional;
 
 public class TravelTypesDao implements IDao<TravelTypes> {
 
-
     public static final TravelTypesDao INSTANCE = new TravelTypesDao();
     @Override
-    public Optional<TravelTypes> get(int id) {
-
+    public Optional<TravelTypes> get(TravelTypes travelTypes) {
+        String query = "select * from travelTypes";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        if (travelTypes != null)
+        {
+            if (travelTypes.getId() > 0)
+                parameters.add(" id = " + travelTypes.getId());
+            if (travelTypes.getName() != null)
+                parameters.add(" name = " + travelTypes.getName());
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
         try {
-            String query = "select * from travelTypes where id = ?";
+
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
-            preparedStatement.setInt(1,id);
+            //preparedStatement.setInt(1,id);
             ResultSet set = preparedStatement.executeQuery(); // В save - аналог
-            TravelTypes travelTypes = new TravelTypes(
+            travelTypes = new TravelTypes(
                     set.getInt("id"),
                     set.getString("name")
             );
@@ -33,7 +49,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return Optional.of(travelTypes);
     }
 
     @Override

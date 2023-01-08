@@ -23,10 +23,6 @@ public class Users extends Model {
         return id;
     }
 
-
-
-
-
     public void setId(int id) {
         this.id = id;
     }
