@@ -2,6 +2,8 @@ package DAO;
 
 import Models.Books;
 import Models.Cities;
+import Models.Travels;
+import Models.Users;
 import Server.DBWorker;
 
 import java.sql.PreparedStatement;
@@ -16,10 +18,11 @@ public class CitiesDao implements IDao<Cities> {
     
     public static final CitiesDao INSTANCE = new CitiesDao();
     @Override
-    public Optional<Cities> get(Cities cities) {
+    public LinkedList<Cities> get(Cities cities) {
         String query = "select * from cities";
         StringBuilder sb = new StringBuilder();
         LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <Cities> listCities = new LinkedList<>();
         if (cities != null)
         {
             if (cities.getId() > 0)
@@ -36,11 +39,11 @@ public class CitiesDao implements IDao<Cities> {
                 query += sb.toString();
             }
         }
+        ResultSet set;
         try {
-
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             //preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
+            set = preparedStatement.executeQuery(); // В save - аналог
             set.next();
             cities = new Cities(
                     set.getInt("id"),
@@ -51,12 +54,12 @@ public class CitiesDao implements IDao<Cities> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Optional.of(cities);
+        } return listCities;
     }
 
     @Override
     public List<Cities> getAll() {
-
+        List<Cities> citiesList = new LinkedList<>();
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from cities";
@@ -67,10 +70,12 @@ public class CitiesDao implements IDao<Cities> {
                         set.getString("name"),
                         set.getInt("country")
                 );
-                System.out.println(cities);}
+                System.out.println(cities);
+                citiesList.add(cities);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return citiesList;
     }
 
     @Override

@@ -16,10 +16,11 @@ public class CountriesDao implements IDao<Countries> {
 
     public static final CountriesDao INSTANCE = new CountriesDao();
     @Override
-    public Optional<Countries> get(Countries countries) {
+    public LinkedList<Countries> get(Countries countries) {
         String query = "select * from countries";
         StringBuilder sb = new StringBuilder();
         LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <Countries> listCountries = new LinkedList<>();
         if (countries != null)
         {
             if (countries.getId() > 0)
@@ -34,11 +35,12 @@ public class CountriesDao implements IDao<Countries> {
                 query += sb.toString();
             }
         }
+        ResultSet set;
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             //preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
+            set = preparedStatement.executeQuery(); // В save - аналог
             countries = new Countries(
                     set.getInt("id"),
                     set.getString("name")
@@ -47,12 +49,12 @@ public class CountriesDao implements IDao<Countries> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Optional.of(countries);
+        } return listCountries;
     }
 
     @Override
     public List<Countries> getAll() {
-
+        List<Countries> countriesList = new LinkedList<>();
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from countries";
@@ -62,10 +64,12 @@ public class CountriesDao implements IDao<Countries> {
                         set.getInt("id"),
                         set.getString("name")
                 );
-                System.out.println(countries);}
+                System.out.println(countries);
+                countriesList.add(countries);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return countriesList;
     }
 
     @Override

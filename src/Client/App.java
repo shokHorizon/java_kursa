@@ -1,5 +1,6 @@
 package Client;
 
+import Client.Controllers.adminController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,5 +47,8 @@ public class App extends Application {
     public static void setClientMain(){AppStage.setScene(getScene(clientMain));}
     public static void setClientBooks(){AppStage.setScene(getScene(clientBooks));}
     public static void setManagerMain(){AppStage.setScene(getScene(managerMain));}
-    public static void setAdminMain(){AppStage.setScene(getScene(adminMain));}
+    public static void setAdminMain(){
+        AppStage.setScene(getScene(adminMain));
+        adminController.instance.switchToTravels();
+    }
 }

@@ -25,13 +25,13 @@ public class QueryController {
 
         switch (packet.getQueryModel()){
             case Users->{
-                Users user = (Users) packet.getModels().get(0);
-                if (user == null){
+                if (packet.getModels() == null){
                     // Чтобы получить ВСЕХ пользователей, фильтры не нужны -> модель не передается
                     if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
                         response_models.addAll(UsersDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                Users user = (Users) packet.getModels().get(0);
                 // Вторичное хэширование пароля
                 user.hashPassword();
 
@@ -74,12 +74,12 @@ public class QueryController {
                     user.setHashedPassword(AccessManager.generateToken(user.getLogin(), user.getHashedPassword(), user.getAccessLevel()));
             }
             case Books->{
-                Books book = (Books) packet.getModels().get(0);
-                if (book == null){
+                if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
-                        response_models.addAll(CountriesDao.INSTANCE.getAll());
+                        response_models.addAll(BooksDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                Books book = (Books) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         if (AccessManager.hasRequiredAccess(token, 0)) {
@@ -108,12 +108,12 @@ public class QueryController {
                 }
             }
             case Countries->{
-                Countries country = (Countries) packet.getModels().get(0);
-                if (country == null){
+                if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
                         response_models.addAll(CountriesDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                Countries country = (Countries) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         response_models.addAll(CountriesDao.INSTANCE.get(country));
@@ -130,12 +130,12 @@ public class QueryController {
                 }
             }
             case Travels->{
-                Travels travel = (Travels) packet.getModels().get(0);
-                if (travel == null){
+                if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
                         response_models.addAll(TravelsDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                Travels travel = (Travels) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         response_models.addAll(TravelsDao.INSTANCE.get(travel));
@@ -152,12 +152,12 @@ public class QueryController {
                 }
             }
             case TravelTypes->{
-                TravelTypes travelType = (TravelTypes) packet.getModels().get(0);
-                if (travelType == null){
+                if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
                         response_models.addAll(TravelTypesDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                TravelTypes travelType = (TravelTypes) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         response_models.addAll(TravelTypesDao.INSTANCE.get(travelType));
@@ -174,12 +174,12 @@ public class QueryController {
                 }
             }
             case Cities->{
-                Cities city = (Cities) packet.getModels().get(0);
-                if (city == null){
+                if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
                         response_models.addAll(CitiesDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                Cities city = (Cities) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         response_models.addAll(CitiesDao.INSTANCE.get(city));

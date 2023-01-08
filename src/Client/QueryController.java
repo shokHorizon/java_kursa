@@ -11,20 +11,8 @@ public class QueryController {
             case Users -> {
                 return (Model) SocketClient.INSTANCE.sendPacket(packet).getModels().get(0);
             }
-            case Books -> {
-                return null;
-            }
-            case Cities -> {
-                return null;
-            }
-            case Travels -> {
-                return null;
-            }
-            case Countries -> {
-                return null;
-            }
-            case TravelTypes -> {
-                return null;
+            case Books, TravelTypes, Countries, Travels, Cities -> {
+                return (Model) SocketClient.INSTANCE.sendPacket(packet).getModels();
             }
         }
         return null;

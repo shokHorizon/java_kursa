@@ -2,6 +2,7 @@ package DAO;
 
 
 import Models.TravelTypes;
+import Models.Users;
 import Server.DBWorker;
 
 import java.sql.PreparedStatement;
@@ -18,10 +19,11 @@ public class TravelTypesDao implements IDao<TravelTypes> {
 
     public static final TravelTypesDao INSTANCE = new TravelTypesDao();
     @Override
-    public Optional<TravelTypes> get(TravelTypes travelTypes) {
+    public LinkedList<TravelTypes> get(TravelTypes travelTypes) {
         String query = "select * from travelTypes";
         StringBuilder sb = new StringBuilder();
         LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <TravelTypes> listTravelTypes = new LinkedList<>();
         if (travelTypes != null)
         {
             if (travelTypes.getId() > 0)
@@ -36,11 +38,12 @@ public class TravelTypesDao implements IDao<TravelTypes> {
                 query += sb.toString();
             }
         }
+        ResultSet set;
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             //preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
+            set = preparedStatement.executeQuery(); // В save - аналог
             travelTypes = new TravelTypes(
                     set.getInt("id"),
                     set.getString("name")
@@ -49,12 +52,12 @@ public class TravelTypesDao implements IDao<TravelTypes> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Optional.of(travelTypes);
+        } return listTravelTypes;
     }
 
     @Override
     public List<TravelTypes> getAll() {
-
+        List<TravelTypes> travelTypesList = new LinkedList<>();
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from travelTypes";
@@ -64,10 +67,12 @@ public class TravelTypesDao implements IDao<TravelTypes> {
                         set.getInt("id"),
                         set.getString("name")
                 );
-                System.out.println(travelTypes);}
+                System.out.println(travelTypes);
+                travelTypesList.add(travelTypes);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return travelTypesList;
     }
 
     @Override

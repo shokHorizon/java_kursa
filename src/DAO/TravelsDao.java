@@ -1,6 +1,7 @@
 package DAO;
 
 import Models.Travels;
+import Models.Users;
 import Server.DBWorker;
 
 import java.sql.PreparedStatement;
@@ -15,10 +16,11 @@ public class TravelsDao implements IDao<Travels>{
 
     public static final TravelsDao INSTANCE = new TravelsDao();
     @Override
-    public Optional<Travels> get(Travels travels) {
+    public LinkedList<Travels> get(Travels travels) {
         String query = "select * from travels";
         StringBuilder sb = new StringBuilder();
         LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <Travels> listTravels = new LinkedList<>();
         if (travels != null)
         {
             if (travels.getId() > 0)
@@ -46,11 +48,12 @@ public class TravelsDao implements IDao<Travels>{
                 query += sb.toString();
             }
         }
+        ResultSet set;
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             //preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
+            set = preparedStatement.executeQuery(); // В save - аналог
             travels = new Travels(
                     set.getInt("id"),
                     set.getInt("type"),
@@ -65,12 +68,12 @@ public class TravelsDao implements IDao<Travels>{
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Optional.of(travels);
+        } return listTravels;
     }
 
     @Override
     public List<Travels> getAll() {
-
+        List<Travels> travelList = new LinkedList<>();
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from travels";
@@ -84,12 +87,14 @@ public class TravelsDao implements IDao<Travels>{
                         set.getString("image"),
                         set.getString("coords"),
                         set.getInt("price"),
-                        set.getString("name")
+                        set.getString("supplier")
                 );
-                System.out.println(travels);}
+                System.out.println(travels);
+                travelList.add(travels);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return travelList;
     }
 
     @Override
@@ -98,8 +103,13 @@ public class TravelsDao implements IDao<Travels>{
             String query = "insert into travels values (?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,travelsModel.getId());
-            preparedStatement.setString(2,travelsModel.getName());
-            preparedStatement.setString(2,travelsModel.getName());
+            preparedStatement.setInt(2,travelsModel.getType());
+            preparedStatement.setString(3,travelsModel.getName());
+            preparedStatement.setInt(4,travelsModel.getCity());
+            preparedStatement.setString(5,travelsModel.getImage());
+            preparedStatement.setString(6,travelsModel.getCoordinates());
+            preparedStatement.setInt(7,travelsModel.getPrice());
+            preparedStatement.setString(8,travelsModel.getSupplier());
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,6 +1,7 @@
 package DAO;
 
 import Models.Books;
+import Models.Users;
 import Server.DBWorker;
 
 import java.sql.PreparedStatement;
@@ -15,10 +16,11 @@ public class BooksDao implements IDao<Books> {
 
     public static final BooksDao INSTANCE = new BooksDao();
     @Override
-    public Optional<Books> get(Books books) {
+    public LinkedList<Books> get(Books books) {
         String query = "select * from books";
         StringBuilder sb = new StringBuilder();
         LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <Books> listBook = new LinkedList<>();
         if (books != null)
         {
             if (books.getId() > 0)
@@ -37,11 +39,12 @@ public class BooksDao implements IDao<Books> {
                 query += sb.toString();
             }
         }
+        ResultSet set;
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             //preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
+            set = preparedStatement.executeQuery(); // В save - аналог
             books = new Books(
                     set.getInt("id"),
                     set.getInt("travel"),
@@ -52,12 +55,12 @@ public class BooksDao implements IDao<Books> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Optional.of(books);
+        } return listBook;
     }
 
     @Override
     public List<Books> getAll() {
-
+        List<Books> usersList = new LinkedList<>();
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from books";
@@ -69,10 +72,12 @@ public class BooksDao implements IDao<Books> {
                         set.getInt("user"),
                         set.getInt("status")
                 );
-                System.out.println(books);}
+                System.out.println(books);
+                usersList.add(books);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return usersList;
     }
 
     @Override

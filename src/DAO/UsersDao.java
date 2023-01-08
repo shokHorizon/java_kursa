@@ -17,10 +17,11 @@ public class UsersDao implements IDao<Users>{
     public static final UsersDao INSTANCE = new UsersDao();
 
     @Override
-    public Optional<Users> get(Users users) {
+    public LinkedList<Users> get(Users users) {
         String query = "select * from users";
         StringBuilder sb = new StringBuilder();
         LinkedList <String> parameters = new LinkedList<>();
+        LinkedList <Users> listUser = new LinkedList<>();
         if (users != null)
         {
             if (users.getId() > 0)
@@ -39,28 +40,31 @@ public class UsersDao implements IDao<Users>{
                 query += sb.toString();
             }
         }
+        ResultSet set;
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             //preparedStatement.setInt(1,id);
-            ResultSet set = preparedStatement.executeQuery(); // В save - аналог
-
-            users = new Users(
-                    set.getInt("id"),
-                    set.getString("login"),
-                    set.getInt("hashpassword"),
-                    set.getInt("accessLevel")
-            );
-            System.out.println(users);
-
+            set = preparedStatement.executeQuery(); // В save - аналог
+            while (set != null) {
+                users = new Users(
+                        set.getInt("id"),
+                        set.getString("login"),
+                        set.getInt("hashpassword"),
+                        set.getInt("accessLevel")
+                );
+                System.out.println(users);
+                listUser.add(users);
+                set.next();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return Optional.of(users);
+        } return listUser;
     }
 
     @Override
     public List<Users> getAll() {
-
+        List<Users> usersList = new LinkedList<>();
         try {
             Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
             String query = "select * from users";
@@ -72,10 +76,12 @@ public class UsersDao implements IDao<Users>{
                         set.getInt("hashpassword"),
                         set.getInt("accessLevel")
                 );
-                System.out.println(users);}
+                System.out.println(users);
+                usersList.add(users);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } return null;
+        } return usersList;
     }
 
     @Override
@@ -133,7 +139,9 @@ public class UsersDao implements IDao<Users>{
             PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
             preparedStatement.setString(1, login);
             ResultSet set = preparedStatement.executeQuery();
-            set.next();
+            if (!set.next()) {
+                return Optional.empty();
+            }
             users = new Users(
                     set.getInt("id"),
                     set.getString("login"),
