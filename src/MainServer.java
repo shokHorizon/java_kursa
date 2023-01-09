@@ -53,7 +53,7 @@ public class MainServer extends Thread {
         finally {
             try {
                 clientSocket.close();
-                System.out.println("Сокет закрыт: " + clientSocket.getLocalSocketAddress());
+                System.out.println("Сокет закрыт: " + clientSocket.getPort());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

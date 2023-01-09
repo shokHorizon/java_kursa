@@ -41,7 +41,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
         ResultSet set;
         try {
 
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             //preparedStatement.setInt(1,id);
             set = preparedStatement.executeQuery(); // В save - аналог
             travelTypes = new TravelTypes(
@@ -59,7 +59,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
     public List<TravelTypes> getAll() {
         List<TravelTypes> travelTypesList = new LinkedList<>();
         try {
-            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
+            Statement statement = DBWorker.INSTANCE.createStatement();
             String query = "select * from travelTypes";
             ResultSet set = statement.executeQuery(query);
             while (set.next()){
@@ -79,7 +79,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
     public void save(TravelTypes travelTypesModel) { // insert
         try {
             String query = "insert into travelTypes values (?,?)";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,travelTypesModel.getId());
             preparedStatement.setString(2,travelTypesModel.getName());
 
@@ -94,7 +94,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
     public void update(TravelTypes travelTypesModel) {
         try {
             String query = "update travelTypes set name = ? where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setString(1,travelTypesModel.getName()); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.setInt(2,travelTypesModel.getId());
             preparedStatement.execute();
@@ -109,7 +109,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
     public void delete(int id) {
         try {
             String query = "delete from travelTypes where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,id); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.execute();
 

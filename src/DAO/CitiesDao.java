@@ -41,7 +41,7 @@ public class CitiesDao implements IDao<Cities> {
         }
         ResultSet set;
         try {
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             //preparedStatement.setInt(1,id);
             set = preparedStatement.executeQuery(); // В save - аналог
             set.next();
@@ -61,7 +61,7 @@ public class CitiesDao implements IDao<Cities> {
     public List<Cities> getAll() {
         List<Cities> citiesList = new LinkedList<>();
         try {
-            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
+            Statement statement = DBWorker.INSTANCE.createStatement();
             String query = "select * from cities";
             ResultSet set = statement.executeQuery(query);
             while (set.next()){
@@ -82,7 +82,7 @@ public class CitiesDao implements IDao<Cities> {
     public void save(Cities citiesModel) { // insert
         try {
             String query = "insert into cities values (?,?,?)";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,citiesModel.getId());
             preparedStatement.setString(2,citiesModel.getName());
             preparedStatement.setInt(3,citiesModel.getCountry());
@@ -97,7 +97,7 @@ public class CitiesDao implements IDao<Cities> {
     public void update(Cities citiesModel) {
         try {
             String query = "update cities set name = ?, country = ? where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setString(1,citiesModel.getName()); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.setInt(2,citiesModel.getCountry());
             preparedStatement.setInt(3,citiesModel.getId());
@@ -113,7 +113,7 @@ public class CitiesDao implements IDao<Cities> {
     public void delete(int id) {
         try {
             String query = "delete from cities where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,id); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.execute();
 

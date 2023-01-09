@@ -42,7 +42,7 @@ public class BooksDao implements IDao<Books> {
         ResultSet set;
         try {
 
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             //preparedStatement.setInt(1,id);
             set = preparedStatement.executeQuery(); // В save - аналог
             books = new Books(
@@ -62,7 +62,7 @@ public class BooksDao implements IDao<Books> {
     public List<Books> getAll() {
         List<Books> usersList = new LinkedList<>();
         try {
-            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
+            Statement statement = DBWorker.INSTANCE.createStatement();
             String query = "select * from books";
             ResultSet set = statement.executeQuery(query);
             while (set.next()){
@@ -84,7 +84,7 @@ public class BooksDao implements IDao<Books> {
     public void save(Books booksModel) { // insert
         try {
             String query = "insert into books values (?,?,?,?)";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,booksModel.getId());
             preparedStatement.setInt(2,booksModel.getTravel());
             preparedStatement.setInt(3,booksModel.getUser());
@@ -100,7 +100,7 @@ public class BooksDao implements IDao<Books> {
     public void update(Books booksModel) {
         try {
             String query = "update books set travel = ?, user = ?, status = ?  where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,booksModel.getTravel()); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.setInt(2,booksModel.getUser());
             preparedStatement.setInt(3,booksModel.getStatus());
@@ -117,7 +117,7 @@ public class BooksDao implements IDao<Books> {
     public void delete(int id) {
         try {
             String query = "delete from books where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,id); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.execute();
 

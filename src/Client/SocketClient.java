@@ -12,6 +12,7 @@ public class SocketClient {
 
     public static Packet<?> sendPacket(Packet<?> packet) {
         Socket clientSocket = null;
+        packet.setToken(App.token);
         try {
             clientSocket = new Socket("127.0.0.1", 8000);
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());;

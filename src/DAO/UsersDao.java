@@ -43,7 +43,7 @@ public class UsersDao implements IDao<Users>{
         ResultSet set;
         try {
 
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             //preparedStatement.setInt(1,id);
             set = preparedStatement.executeQuery(); // В save - аналог
             while (set != null) {
@@ -66,7 +66,7 @@ public class UsersDao implements IDao<Users>{
     public List<Users> getAll() {
         List<Users> usersList = new LinkedList<>();
         try {
-            Statement statement = DBWorker.INSTANCE.getConnection().createStatement();
+            Statement statement = DBWorker.INSTANCE.createStatement();
             String query = "select * from users";
             ResultSet set = statement.executeQuery(query);
             while (set.next()){
@@ -88,7 +88,7 @@ public class UsersDao implements IDao<Users>{
     public void save(Users usersModel) { // insert
         try {
             String query = "insert into users values (?,?,?,?)";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,usersModel.getId());
             preparedStatement.setString(2,usersModel.getLogin());
             preparedStatement.setInt(3,usersModel.getHashedPassword());
@@ -104,7 +104,7 @@ public class UsersDao implements IDao<Users>{
     public void update(Users usersModel) {
         try {
             String query = "update users set login = ?, hashpassword = ?, accessLevel = ?  where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setString(1,usersModel.getLogin()); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.setInt(2,usersModel.getHashedPassword());
             preparedStatement.setInt(3,usersModel.getAccessLevel());
@@ -121,7 +121,7 @@ public class UsersDao implements IDao<Users>{
     public void delete(int id) {
         try {
             String query = "delete from users where id = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,id); // Будет меняться на одно и то же, поэтому надо замену придумать
             preparedStatement.execute();
 
@@ -136,7 +136,7 @@ public class UsersDao implements IDao<Users>{
         Users users;
         try {
             String query = "select * from users where login = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.getConnection().prepareStatement(query);
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setString(1, login);
             ResultSet set = preparedStatement.executeQuery();
             if (!set.next()) {

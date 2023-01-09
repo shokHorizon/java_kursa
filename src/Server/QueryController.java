@@ -17,7 +17,7 @@ public class QueryController {
        if (packet.getQueryModel() == null) return packet;
 
        int token = packet.getToken();
-       System.out.println("Пришедший токен" + token);
+       System.out.println("Пришедший токен " + token);
 
        // Минимизация дальнейшей работы путем раннего создания пакета
        List<Model> response_models = new ArrayList<>();
@@ -26,7 +26,8 @@ public class QueryController {
         switch (packet.getQueryModel()){
             case Users->{
                 if (packet.getModels() == null){
-                    System.out.println("Модель не пришла!");
+                    System.out.println("Есть доступ? " + (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
+                    + " Читаем? " + (packet.getQueryMethod() == QueryMethod.Read) + " Только доступ? " + AccessManager.getAccessLevel(token));
                     // Чтобы получить ВСЕХ пользователей, фильтры не нужны -> модель не передается
                     if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
                         response_models.addAll(UsersDao.INSTANCE.getAll());

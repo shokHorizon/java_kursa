@@ -236,6 +236,27 @@ public class adminController {
             QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Delete,travel));
             tableTravels.getItems().remove(travel);
         }
+        if (!tableTickets.getSelectionModel().isEmpty()) {
+            Books books = tableTickets.getSelectionModel().getSelectedItem();
+            QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Delete,books));
+            tableTickets.getItems().remove(books);
+        }
+        if (!tableUsers.getSelectionModel().isEmpty()) {
+            Users users = tableUsers.getSelectionModel().getSelectedItem();
+            QueryController.query_request(new Packet<>(QueryModel.Users,QueryMethod.Delete,users));
+            tableTravels.getItems().remove(users);
+        }
+        if (!tableCities.getSelectionModel().isEmpty()) {
+            Cities cities = tableCities.getSelectionModel().getSelectedItem();
+            QueryController.query_request(new Packet<>(QueryModel.Cities,QueryMethod.Delete,cities));
+            tableTravels.getItems().remove(cities);
+        }
+        if (!tableCountries.getSelectionModel().isEmpty()) {
+            Countries countries = tableCountries.getSelectionModel().getSelectedItem();
+            QueryController.query_request(new Packet<>(QueryModel.Countries,QueryMethod.Delete,countries));
+            tableTravels.getItems().remove(countries);
+        }
+
     }
 
     @FXML

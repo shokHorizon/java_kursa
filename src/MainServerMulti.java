@@ -16,7 +16,7 @@ public class MainServerMulti {
             while (true) {
                 System.out.println("Waiting for new connections");
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client #" + ++count + " socket accepted.");
+                System.out.println("Сокет открыт: " + clientSocket.getPort());
                 try {
                     new MainServer(clientSocket);
                     System.out.println("Создан новый поток");
@@ -24,11 +24,12 @@ public class MainServerMulti {
                 catch (IOException e) {
                     e.printStackTrace();
                     clientSocket.close();
+                    System.out.println("Пойман exception! Сокет закрыт: " + clientSocket.getPort());
                 }
             }
         }
         finally {
-            serverSocket.close();
+            serverSocket.close(); // !!!
         }
     }
 }
