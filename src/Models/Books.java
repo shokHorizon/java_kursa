@@ -7,7 +7,7 @@ public class Books extends Model {
 
     private int status;
 
-    public Books(int id, int user, int travel, int status) {
+    public Books(int id, int travel, int user, int status) {
         this.id = id;
         this.user = user;
         this.travel = travel;

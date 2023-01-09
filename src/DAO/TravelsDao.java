@@ -98,7 +98,7 @@ public class TravelsDao implements IDao<Travels>{
     }
 
     @Override
-    public void save(Travels travelsModel) { // insert
+    public boolean save(Travels travelsModel) { // insert
         try {
             String query = "insert into travels values (?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -112,13 +112,13 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.setString(8,travelsModel.getSupplier());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void update(Travels travelsModel) {
+    public boolean update(Travels travelsModel) {
         try {
             String query = "update travels set type = ?, name = ?, city = ?, image = ?, coords = ?, price = ?, supplier = ? where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -133,13 +133,13 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         try {
             String query = "delete from travels where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -147,9 +147,9 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
 
         //travelsModels.remove(travels); Снос списка
     }

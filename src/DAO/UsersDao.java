@@ -85,7 +85,7 @@ public class UsersDao implements IDao<Users>{
     }
 
     @Override
-    public void save(Users usersModel) { // insert
+    public boolean save(Users usersModel) { // insert
         try {
             String query = "insert into users values (?,?,?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -95,13 +95,13 @@ public class UsersDao implements IDao<Users>{
             preparedStatement.setInt(4,usersModel.getAccessLevel());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void update(Users usersModel) {
+    public boolean update(Users usersModel) {
         try {
             String query = "update users set login = ?, hashpassword = ?, accessLevel = ?  where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -112,13 +112,13 @@ public class UsersDao implements IDao<Users>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         try {
             String query = "delete from users where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -126,9 +126,9 @@ public class UsersDao implements IDao<Users>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
         //usersModels.remove(users); Снос списка
     }
 

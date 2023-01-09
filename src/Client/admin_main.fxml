@@ -48,8 +48,8 @@
                   <TableView fx:id="tableTickets" onMouseClicked="#ticketsClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="ticketsId" prefWidth="75.0" text="id" />
-                      <TableColumn fx:id="ticketsUser" prefWidth="75.0" text="user" />
                         <TableColumn fx:id="ticketsTravel" prefWidth="75.0" text="travel" />
+                      <TableColumn fx:id="ticketsUser" prefWidth="75.0" text="user" />
                         <TableColumn fx:id="ticketsStatus" prefWidth="75.0" text="status" />
                     </columns>
                      <columnResizePolicy>

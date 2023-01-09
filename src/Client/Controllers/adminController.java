@@ -2,6 +2,7 @@ package Client.Controllers;
 
 import Client.App;
 import Models.*;
+import Protocols.Crypto;
 import Protocols.Packet;
 import Protocols.QueryMethod;
 import Protocols.QueryModel;
@@ -144,23 +145,26 @@ public class adminController {
 
     @FXML
     void btnAddClick(ActionEvent event) {
-
         Packet packet = new Packet<>(null, QueryMethod.Create, null);
         packet.setToken(App.token);
         // Если пустая, то обнуляет
-        if (!tableTravels.getSelectionModel().isEmpty()) {
-           tableTravels.getSelectionModel().clearSelection();
-            combo1.setValue("");
-            combo2.setValue("");
-            combo3.setValue("");
-            combo4.setValue("");
-            combo5.setValue("");
-            combo6.setValue("");
+        if (!tableTravels.getSelectionModel().isEmpty() ||
+                !tableUsers.getSelectionModel().isEmpty() ||
+                !tableCountries.getSelectionModel().isEmpty() ||
+                !tableCities.getSelectionModel().isEmpty() ||
+                !tableTickets.getSelectionModel().isEmpty()){
+            clear_combos();
+            tableTravels.getSelectionModel().clearSelection();
+            tableUsers.getSelectionModel().clearSelection();
+            tableCountries.getSelectionModel().clearSelection();
+            tableCities.getSelectionModel().clearSelection();
+            tableTickets.getSelectionModel().clearSelection();
            return;
         }
 
 
         if (tabTravel.isSelected()) {
+            System.out.println("Выбрана трэвэл");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "") &&
@@ -183,11 +187,12 @@ public class adminController {
             }
         }
 
-        if (tabTickets.isSelected()) {
-            if      (!Objects.equals(combo1.getValue(), "") &&
+        else if (tabTickets.isSelected()) {
+            System.out.println("Выбрана тикетс");
+            if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "") &&
-                    !Objects.equals(combo4.getValue(), "") ) {
+                    !Objects.equals(combo4.getValue(), "")) {
                 Books books = new Books(
                         Integer.parseInt(combo1.getValue()),
                         Integer.parseInt(combo2.getValue()),
@@ -198,32 +203,52 @@ public class adminController {
                 QueryController.query_request(packet);
                 tableTickets.getItems().add(books);
             }
-            if (tabCities.isSelected()) {
-                if (!Objects.equals(combo1.getValue(), "") &&
-                        !Objects.equals(combo2.getValue(), "") &&
-                        !Objects.equals(combo3.getValue(), "")) {
-                    Cities cities = new Cities(
-                            Integer.parseInt(combo1.getValue()),
-                            combo2.getValue(),
-                            Integer.parseInt(combo3.getValue()));
-                    packet.setQueryModel(QueryModel.Cities);
-                    packet.setModels(cities);
-                    QueryController.query_request(packet);
-                    tableCities.getItems().add(cities);
-                }
+        }
+        else if (tabCities.isSelected()) {
+                System.out.println("Выбрана сити");
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "")) {
+                Cities cities = new Cities(
+                        Integer.parseInt(combo1.getValue()),
+                        combo2.getValue(),
+                        Integer.parseInt(combo3.getValue()));
+                packet.setQueryModel(QueryModel.Cities);
+                packet.setModels(cities);
+                QueryController.query_request(packet);
+                tableCities.getItems().add(cities);
             }
+        }
 
-            if (tabCountries.isSelected()) {
-                if (!Objects.equals(combo1.getValue(), "") &&
-                        !Objects.equals(combo2.getValue(), "")) {
-                    Countries countries = new Countries(
-                            Integer.parseInt(combo1.getValue()),
-                            combo2.getValue());
-                    packet.setQueryModel(QueryModel.Countries);
-                    packet.setModels(countries);
-                    QueryController.query_request(packet);
-                    tableCountries.getItems().add(countries);
-                }
+        else if (tabCountries.isSelected()) {
+                System.out.println("Выбрана кантри");
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "")) {
+                Countries countries = new Countries(
+                        Integer.parseInt(combo1.getValue()),
+                        combo2.getValue());
+                packet.setQueryModel(QueryModel.Countries);
+                packet.setModels(countries);
+                QueryController.query_request(packet);
+                tableCountries.getItems().add(countries);
+            }
+        }
+
+        else if (tabUsers.isSelected()) {
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), "")) {
+                Users users = new Users(
+                        Integer.parseInt(combo1.getValue()),
+                        combo2.getValue(),
+                        Crypto.hashInt(Crypto.hashString(combo3.getValue())),
+                        Integer.parseInt(combo4.getValue())
+                );
+                packet.setQueryModel(QueryModel.Users);
+                packet.setModels(users);
+                QueryController.query_request(packet);
+                tableUsers.getItems().add(users);
             }
         }
 
@@ -231,6 +256,7 @@ public class adminController {
 
     @FXML
     void btnRemoveClick(ActionEvent event) {
+        clear_combos();
         if (!tableTravels.getSelectionModel().isEmpty()) {
             Travels travel = tableTravels.getSelectionModel().getSelectedItem();
             QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Delete,travel));
@@ -244,39 +270,44 @@ public class adminController {
         if (!tableUsers.getSelectionModel().isEmpty()) {
             Users users = tableUsers.getSelectionModel().getSelectedItem();
             QueryController.query_request(new Packet<>(QueryModel.Users,QueryMethod.Delete,users));
-            tableTravels.getItems().remove(users);
+            tableUsers.getItems().remove(users);
         }
         if (!tableCities.getSelectionModel().isEmpty()) {
             Cities cities = tableCities.getSelectionModel().getSelectedItem();
             QueryController.query_request(new Packet<>(QueryModel.Cities,QueryMethod.Delete,cities));
-            tableTravels.getItems().remove(cities);
+            tableCities.getItems().remove(cities);
         }
         if (!tableCountries.getSelectionModel().isEmpty()) {
             Countries countries = tableCountries.getSelectionModel().getSelectedItem();
             QueryController.query_request(new Packet<>(QueryModel.Countries,QueryMethod.Delete,countries));
-            tableTravels.getItems().remove(countries);
+            tableCountries.getItems().remove(countries);
         }
 
     }
 
     @FXML
     void btnUpdateClick(ActionEvent event) {
-        if (tableTravels.getSelectionModel().isEmpty()) {
-               tableTravels.getSelectionModel().clearSelection();
-                combo1.setValue("");
-                combo2.setValue("");
-                combo3.setValue("");
-                combo4.setValue("");
-                combo5.setValue("");
-                combo6.setValue("");
+        if (!tableTravels.getSelectionModel().isEmpty() &&
+                !tableUsers.getSelectionModel().isEmpty() &&
+                !tableCountries.getSelectionModel().isEmpty() &&
+                !tableCities.getSelectionModel().isEmpty() &&
+                !tableTickets.getSelectionModel().isEmpty()) {
+            clear_combos();
+            tableTravels.getSelectionModel().clearSelection();
+            tableUsers.getSelectionModel().clearSelection();
+            tableCountries.getSelectionModel().clearSelection();
+            tableCities.getSelectionModel().clearSelection();
+            tableTickets.getSelectionModel().clearSelection();
                return;
             }
+
+        if (tabTravel.isSelected()) {
             if (!Objects.equals(combo1.getValue(), "") &&
-                !Objects.equals(combo2.getValue(), "") &&
-                !Objects.equals(combo3.getValue(), "") &&
-                !Objects.equals(combo4.getValue(), "") &&
-                !Objects.equals(combo5.getValue(), "") &&
-                !Objects.equals(combo6.getValue(), ""))
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), "") &&
+                    !Objects.equals(combo5.getValue(), "") &&
+                    !Objects.equals(combo6.getValue(), ""))
             {
                 Travels travel = tableTravels.getSelectionModel().getSelectedItem();
                 travel.setType(Integer.parseInt(combo1.getValue()));
@@ -288,10 +319,91 @@ public class adminController {
                 QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Update,travel));
                 tableTravels.refresh();
             }
+        }
+
+        else if (tabTickets.isSelected()) {
+            System.out.println("Выбрана тикетс");
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), ""))
+            {
+                Books books = tableTickets.getSelectionModel().getSelectedItem();
+                books.setId(Integer.parseInt(combo1.getValue()));
+                books.setTravel(Integer.parseInt(combo2.getValue()));
+                books.setUser(Integer.parseInt(combo3.getValue()));
+                books.setStatus(Integer.parseInt(combo4.getValue()));
+                QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Update,books));
+                tableTickets.refresh();
+            }
+        }
+
+        else if (tabCities.isSelected()) {
+            System.out.println("Выбрана сити");
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), ""))
+            {
+               Cities cities = tableCities.getSelectionModel().getSelectedItem();
+                cities.setId(Integer.parseInt(combo1.getValue()));
+                cities.setName(combo2.getValue());
+                cities.setCountry(Integer.parseInt(combo3.getValue()));
+                QueryController.query_request(new Packet<>(QueryModel.Cities,QueryMethod.Update,cities));
+                tableCities.refresh();
+            }
+        }
+
+        else if (tabCountries.isSelected()) {
+            System.out.println("Выбрана кантри");
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), ""))
+            {
+                Countries countries = tableCountries.getSelectionModel().getSelectedItem();
+                countries.setId(Integer.parseInt(combo1.getValue()));
+                countries.setName(combo2.getValue());
+                QueryController.query_request(new Packet<>(QueryModel.Countries,QueryMethod.Update,countries));
+                tableCountries.refresh();
+            }
+        }
+
+        else if (tabUsers.isSelected()) {
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), ""))
+            {
+                Users users = tableUsers.getSelectionModel().getSelectedItem();
+                users.setId(Integer.parseInt(combo1.getValue()));
+                users.setLogin(combo2.getValue());
+                users.setHashedPassword(Crypto.hashInt(Crypto.hashString(combo3.getValue())));
+                users.setAccessLevel(Integer.parseInt(combo4.getValue()));
+                QueryController.query_request(new Packet<>(QueryModel.Users,QueryMethod.Update,users));
+                tableUsers.refresh();
+            }
+        }
+
     }
 
     @FXML
     void citiesClick(MouseEvent event) {
+        if (tableCities.getSelectionModel().isEmpty()){
+            clear_combos();
+            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
+            return;
+        }
+
+        Cities cities = tableCities.getSelectionModel().getSelectedItem();
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+        combo3.setDisable(false);
+
+        btnAdd.setDisable(false);
+        btnRemove.setDisable(false);
+        btnUpdate.setDisable(false);
+
+        combo1.setValue(Integer.toString(cities.getId()));
+        combo2.setValue(cities.getName());
+        combo3.setValue(Integer.toString(cities.getCountry()));
 
     }
 
@@ -299,6 +411,7 @@ public class adminController {
     void citiesTabSelected(Event event) {
         if (tabCities.isSelected())
         {
+            clear_combos();
             System.out.println("Switch to cities");
             switchToCities();
         }
@@ -330,6 +443,22 @@ public class adminController {
 
     @FXML
     void countriesClick(MouseEvent event) {
+        if (tableCountries.getSelectionModel().isEmpty()){
+            clear_combos();
+            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
+            return;
+        }
+
+        Countries countries = tableCountries.getSelectionModel().getSelectedItem();
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+
+        btnAdd.setDisable(false);
+        btnRemove.setDisable(false);
+        btnUpdate.setDisable(false);
+
+        combo1.setValue(Integer.toString(countries.getId()));
+        combo2.setValue(countries.getName());
 
     }
 
@@ -337,6 +466,7 @@ public class adminController {
     void countriesTabSelected(Event event) {
         if (tabCountries.isSelected())
         {
+            clear_combos();
             System.out.println("Switch to countries");
             switchToCountries();
         }
@@ -344,6 +474,26 @@ public class adminController {
 
     @FXML
     void ticketsClick(MouseEvent event) {
+        if (tableTickets.getSelectionModel().isEmpty()){
+            clear_combos();
+            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
+            return;
+        }
+
+        Books books = tableTickets.getSelectionModel().getSelectedItem();
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+        combo3.setDisable(false);
+        combo4.setDisable(false);
+
+        btnAdd.setDisable(false);
+        btnRemove.setDisable(false);
+        btnUpdate.setDisable(false);
+
+        combo1.setValue(Integer.toString(books.getId()));
+        combo2.setValue(Integer.toString(books.getTravel()));
+        combo3.setValue(Integer.toString(books.getUser()));
+        combo4.setValue(Integer.toString(books.getStatus()));
 
     }
 
@@ -351,6 +501,7 @@ public class adminController {
     void ticketsTabSelected(Event event) {
         if (tabTickets.isSelected())
         {
+            clear_combos();
             System.out.println("Switch to tickets");
             switchToTickets();
         }
@@ -359,6 +510,7 @@ public class adminController {
     @FXML
     void travelsClick(MouseEvent event) {
         if (tableTravels.getSelectionModel().isEmpty()){
+            clear_combos();
             System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
@@ -388,6 +540,7 @@ public class adminController {
     void travelsTabSelected(Event event) {
         if (tabTravel.isSelected())
         {
+            clear_combos();
             System.out.println("Switch to travels");
             switchToTravels();
         }
@@ -395,13 +548,32 @@ public class adminController {
 
     @FXML
     void usersClick(MouseEvent event) {
+        clear_combos();
+        if (tableUsers.getSelectionModel().isEmpty()){
+            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
+            return;
+        }
+        Users users = tableUsers.getSelectionModel().getSelectedItem();
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+        combo3.setDisable(false);
+        combo4.setDisable(false);
 
+        btnAdd.setDisable(false);
+        btnRemove.setDisable(false);
+        btnUpdate.setDisable(false);
+
+        combo1.setValue(Integer.toString(users.getId()));
+        combo2.setValue(users.getLogin());
+        combo3.setValue(Integer.toString(users.getHashedPassword()));
+        combo4.setValue(Integer.toString(users.getAccessLevel()));
     }
 
     @FXML
     void usersTabSelected(Event event) {
         if (tabUsers.isSelected())
         {
+            clear_combos();
             System.out.println("Switch to users");
             switchToUsers();
         }
@@ -423,8 +595,8 @@ public class adminController {
         travelsUser.setCellValueFactory(new PropertyValueFactory<>("supplier"));
 
         ticketsId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        ticketsUser.setCellValueFactory(new PropertyValueFactory<>("user"));
         ticketsTravel.setCellValueFactory(new PropertyValueFactory<>("travel"));
+        ticketsUser.setCellValueFactory(new PropertyValueFactory<>("user"));
         ticketsStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         usersId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -443,6 +615,7 @@ public class adminController {
     }
 
     public void switchToTravels(){
+        clear_combos();
         updateTravelsTable();
         disable_combos();
         btnAdd.setDisable(false);
@@ -463,6 +636,7 @@ public class adminController {
     }
     
     public void switchToTickets(){
+        clear_combos();
         updateTicketsTable();
         disable_combos();
         clear_prompt_combos();
@@ -474,26 +648,31 @@ public class adminController {
         combo4.setDisable(false);
 
         combo1.setPromptText("Id");
-        combo2.setPromptText("User");
-        combo3.setPromptText("Travel");
+        combo2.setPromptText("Travel");
+        combo3.setPromptText("User");
         combo4.setPromptText("Status");
     }
 
     public void switchToUsers(){
-            updateUserTable();
-            disable_combos();
-            clear_prompt_combos();
-            btnAdd.setDisable(false);
-    
-            combo1.setDisable(false);
-            combo2.setDisable(false);
-            combo3.setDisable(false);
-            combo1.setPromptText("Login");
-            combo2.setPromptText("hashpassword");
-            combo3.setPromptText("accessLevel");
+        clear_combos();
+        updateUserTable();
+        disable_combos();
+        clear_prompt_combos();
+        btnAdd.setDisable(false);
+
+        combo1.setDisable(false);
+        combo2.setDisable(false);
+        combo3.setDisable(false);
+        combo4.setDisable(false);
+
+        combo1.setPromptText("id");
+        combo2.setPromptText("Login");
+        combo3.setPromptText("hashpassword");
+        combo4.setPromptText("accessLevel");
     }
     
     public void switchToCities(){
+        clear_combos();
         updateCitiesTable();
         disable_combos();
         clear_prompt_combos();
@@ -510,6 +689,7 @@ public class adminController {
     }
     
     public void switchToCountries(){
+        clear_combos();
         updateCountriesTable();
         disable_combos();
         clear_prompt_combos();
@@ -580,6 +760,15 @@ public class adminController {
         combo4.setPromptText("");
         combo5.setPromptText("");
         combo6.setPromptText("");
+    }
+
+    void clear_combos(){
+        combo1.setValue("");
+        combo2.setValue("");
+        combo3.setValue("");
+        combo4.setValue("");
+        combo5.setValue("");
+        combo6.setValue("");
     }
 
 }

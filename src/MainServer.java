@@ -39,8 +39,10 @@ public class MainServer extends Thread {
             Packet request = (Packet) reader.readObject();
             Packet response = QueryController.query_request(request);
 
-            response.Print();
-
+            //response.Print();
+            System.out.println("[Server]");
+            System.out.println("Модель " + request.getQueryModel());
+            System.out.println("Метод " + request.getQueryMethod());
             writer.writeObject(response);
             System.out.println("Объекты записаны");
             writer.flush();

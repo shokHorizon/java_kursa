@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface IDao<T> {
     LinkedList<T> get(T model);
     List<T> getAll();
-    void save(T t);
-    void update(T t);
-    void delete(int id);
+    boolean save(T t);
+    boolean update(T t);
+    boolean delete(int id);
 }

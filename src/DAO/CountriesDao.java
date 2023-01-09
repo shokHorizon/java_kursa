@@ -73,21 +73,21 @@ public class CountriesDao implements IDao<Countries> {
     }
 
     @Override
-    public void save(Countries countriesModel) { // insert
+    public boolean save(Countries countriesModel) { // insert
         try {
-            String query = "insert into countries values (?,?,?)";
+            String query = "insert into countries values (?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             preparedStatement.setInt(1,countriesModel.getId());
             preparedStatement.setString(2,countriesModel.getName());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void update(Countries countriesModel) {
+    public boolean update(Countries countriesModel) {
         try {
             String query = "update countries set name = ? where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -96,13 +96,13 @@ public class CountriesDao implements IDao<Countries> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         try {
             String query = "delete from countries where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -110,9 +110,9 @@ public class CountriesDao implements IDao<Countries> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
 
         //countriesModels.remove(countries); Снос списка
     }

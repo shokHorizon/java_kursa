@@ -81,7 +81,7 @@ public class BooksDao implements IDao<Books> {
     }
 
     @Override
-    public void save(Books booksModel) { // insert
+    public boolean save(Books booksModel) { // insert
         try {
             String query = "insert into books values (?,?,?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -91,13 +91,13 @@ public class BooksDao implements IDao<Books> {
             preparedStatement.setInt(4,booksModel.getStatus());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+           return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void update(Books booksModel) {
+    public boolean update(Books booksModel) {
         try {
             String query = "update books set travel = ?, user = ?, status = ?  where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -108,13 +108,13 @@ public class BooksDao implements IDao<Books> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+           return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         try {
             String query = "delete from books where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -122,9 +122,9 @@ public class BooksDao implements IDao<Books> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+           return false;
         }
-        return;
+        return true;
 
         //booksModels.remove(books); Снос списка
     }

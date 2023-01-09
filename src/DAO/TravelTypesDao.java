@@ -76,7 +76,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
     }
 
     @Override
-    public void save(TravelTypes travelTypesModel) { // insert
+    public boolean save(TravelTypes travelTypesModel) { // insert
         try {
             String query = "insert into travelTypes values (?,?)";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -85,13 +85,13 @@ public class TravelTypesDao implements IDao<TravelTypes> {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void update(TravelTypes travelTypesModel) {
+    public boolean update(TravelTypes travelTypesModel) {
         try {
             String query = "update travelTypes set name = ? where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -100,13 +100,13 @@ public class TravelTypesDao implements IDao<TravelTypes> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         try {
             String query = "delete from travelTypes where id = ?";
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -114,9 +114,9 @@ public class TravelTypesDao implements IDao<TravelTypes> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
-        return;
+        return true;
 
         //travelTypesModels.remove(travelTypes); Снос списка
     }
