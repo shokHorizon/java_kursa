@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 public class MainServer extends Thread {
 
-    private final Socket clientSocket;
+    private Socket clientSocket;
     //private final ObjectInputStream reader;
     //private final ObjectOutputStream writer;
     public MainServer(Socket clientSocket) throws IOException {
@@ -32,9 +32,7 @@ public class MainServer extends Thread {
     public void run() {
         try {
             //Package incomingPackage = (Package) reader.readObject();
-
             //Package outgoingPackage  = ControllerServer.processRequest(incomingPackage);
-
             //writer.writeObject(outgoingPackage);
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());
@@ -42,16 +40,23 @@ public class MainServer extends Thread {
             Packet response = QueryController.query_request(request);
 
             response.Print();
-            request.setQueryModel(QueryModel.Users);
 
             writer.writeObject(response);
-
+            System.out.println("Объекты записаны");
             writer.flush();
             writer.close();
-            reader.close();
-            clientSocket.close();
-        } catch (SocketException e) {e.printStackTrace();} catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            while (!clientSocket.isClosed()) {
+
+            }
+            writer.flush();
+        } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
+        finally {
+            try {
+                clientSocket.close();
+                System.out.println("Сокет закрыт: " + clientSocket.getLocalSocketAddress());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

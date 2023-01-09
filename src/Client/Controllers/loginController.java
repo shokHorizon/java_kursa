@@ -41,11 +41,13 @@ public class loginController {
                         0
                 )
         );
-        Users user = (Users) QueryController.query_request(userPacket);
+        Users user = (Users) QueryController.query_request(userPacket).get(0);
         System.out.println(user.toString());
         label.setVisible(false);
         if (user.getAccessLevel() == -1)
             label.setVisible(true);
+        else
+            App.token = user.getHashedPassword();
 
 
         switch (user.getAccessLevel()){

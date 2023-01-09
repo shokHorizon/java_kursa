@@ -1,10 +1,12 @@
 package Client.Controllers;
 
+import Client.App;
 import Models.*;
 import Protocols.Packet;
 import Protocols.QueryMethod;
 import Protocols.QueryModel;
-import Server.QueryController;
+import Server.AccessManager;
+import Client.QueryController;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -15,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class adminController {
@@ -134,10 +137,17 @@ public class adminController {
     private TableColumn<Users, Integer> usersId;
 
     @FXML
+    private TableColumn<Users, String> usersLogin;
+
+    @FXML
     private VBox vbox;
 
     @FXML
     void btnAddClick(ActionEvent event) {
+
+        Packet packet = new Packet<>(null, QueryMethod.Create, null);
+        packet.setToken(App.token);
+        // Если пустая, то обнуляет
         if (!tableTravels.getSelectionModel().isEmpty()) {
            tableTravels.getSelectionModel().clearSelection();
             combo1.setValue("");
@@ -148,26 +158,74 @@ public class adminController {
             combo6.setValue("");
            return;
         }
-        if (!Objects.equals(combo1.getValue(), "") &&
-            !Objects.equals(combo2.getValue(), "") &&
-            !Objects.equals(combo3.getValue(), "") &&
-            !Objects.equals(combo4.getValue(), "") &&
-            !Objects.equals(combo5.getValue(), "") &&
-            !Objects.equals(combo6.getValue(), ""))
-        {
-            Travels travel = new Travels (
-                0,
-                 Integer.parseInt(combo1.getValue()),
-                 combo3.getValue(),
-                 Integer.parseInt(combo2.getValue()),
-                 "Фото голого Ельцина",
-                 combo6.getValue(),
-                 Integer.parseInt(combo5.getValue()),
-                 combo4.getValue());
-            QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Create,travel));
-            tableTravels.getItems().add(travel);
+
+
+        if (tabTravel.isSelected()) {
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), "") &&
+                    !Objects.equals(combo5.getValue(), "") &&
+                    !Objects.equals(combo6.getValue(), "")) {
+                Travels travel = new Travels(
+                        0,
+                        Integer.parseInt(combo1.getValue()),
+                        combo3.getValue(),
+                        Integer.parseInt(combo2.getValue()),
+                        "Фото голого Ельцина",
+                        combo6.getValue(),
+                        Integer.parseInt(combo5.getValue()),
+                        combo4.getValue());
+                packet.setQueryModel(QueryModel.Travels);
+                packet.setModels(travel);
+                QueryController.query_request(packet);
+                tableTravels.getItems().add(travel);
+            }
         }
 
+        if (tabTickets.isSelected()) {
+            if      (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), "") ) {
+                Books books = new Books(
+                        Integer.parseInt(combo1.getValue()),
+                        Integer.parseInt(combo2.getValue()),
+                        Integer.parseInt(combo3.getValue()),
+                        Integer.parseInt(combo4.getValue()));
+                packet.setQueryModel(QueryModel.Books);
+                packet.setModels(books);
+                QueryController.query_request(packet);
+                tableTickets.getItems().add(books);
+            }
+            if (tabCities.isSelected()) {
+                if (!Objects.equals(combo1.getValue(), "") &&
+                        !Objects.equals(combo2.getValue(), "") &&
+                        !Objects.equals(combo3.getValue(), "")) {
+                    Cities cities = new Cities(
+                            Integer.parseInt(combo1.getValue()),
+                            combo2.getValue(),
+                            Integer.parseInt(combo3.getValue()));
+                    packet.setQueryModel(QueryModel.Cities);
+                    packet.setModels(cities);
+                    QueryController.query_request(packet);
+                    tableCities.getItems().add(cities);
+                }
+            }
+
+            if (tabCountries.isSelected()) {
+                if (!Objects.equals(combo1.getValue(), "") &&
+                        !Objects.equals(combo2.getValue(), "")) {
+                    Countries countries = new Countries(
+                            Integer.parseInt(combo1.getValue()),
+                            combo2.getValue());
+                    packet.setQueryModel(QueryModel.Countries);
+                    packet.setModels(countries);
+                    QueryController.query_request(packet);
+                    tableCountries.getItems().add(countries);
+                }
+            }
+        }
 
     }
 
@@ -343,6 +401,24 @@ public class adminController {
         travelsPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         travelsUser.setCellValueFactory(new PropertyValueFactory<>("supplier"));
 
+        ticketsId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ticketsUser.setCellValueFactory(new PropertyValueFactory<>("user"));
+        ticketsTravel.setCellValueFactory(new PropertyValueFactory<>("travel"));
+        ticketsStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        usersId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        usersLogin.setCellValueFactory(new PropertyValueFactory<>("login"));
+        usersHashedPassword.setCellValueFactory(new PropertyValueFactory<>("hashedPassword"));
+        usersAccessLevel.setCellValueFactory(new PropertyValueFactory<>("accessLevel"));
+
+        citiesId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        citiesName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        citiesCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
+
+        countriesId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        countriesName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+
     }
 
     public void switchToTravels(){
@@ -374,10 +450,12 @@ public class adminController {
         combo1.setDisable(false);
         combo2.setDisable(false);
         combo3.setDisable(false);
-        
-        combo1.setPromptText("Type");
-        combo2.setPromptText("City");
-        combo3.setPromptText("Name");
+        combo4.setDisable(false);
+
+        combo1.setPromptText("Id");
+        combo2.setPromptText("User");
+        combo3.setPromptText("Travel");
+        combo4.setPromptText("Status");
     }
 
     public void switchToUsers(){
@@ -402,9 +480,12 @@ public class adminController {
 
         combo1.setDisable(false);
         combo2.setDisable(false);
+        combo3.setDisable(false);
 
-        combo1.setPromptText("Name");
-        combo2.setPromptText("Country");
+
+        combo1.setPromptText("Id");
+        combo2.setPromptText("Name");
+        combo3.setPromptText("Country");
     }
     
     public void switchToCountries(){
@@ -414,43 +495,45 @@ public class adminController {
         btnAdd.setDisable(false);
 
         combo1.setDisable(false);
-        
-        combo1.setPromptText("Name");
+        combo2.setDisable(false);
+
+        combo1.setPromptText("Id");
+        combo2.setPromptText("Name");
 
     }
 
     void updateTravelsTable(){
         Packet packet = new Packet(QueryModel.Travels, QueryMethod.Read,null);
         System.out.println("Я МЕНЯЮ TRAVELS");
-        LinkedList <Travels> models = new LinkedList<>(QueryController.query_request(packet).getModels());
+        List<Travels> models = (List<Travels>) QueryController.query_request(packet);
         tableTravels.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateTicketsTable(){
         System.out.println("Я МЕНЯЮ TICKETS");
         Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
-        LinkedList <Books> models = new LinkedList<>(QueryController.query_request(packet).getModels());
+        List <Books> models = (List<Books>) QueryController.query_request(packet);
         tableTickets.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateUserTable(){
         System.out.println("Я МЕНЯЮ USER");
         Packet packet = new Packet(QueryModel.Users, QueryMethod.Read,null);
-        LinkedList <Users> models = new LinkedList<>(QueryController.query_request(packet).getModels());
+        List <Users> models = (List<Users>) QueryController.query_request(packet);
         tableUsers.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateCitiesTable(){
         System.out.println("Я МЕНЯЮ CITIES");
         Packet packet = new Packet(QueryModel.Cities, QueryMethod.Read,null);
-        LinkedList <Cities> models = new LinkedList<>(QueryController.query_request(packet).getModels());
+        List <Cities> models = (List<Cities>) QueryController.query_request(packet);
         tableCities.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateCountriesTable(){
         System.out.println("Я МЕНЯЮ COUNTRIES");
         Packet packet = new Packet(QueryModel.Countries, QueryMethod.Read,null);
-        LinkedList <Countries> models = new LinkedList<>(QueryController.query_request(packet).getModels());
+        List <Countries> models = (List<Countries>) QueryController.query_request(packet);
         tableCountries.setItems(FXCollections.observableArrayList(models));
     }
 

@@ -20,7 +20,7 @@ public class AccessManager {
     }
 
     public static boolean hasRequiredAccess(int token, int accessLevel){
-        return tokens.containsKey(token) && tokens.get(token) <= accessLevel;
+        return tokens.containsKey(token) && tokens.get(token) >= accessLevel;
     }
 
     public static int getAccessLevel(int token){

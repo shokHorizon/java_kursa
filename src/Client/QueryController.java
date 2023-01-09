@@ -5,14 +5,15 @@ import Models.Model;
 import Models.Users;
 import Protocols.Packet;
 
+import java.util.List;
+
 public class QueryController {
-    public static Model query_request(Packet<?> packet) {
+    public static List<? extends Model> query_request(Packet<?> packet) {
         switch (packet.getQueryModel()) {
-            case Users -> {
-                return (Model) SocketClient.INSTANCE.sendPacket(packet).getModels().get(0);
-            }
-            case Books, TravelTypes, Countries, Travels, Cities -> {
-                return (Model) SocketClient.INSTANCE.sendPacket(packet).getModels();
+            case Users, Books, TravelTypes, Countries, Travels, Cities -> {
+                Packet received_packet = SocketClient.sendPacket(packet);
+                System.out.println("Контроллер клиента");
+                return received_packet.getModels();
             }
         }
         return null;

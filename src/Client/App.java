@@ -18,6 +18,7 @@ public class App extends Application {
     private static Parent adminMain;
     private static Parent managerMain;
     private static Stage AppStage;
+    public static int token = 0;
 
     public static void main(String[] args)  {
         launch(args);
@@ -51,4 +52,6 @@ public class App extends Application {
         AppStage.setScene(getScene(adminMain));
         adminController.instance.switchToTravels();
     }
+
+
 }

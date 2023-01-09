@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class QueryController {
-
    public static Packet<? extends Model> query_request(Packet<? extends Model> packet){
        // Отбрасывание пакетов без указания модели
        if (packet.getQueryModel() == null) return packet;
 
        int token = packet.getToken();
+       System.out.println("Пришедший токен" + token);
 
        // Минимизация дальнейшей работы путем раннего создания пакета
        List<Model> response_models = new ArrayList<>();
@@ -26,11 +26,13 @@ public class QueryController {
         switch (packet.getQueryModel()){
             case Users->{
                 if (packet.getModels() == null){
+                    System.out.println("Модель не пришла!");
                     // Чтобы получить ВСЕХ пользователей, фильтры не нужны -> модель не передается
                     if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
                         response_models.addAll(UsersDao.INSTANCE.getAll());
                     return response_packet;
                 }
+                System.out.println("Модель пришла!");
                 Users user = (Users) packet.getModels().get(0);
                 // Вторичное хэширование пароля
                 user.hashPassword();
@@ -69,9 +71,12 @@ public class QueryController {
                 // либо отправляем ему свою же модель, но с уровнем доступа -1
                 user = db_user.orElse(user);
                 response_models.add(user);
+                System.out.println("User.getHashedPassword() = " + user.getHashedPassword() + "  " + user.getAccessLevel());
                 // Добавляем токен, если пользователь успешно авторизовался
-                if (user.getAccessLevel() >= 0)
+                if (user.getAccessLevel() >= 0) {
+                    System.out.println("user has access level: " + user.getAccessLevel());
                     user.setHashedPassword(AccessManager.generateToken(user.getLogin(), user.getHashedPassword(), user.getAccessLevel()));
+                }
             }
             case Books->{
                 if (packet.getModels() == null){
@@ -97,8 +102,11 @@ public class QueryController {
                         }
                     }
                     case Create -> {
+                        System.out.println("AM access: " + AccessManager.getAccessLevel(token) + " ");
                         if (AccessManager.hasRequiredAccess(token, 0))
                             BooksDao.INSTANCE.save(book);
+                        else
+                            System.out.println("Ебать ты лох " + token + " " + AccessManager.getAccessLevel(token));
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 0)) {

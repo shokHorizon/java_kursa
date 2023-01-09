@@ -1,5 +1,8 @@
 package Protocols;
 
+import Models.Model;
+import com.sun.scenario.effect.Blend;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Stream;
@@ -12,6 +15,17 @@ public class Packet <T> implements Serializable {
 
     public Packet() {
 
+    }
+
+    public void setModels(List<T> givenModels)
+    {
+        models = givenModels;
+    }
+
+    public void setModels(T givenModel)
+    {
+        models = new LinkedList<> ();
+        models.add(givenModel);
     }
 
     public Packet(QueryModel queryModel, T model){

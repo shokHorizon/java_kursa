@@ -63,7 +63,7 @@
                   <TableView fx:id="tableUsers" onMouseClicked="#usersClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="usersId" prefWidth="75.0" text="id" />
-                      <TableColumn prefWidth="75.0" text="login" />
+                      <TableColumn fx:id="usersLogin" prefWidth="75.0" text="login" />
                         <TableColumn fx:id="usersHashedPassword" prefWidth="75.0" text="hashedPassword" />
                         <TableColumn fx:id="usersAccessLevel" prefWidth="75.0" text="accessLevel" />
                     </columns>
