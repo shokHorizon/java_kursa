@@ -4,6 +4,7 @@ import Client.QueryController;
 import Models.Cities;
 import Models.Countries;
 import Models.Travels;
+import Models.TravelsRepr;
 import Protocols.Packet;
 import Protocols.QueryMethod;
 import Protocols.QueryModel;
@@ -30,19 +31,19 @@ public class clientMainController {
     private Button btnBooks;
 
     @FXML
-    private TableView<Travels> table;
+    private TableView<TravelsRepr> table;
 
     @FXML
-    private TableColumn<Travels, String> tableCity;
+    private TableColumn<TravelsRepr, String> tableCity;
 
     @FXML
-    private TableColumn<Travels, String> tableCountry;
+    private TableColumn<TravelsRepr, String> tableCountry;
 
     @FXML
-    private TableColumn<Travels, String> tableName;
+    private TableColumn<TravelsRepr, String> tableName;
 
     @FXML
-    private TableColumn<Travels, Integer> tablePrice;
+    private TableColumn<TravelsRepr, Integer> tablePrice;
 
     @FXML
     private ComboBox<Integer> tourCity;
@@ -85,10 +86,11 @@ public class clientMainController {
 
     }
 
-    public void updateTravels(Travels travel){
+    public void updateTravels(TravelsRepr travel){
         Packet packet = new Packet(QueryModel.Travels, QueryMethod.Read,travel);
-        System.out.println("Я МЕНЯЮ TRAVELS");
-        List<Travels> models = (List<Travels>) QueryController.query_request(packet);
+        System.out.println("Я МЕНЯЮ TRAVELS REPR");
+        List<TravelsRepr> models = (List<TravelsRepr>) QueryController.query_request(packet);
+        System.out.println("Че пришло " + models);
         table.setItems(FXCollections.observableArrayList(models));
     }
 
@@ -106,14 +108,10 @@ public class clientMainController {
     @FXML
     public void initialize(){
         instance = this;
-//        table.setCellValueFactory(new PropertyValueFactory<>("type"));
-//        // Нет type
-//        table.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        table.setCellValueFactory(new PropertyValueFactory<>("city"));
-//        table.setCellValueFactory(new PropertyValueFactory<>("coordinates"));
-//        table.setCellValueFactory(new PropertyValueFactory<>("price"));
-//        table.setCellValueFactory(new PropertyValueFactory<>("supplier"));
-
+        tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tablePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tableCountry.setCellValueFactory(new PropertyValueFactory<>("country"));
+        tableCity.setCellValueFactory(new PropertyValueFactory<>("city"));
     }
 
 }
