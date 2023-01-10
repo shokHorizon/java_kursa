@@ -103,6 +103,51 @@ public class BooksDao implements IDao<Books> {
         } return listBook;
     }
 
+    public LinkedList<BooksRepr> getByUser(Books books, int id) {
+        String query = "SELECT books.* from books \n" +
+                "INNER JOIN travels on books.travel = travels.id\n" +
+                "where travels.supplier = ?";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <Books> listBook = new LinkedList<>();
+        if (books != null)
+        {
+            if (books.getId() > 0)
+                parameters.add(" id = " + books.getId());
+            if (books.getTravel() > 0)
+                parameters.add(" travel = " + books.getTravel());
+            if (books.getUser() > 0)
+                parameters.add(" user = " + books.getUser());
+            if (books.getStatus() >= 0)
+                parameters.add(" status = " + books.getStatus());
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-5,sb.length()-1);
+                query += sb.toString();
+            }
+        }
+        ResultSet set;
+        try {
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
+            preparedStatement.setInt(1,id);
+            set = preparedStatement.executeQuery(); // В save - аналог
+            while (set.next()) {
+                books = new Books(
+                        set.getInt("id"),
+                        set.getInt("travel"),
+                        set.getInt("user"),
+                        set.getInt("status")
+                );
+                listBook.add(books);
+                System.out.println(books);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return listBook;
+    }
+
     @Override
     public List<Books> getAll() {
         List<Books> usersList = new LinkedList<>();
