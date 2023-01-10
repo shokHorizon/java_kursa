@@ -173,7 +173,8 @@ public class adminController {
                     !Objects.equals(combo3.getValue(), "") &&
                     !Objects.equals(combo4.getValue(), "") &&
                     !Objects.equals(combo5.getValue(), "") &&
-                    !Objects.equals(combo6.getValue(), "")) {
+                    !Objects.equals(combo6.getValue(), "") &&
+                    !Objects.equals(combo7.getValue(), "")) {
                 Travels travel = new Travels(
                         0,
                         Integer.parseInt(combo1.getValue()),
@@ -311,7 +312,7 @@ public class adminController {
                     !Objects.equals(combo4.getValue(), "") &&
                     !Objects.equals(combo5.getValue(), "") &&
                     !Objects.equals(combo6.getValue(), "") &&
-                    !Objects.equals(combo6.getValue(), ""))
+                    !Objects.equals(combo7.getValue(), ""))
             {
                 Travels travel = tableTravels.getSelectionModel().getSelectedItem();
                 travel.setType(Integer.parseInt(combo1.getValue()));
@@ -531,6 +532,7 @@ public class adminController {
         combo4.setDisable(false);
         combo5.setDisable(false);
         combo6.setDisable(false);
+        combo7.setDisable(false);
 
         btnAdd.setDisable(false);
         btnRemove.setDisable(false);
@@ -542,6 +544,7 @@ public class adminController {
         combo4.setValue(Integer.toString(travel.getSupplier()));
         combo5.setValue(Integer.toString(travel.getPrice()));
         combo6.setValue(travel.getCoordinates());
+        combo7.setValue(travel.getImage());
 
     }
 
@@ -635,6 +638,7 @@ public class adminController {
         combo4.setDisable(false);
         combo5.setDisable(false);
         combo6.setDisable(false);
+        combo7.setDisable(false);
         
         combo1.setPromptText("Type");
         combo2.setPromptText("City");
@@ -642,6 +646,7 @@ public class adminController {
         combo4.setPromptText("Supplier");
         combo5.setPromptText("Price");
         combo6.setPromptText("Coordinates");
+        combo7.setPromptText("Image");
     }
     
     public void switchToTickets(){
@@ -760,6 +765,7 @@ public class adminController {
         combo4.setDisable(true);
         combo5.setDisable(true);
         combo6.setDisable(true);
+        combo7.setDisable(true);
     }
 
     void clear_prompt_combos(){
@@ -769,6 +775,8 @@ public class adminController {
         combo4.setPromptText("");
         combo5.setPromptText("");
         combo6.setPromptText("");
+        combo7.setPromptText("");
+
     }
 
     void clear_combos(){
@@ -778,6 +786,7 @@ public class adminController {
         combo4.setValue("");
         combo5.setValue("");
         combo6.setValue("");
+        combo7.setValue("");
     }
 
 }

@@ -2,6 +2,7 @@ package Client.Controllers;
 
 import Client.App;
 import Client.QueryController;
+import Models.BookRepr;
 import Models.Books;
 import Models.Travels;
 import Models.TravelsRepr;
@@ -29,23 +30,28 @@ public class clientBooksController {
     private Button btnRemove;
 
     @FXML
-    private ListView<Books> tourList;
+    private ListView<BookRepr> tourList;
 
     @FXML
     void btnBackClick(Event event) {
-        App.setClientMain(); // ?
+        App.setLoginPage(); // ?
     }
 
     public void updateBooks(){
         Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
-        List<Books> models = (List<Books>) QueryController.query_request(packet);
+        List<BookRepr> models = (List<BookRepr>) QueryController.query_request(packet);
         System.out.println("Че пришло " + models);
         tourList.setItems(FXCollections.observableArrayList(models));
     }
 
     @FXML
     void btnRemoveClick(Event event) {
-
+        if (!tourList.getSelectionModel().isEmpty())
+        {
+            BookRepr bookRepr = tourList.getSelectionModel().getSelectedItem();
+            System.out.println(QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Delete,bookRepr)).size());
+            tourList.getItems().remove(bookRepr);
+        }
     }
 
     @FXML

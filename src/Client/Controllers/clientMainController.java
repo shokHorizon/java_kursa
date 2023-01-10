@@ -122,16 +122,6 @@ public class clientMainController {
 
     public static clientMainController instance;
 
-    private HashMap<String,Integer> countryToId = new HashMap<>();
-    private HashMap<Integer,String> idToCountry = new HashMap<>();
-
-    private HashMap<String,Integer> cityToId = new HashMap<>();
-    private HashMap<Integer,String> idToCity = new HashMap<>();
-
-    private HashMap<String,Integer> travelTypeToId = new HashMap<>();
-    private HashMap<Integer,String> idToTravelType = new HashMap<>();
-
-
     public void updateCombos(List<TravelsRepr> travels){
        HashSet<String> typesLst = new HashSet<>();
        HashSet<String> countriesLst = new HashSet<>();
