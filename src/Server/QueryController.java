@@ -22,6 +22,7 @@ public class QueryController {
        // Минимизация дальнейшей работы путем раннего создания пакета
        List<Model> response_models = new ArrayList<>();
        Packet<? extends Model> response_packet = new Packet<>(null, null, response_models);
+       Model successModel = null;
 
         switch (packet.getQueryModel()){
             case Users->{
@@ -52,15 +53,18 @@ public class QueryController {
                         }
                         case Update -> {
                             if (AccessManager.hasRequiredAccess(token, 1))
-                                UsersDao.INSTANCE.update(user);
+                                if (UsersDao.INSTANCE.update(user))
+                                    response_models.add(null);
                         }
                         case Create -> {
                             if (AccessManager.hasRequiredAccess(token, 2))
-                                UsersDao.INSTANCE.save(user);
+                                if (UsersDao.INSTANCE.save(user))
+                                    response_models.add(null);
                         }
                         case Delete -> {
                             if (AccessManager.hasRequiredAccess(token, 2))
-                                UsersDao.INSTANCE.delete(user.getId());
+                                if (UsersDao.INSTANCE.delete(user.getId()))
+                                    response_models.add(null);
                         }
                     }
                     break;
@@ -98,16 +102,20 @@ public class QueryController {
                     }
                     case Update -> {
                         if (AccessManager.hasRequiredAccess(token, 1)) {
-                            BooksDao.INSTANCE.update(book);
+                            if (BooksDao.INSTANCE.update(book))
+                                response_models.add(null);
                         }
                     }
                     case Create -> {
                         if (AccessManager.hasRequiredAccess(token, 0))
-                            BooksDao.INSTANCE.save(book);
+                            if (BooksDao.INSTANCE.save(book))
+                                response_models.add(null);
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 0)) {
-                            BooksDao.INSTANCE.delete(book.getId());
+                            if (BooksDao.INSTANCE.delete(book.getId())) {
+                                response_models.add(null);
+                            }
                         }
                     }
                 }
@@ -125,22 +133,25 @@ public class QueryController {
                     }
                     case Update -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            CountriesDao.INSTANCE.update(country);
+                            if (CountriesDao.INSTANCE.update(country))
+                                response_models.add(null);
                     }
                     case Create -> {
                         if (AccessManager.hasRequiredAccess(token, 1))
-                            CountriesDao.INSTANCE.save(country);
+                            if (CountriesDao.INSTANCE.save(country))
+                                response_models.add(null);
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            CountriesDao.INSTANCE.delete(country.getId());
+                            if (CountriesDao.INSTANCE.delete(country.getId()))
+                                response_models.add(null);
                     }
                 }
             }
             case Travels->{
                 if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
-                        if (AccessManager.getAccessLevel(token) >= 2)
+                        if (AccessManager.getAccessLevel(token) == 2 || AccessManager.getAccessLevel(token) == 0)
                             response_models.addAll(TravelsDao.INSTANCE.getAll());
                         else if (AccessManager.getAccessLevel(token) == 1)
                             response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
@@ -149,26 +160,33 @@ public class QueryController {
                 Travels travel = (Travels) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        if (AccessManager.getAccessLevel(token) >= 2)
+                        if (AccessManager.getAccessLevel(token) == 2 || AccessManager.getAccessLevel(token) == 0)
                             response_models.addAll(TravelsDao.INSTANCE.get(travel));
                         else if (AccessManager.getAccessLevel(token) == 1)
                             response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     }
                     case Update -> {
                         if (AccessManager.getAccessLevel(token) >= 2)
-                            TravelsDao.INSTANCE.update(travel);
+                            if(TravelsDao.INSTANCE.update(travel))
+                                response_models.add(null);
                         else if (AccessManager.getAccessLevel(token) == 1)
-                            TravelsDao.INSTANCE.update(new Travels(AccessManager.getId(token)));
+                            if(TravelsDao.INSTANCE.update(new Travels(AccessManager.getId(token))))
+                                response_models.add(null);
                     }
                     case Create -> {
                         if (AccessManager.getAccessLevel(token) >= 2)
-                            TravelsDao.INSTANCE.save(travel);
-                        else if (AccessManager.getAccessLevel(token) == 1)
-                            TravelsDao.INSTANCE.save(new Travels(AccessManager.getId(token)));
+                            if(TravelsDao.INSTANCE.save(travel))
+                                response_models.add(null);
+                        else if (AccessManager.getAccessLevel(token) == 1) {
+                            travel.setSupplier(AccessManager.getId(token));
+                            if(TravelsDao.INSTANCE.save(travel))
+                                response_models.add(null);
+                        }
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 1))
-                            TravelsDao.INSTANCE.delete(travel.getId());
+                            if(TravelsDao.INSTANCE.delete(travel.getId()))
+                                response_models.add(null);
                     }
                 }
             }
@@ -181,19 +199,23 @@ public class QueryController {
                 TravelTypes travelType = (TravelTypes) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        response_models.addAll(TravelTypesDao.INSTANCE.get(travelType));
+                        if(response_models.addAll(TravelTypesDao.INSTANCE.get(travelType)))
+                            response_models.add(null);
                     }
                     case Update -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            TravelTypesDao.INSTANCE.update(travelType);
+                            if(TravelTypesDao.INSTANCE.update(travelType))
+                                response_models.add(null);
                     }
                     case Create -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            TravelTypesDao.INSTANCE.save(travelType);
+                            if(TravelTypesDao.INSTANCE.save(travelType))
+                                response_models.add(null);
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            TravelTypesDao.INSTANCE.delete(travelType.getId());
+                            if(TravelTypesDao.INSTANCE.delete(travelType.getId()))
+                                response_models.add(null);
                     }
                 }
             }
@@ -210,15 +232,18 @@ public class QueryController {
                     }
                     case Update -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            CitiesDao.INSTANCE.update(city);
+                            if(CitiesDao.INSTANCE.update(city))
+                                response_models.add(null);
                     }
                     case Create -> {
                         if (AccessManager.hasRequiredAccess(token, 1))
-                            CitiesDao.INSTANCE.save(city);
+                            if(CitiesDao.INSTANCE.save(city))
+                                response_models.add(null);
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
-                            CitiesDao.INSTANCE.delete(city.getId());
+                            if(CitiesDao.INSTANCE.delete(city.getId()))
+                                response_models.add(null);
                     }
                 }
             }

@@ -134,24 +134,26 @@ public class UsersDao implements IDao<Users>{
 
     public Optional<Users> getByLogin(String login) {
         Users users;
-        try {
-            String query = "select * from users where login = ?";
-            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
-            preparedStatement.setString(1, login);
-            ResultSet set = preparedStatement.executeQuery();
-            if (!set.next()) {
-                return Optional.empty();
+        while(true) {
+            try {
+                String query = "select * from users where login = ?";
+                PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
+                preparedStatement.setString(1, login);
+                ResultSet set = preparedStatement.executeQuery();
+                if (!set.next()) {
+                    return Optional.empty();
+                }
+                users = new Users(
+                        set.getInt("id"),
+                        set.getString("login"),
+                        set.getInt("hashpassword"),
+                        set.getInt("accessLevel")
+                );
+                System.out.println(users);
+                break;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            users = new Users(
-                    set.getInt("id"),
-                    set.getString("login"),
-                    set.getInt("hashpassword"),
-                    set.getInt("accessLevel")
-            );
-            System.out.println(users);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         return Optional.of(users);
     }

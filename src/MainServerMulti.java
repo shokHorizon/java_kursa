@@ -14,12 +14,11 @@ public class MainServerMulti {
         ServerSocket serverSocket = new ServerSocket(PORT, MAX_NUMBER_CONNECTIONS);
         try {
             while (true) {
-                System.out.println("Waiting for new connections");
+                System.out.println("Ожидание соединения");
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Сокет открыт: " + clientSocket.getPort());
                 try {
                     new MainServer(clientSocket);
-                    System.out.println("Создан новый поток");
                 }
                 catch (IOException e) {
                     e.printStackTrace();
