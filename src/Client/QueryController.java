@@ -12,7 +12,7 @@ public class QueryController {
         switch (packet.getQueryModel()) {
             case Users, Books, TravelTypes, Countries, Travels, Cities -> {
                 Packet received_packet = SocketClient.sendPacket(packet);
-                System.out.println("Контроллер клиента");
+                System.out.println("Модель от приложения: " + packet.getModels());
                 return received_packet.getModels();
             }
         }

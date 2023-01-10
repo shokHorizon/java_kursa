@@ -120,12 +120,12 @@ public class managerController {
                 Travels travel = new Travels(
                         0,
                         Integer.parseInt(combo1.getValue()),
-                        combo3.getValue(),
-                        Integer.parseInt(combo2.getValue()),
-                        "Фото голого Ельцина",
-                        combo6.getValue(),
-                        Integer.parseInt(combo5.getValue()),
-                        Integer.parseInt(combo4.getValue()));
+                        combo2.getValue(),
+                        Integer.parseInt(combo3.getValue()),
+                        combo4.getValue(),
+                        combo5.getValue(),
+                        Integer.parseInt(combo6.getValue()),
+                        0);
                 packet.setQueryModel(QueryModel.Travels);
                 packet.setModels(travel);
                 QueryController.query_request(packet);
@@ -137,13 +137,12 @@ public class managerController {
             System.out.println("Выбрана тикетс");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
-                    !Objects.equals(combo3.getValue(), "") &&
-                    !Objects.equals(combo4.getValue(), "")) {
+                    !Objects.equals(combo3.getValue(), "")) {
                 Books books = new Books(
+                        0,
                         Integer.parseInt(combo1.getValue()),
                         Integer.parseInt(combo2.getValue()),
-                        Integer.parseInt(combo3.getValue()),
-                        Integer.parseInt(combo4.getValue()));
+                        Integer.parseInt(combo3.getValue()));
                 packet.setQueryModel(QueryModel.Books);
                 packet.setModels(books);
                 QueryController.query_request(packet);
@@ -155,12 +154,63 @@ public class managerController {
 
     @FXML
     void btnRemoveClick(ActionEvent event) {
-
+        clear_combos();
+        if (!tableTravels.getSelectionModel().isEmpty()) {
+            Travels travel = tableTravels.getSelectionModel().getSelectedItem();
+            QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Delete,travel));
+            tableTravels.getItems().remove(travel);
+        }
+        if (!tableTickets.getSelectionModel().isEmpty()) {
+            Books books = tableTickets.getSelectionModel().getSelectedItem();
+            QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Delete,books));
+            tableTickets.getItems().remove(books);
+        }
     }
 
     @FXML
     void btnUpdateClick(ActionEvent event) {
+        if (!tableTravels.getSelectionModel().isEmpty() &&
+                !tableTickets.getSelectionModel().isEmpty()) {
+            clear_combos();
+            tableTravels.getSelectionModel().clearSelection();
+            tableTickets.getSelectionModel().clearSelection();
+            return;
+        }
 
+        if (tabTravels.isSelected()) {
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), "") &&
+                    !Objects.equals(combo4.getValue(), "") &&
+                    !Objects.equals(combo5.getValue(), "") &&
+                    !Objects.equals(combo6.getValue(), ""))
+            {
+                Travels travel = tableTravels.getSelectionModel().getSelectedItem();
+                travel.setType(Integer.parseInt(combo1.getValue()));
+                travel.setName(combo2.getValue());
+                travel.setCity(Integer.parseInt(combo3.getValue()));
+                travel.setImage(combo4.getValue());
+                travel.setCoordinates(combo5.getValue());
+                travel.setPrice(Integer.parseInt(combo6.getValue()));
+                QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Update,travel));
+                tableTravels.refresh();
+            }
+        }
+
+        else if (tabTickets.isSelected()) {
+            System.out.println("Выбрана тикетс");
+            if (!Objects.equals(combo1.getValue(), "") &&
+                    !Objects.equals(combo2.getValue(), "") &&
+                    !Objects.equals(combo3.getValue(), ""))
+            {
+                Books books = tableTickets.getSelectionModel().getSelectedItem();
+                books.setTravel(Integer.parseInt(combo1.getValue()));
+                books.setUser(Integer.parseInt(combo2.getValue()));
+                books.setStatus(Integer.parseInt(combo3.getValue()));
+                QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Update,books));
+                tableTickets.refresh();
+            }
+        }
     }
 
     @FXML
@@ -210,8 +260,8 @@ public class managerController {
         btnRemove.setDisable(false);
         btnUpdate.setDisable(false);
 
-        combo2.setValue(Integer.toString(books.getUser()));
         combo1.setValue(Integer.toString(books.getTravel()));
+        combo2.setValue(Integer.toString(books.getUser()));
         combo3.setValue(Integer.toString(books.getStatus()));
     }
 
@@ -257,7 +307,7 @@ public class managerController {
 
     @FXML
     void travelsTabSelected(Event event) {
-        if (tabTravels.isSelected())
+        if (tabTravels.isSelected() && App.token != 0)
         {
             clear_combos();
             System.out.println("Switch to travels");

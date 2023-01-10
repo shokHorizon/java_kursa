@@ -1,6 +1,7 @@
 package DAO;
 
 import Models.Travels;
+import Models.TravelsRepr;
 import Models.Users;
 import Server.DBWorker;
 
@@ -66,6 +67,61 @@ public class TravelsDao implements IDao<Travels>{
                         set.getInt("price"),
                         set.getInt("supplier")
                 );
+                listTravels.add(travels);
+                System.out.println(travels);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return listTravels;
+    }
+
+    public LinkedList<TravelsRepr> getRepr(TravelsRepr travels) {
+        String query = "SELECT travels.id, travels.price, travels.name, cities.name as city, countries.name as country, travels.image, travelTypes.name as travelType from travels\n" +
+                "inner join cities on travels.city = cities.id\n" +
+                "inner join countries on cities.country = countries.id\n" +
+                "inner join travelTypes on travels.type = travelTypes.id";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <TravelsRepr> listTravels = new LinkedList<>();
+        if (travels != null)
+        {
+            if (travels.getId() > 0)
+                parameters.add(" id = " + travels.getId());
+            if (travels.getType() != null)
+                parameters.add(" type = " + travels.getType());
+            if (travels.getName() != null)
+                parameters.add(" name = " + travels.getName());
+            if (travels.getCity() != null)
+                parameters.add(" city = " + travels.getCity());
+            if (travels.getImage() != null)
+                parameters.add(" image = " + travels.getImage());
+            if (travels.getPrice() > 0)
+                parameters.add(" price = " + travels.getPrice());
+
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-4,sb.length());
+                query += sb.toString();
+            }
+            System.out.println(query);
+        }
+        ResultSet set;
+        try {
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
+            //preparedStatement.setInt(1,id);
+            set = preparedStatement.executeQuery(); // В save - аналог
+            while (set.next()) {
+                travels = new TravelsRepr(
+                        set.getInt("id"),
+                        set.getString("type"),
+                        set.getString("name"),
+                        set.getString("city"),
+                        set.getInt("price"),
+                        set.getString("image")
+                        );
                 listTravels.add(travels);
                 System.out.println(travels);
             }
