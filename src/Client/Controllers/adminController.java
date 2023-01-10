@@ -60,6 +60,9 @@ public class adminController {
     private ComboBox<String> combo6;
 
     @FXML
+    private ComboBox<String> combo7;
+
+    @FXML
     private TableColumn<Countries, Integer> countriesId;
 
     @FXML
@@ -176,7 +179,7 @@ public class adminController {
                         Integer.parseInt(combo1.getValue()),
                         combo3.getValue(),
                         Integer.parseInt(combo2.getValue()),
-                        "Фото голого Ельцина",
+                        combo7.getValue(),
                         combo6.getValue(),
                         Integer.parseInt(combo5.getValue()),
                         Integer.parseInt(combo4.getValue()));
@@ -307,6 +310,7 @@ public class adminController {
                     !Objects.equals(combo3.getValue(), "") &&
                     !Objects.equals(combo4.getValue(), "") &&
                     !Objects.equals(combo5.getValue(), "") &&
+                    !Objects.equals(combo6.getValue(), "") &&
                     !Objects.equals(combo6.getValue(), ""))
             {
                 Travels travel = tableTravels.getSelectionModel().getSelectedItem();
@@ -316,6 +320,7 @@ public class adminController {
                 travel.setSupplier(Integer.parseInt(combo4.getValue()));
                 travel.setPrice(Integer.parseInt(combo5.getValue()));
                 travel.setCoordinates(combo6.getValue());
+                travel.setImage(combo7.getValue());
                 QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Update,travel));
                 tableTravels.refresh();
             }
@@ -439,6 +444,10 @@ public class adminController {
 
     @FXML
     void combo6Action(ActionEvent event) {
+    }
+
+    @FXML
+    void combo7Action(ActionEvent event) {
     }
 
     @FXML

@@ -103,7 +103,6 @@ public class managerController {
                 !tableTickets.getSelectionModel().isEmpty()){
             clear_combos();
             tableTravels.getSelectionModel().clearSelection();
-
             tableTickets.getSelectionModel().clearSelection();
             return;
         }

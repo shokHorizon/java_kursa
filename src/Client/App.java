@@ -1,6 +1,7 @@
 package Client;
 
 import Client.Controllers.adminController;
+import Client.Controllers.clientBooksController;
 import Client.Controllers.clientMainController;
 import Client.Controllers.managerController;
 import javafx.application.Application;
@@ -21,6 +22,7 @@ public class App extends Application {
     private static Parent managerMain;
     private static Stage AppStage;
     public static int token = 0;
+    public static Scene scene;
 
     public static void main(String[] args)  {
         launch(args);
@@ -39,25 +41,31 @@ public class App extends Application {
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(loginPage,800,400);
+        scene = new Scene(loginPage,600,400);
         stage.setScene(scene);
         stage.show();
     }
 
-    private static Scene getScene(Parent parent){return new Scene(parent, 800, 400);}
+    private static void setScene(Parent parent){
+        scene.setRoot(parent);
+    }
 
-    public static void setLoginPage(){AppStage.setScene(getScene(loginPage));}
+    public static void setLoginPage(){setScene(loginPage);}
     public static void setClientMain(){
-        AppStage.setScene(getScene(clientMain));
+        setScene(clientMain);
         clientMainController.instance.updateTravels(null);
     }
-    public static void setClientBooks(){AppStage.setScene(getScene(clientBooks));}
+    public static void setClientBooks(){
+        setScene(clientBooks);
+
+        //clientBooksController.instance.
+    }
     public static void setManagerMain(){
-        AppStage.setScene(getScene(managerMain));
+        setScene(managerMain);
         managerController.instance.switchToTravels();
     }
     public static void setAdminMain(){
-        AppStage.setScene(getScene(adminMain));
+        setScene(adminMain);
         adminController.instance.switchToTravels();
     }
 

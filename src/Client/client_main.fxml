@@ -18,7 +18,7 @@
                   <ImageView fx:id="tourImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <ComboBox fx:id="tourType" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#tourTypeAction" promptText="Туры/санатории" />
                   <ComboBox fx:id="tourCountry" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#countryAction" promptText="Страна" />
-                  <ComboBox fx:id="tourCity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Город" />
+                  <ComboBox fx:id="tourCity" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#cityAction" promptText="Город" />
                   <Button fx:id="btnBook" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnBookClick" text="Забронировать" />
                   <Button fx:id="btnBooks" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnBooksClick" text="Смотреть свои брони" />
                </children>
