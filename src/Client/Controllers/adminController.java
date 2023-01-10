@@ -538,7 +538,7 @@ public class adminController {
 
     @FXML
     void travelsTabSelected(Event event) {
-        if (tabTravel.isSelected())
+        if (tabTravel.isSelected() && App.token != 0)
         {
             clear_combos();
             System.out.println("Switch to travels");

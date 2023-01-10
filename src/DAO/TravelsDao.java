@@ -75,6 +75,62 @@ public class TravelsDao implements IDao<Travels>{
         } return listTravels;
     }
 
+    public List <TravelsRepr> getRepr(){
+        String query = "select * from travels";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        List<TravelsRepr> travels = new LinkedList<>();
+        if (travels != null)
+        {
+            if (travels.getId() > 0)
+                parameters.add(" id = " + travels.getId());
+            if (travels.getType() > 0)
+                parameters.add(" type = " + travels.getType());
+            if (travels.getName() != null)
+                parameters.add(" name = " + travels.getName());
+            if (travels.getCity() > 0)
+                parameters.add(" city = " + travels.getCity());
+            if (travels.getImage() != null)
+                parameters.add(" image = " + travels.getImage());
+            if (travels.getCoordinates() != null)
+                parameters.add(" coords = " + travels.getCoordinates());
+            if (travels.getPrice() > 0)
+                parameters.add(" price = " + travels.getPrice());
+            if (travels.getSupplier() != 0)
+                parameters.add(" supplier = " + travels.getSupplier());
+
+            if (parameters.size() > 0) {
+                sb.append(" where");
+                for (String str: parameters)
+                    sb.append(str).append(" and");
+                sb.delete(sb.length()-4,sb.length());
+                query += sb.toString();
+            }
+            System.out.println(query);
+        }
+        ResultSet set;
+        try {
+            Statement statement = DBWorker.INSTANCE.createStatement();
+            String query = "select * from travels";
+            ResultSet set = statement.executeQuery(query);
+            while (set.next()){
+                TravelsRepr travels = new TravelsRepr(
+                        set.getInt("id"),
+                        set.getString("travelType"),
+                        set.getString("name"),
+                        set.getString("city"),
+                        set.getString("country"),
+                        set.getString("image"),
+                        set.getInt("price")
+                );
+                System.out.println(travels);
+                travelList.add(travels);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return travelList;
+    }
+
     @Override
     public List<Travels> getAll() {
         List<Travels> travelList = new LinkedList<>();
