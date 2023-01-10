@@ -88,16 +88,16 @@ public class TravelsDao implements IDao<Travels>{
         {
             if (travels.getId() > 0)
                 parameters.add(" id = " + travels.getId());
-            if (travels.getType() != null)
-                parameters.add(" travelType = " + travels.getType());
-            if (travels.getName() != null)
-                parameters.add(" name = " + travels.getName());
-            if (travels.getCity() != null)
-                parameters.add(" city = " + travels.getCity());
-            if (travels.getCountry() != null)
-                parameters.add(" country = " + travels.getCountry());
-            if (travels.getImage() != null)
-                parameters.add(" image = " + travels.getImage());
+            if (travels.getType() != null && !travels.getType().isEmpty())
+                parameters.add(" travelTypes.name = \"" + travels.getType() + "\"");
+            if (travels.getName() != null && !travels.getName().isEmpty())
+                parameters.add(" name = \"" + travels.getName() + "\"");
+            if (travels.getCity() != null && !travels.getCity().isEmpty())
+                parameters.add(" cities.name = \"" + travels.getCity() + "\"");
+            if (travels.getCountry() != null && !travels.getCountry().isEmpty())
+                parameters.add(" countries.name = \"" + travels.getCountry() + "\"");
+            if (travels.getImage() != null && !travels.getImage().isEmpty())
+                parameters.add(" image = \"" + travels.getImage() + "\"");
             if (travels.getPrice() > 0)
                 parameters.add(" price = " + travels.getPrice());
 
