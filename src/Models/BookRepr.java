@@ -2,10 +2,10 @@ package Models;
 
 public class BookRepr extends Model {
     private int id;
-    private int name;
+    private String name;
     private int status;
 
-    public BookRepr(int id, int name, int status) {
+    public BookRepr(int id, String name, int status) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -20,11 +20,11 @@ public class BookRepr extends Model {
     }
 
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
