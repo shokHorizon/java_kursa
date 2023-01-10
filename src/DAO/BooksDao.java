@@ -1,5 +1,6 @@
 package DAO;
 
+import Models.BookRepr;
 import Models.Books;
 import Models.Users;
 import Server.DBWorker;
@@ -97,6 +98,32 @@ public class BooksDao implements IDao<Books> {
                 );
                 listBook.add(books);
                 System.out.println(books);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } return listBook;
+    }
+
+    public LinkedList<BookRepr> getByUser(int id) {
+        String query = "SELECT books.id, books.status, travels.name from books \n" +
+                "INNER JOIN travels on books.travel = travels.id\n" +
+                "where books.user = ?";
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> parameters = new LinkedList<>();
+        LinkedList <BookRepr> listBook = new LinkedList<>();
+        ResultSet set;
+        try {
+            PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
+            preparedStatement.setInt(1,id);
+            set = preparedStatement.executeQuery(); // В save - аналог
+            while (set.next()) {
+                listBook.add(
+                        new BookRepr(
+                                set.getInt("id"),
+                                set.getString("name"),
+                                set.getInt("status")
+                        )
+                );
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

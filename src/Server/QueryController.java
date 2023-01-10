@@ -82,23 +82,23 @@ public class QueryController {
             }
             case Books->{
                 if (packet.getModels() == null){
-                    if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 1)) {
+                    if (packet.getQueryMethod() == QueryMethod.Read) {
                         if (AccessManager.hasRequiredAccess(token, 2))
                             response_models.addAll(BooksDao.INSTANCE.getAll());
-                        else
+                        else if (AccessManager.hasRequiredAccess(token, 1))
                             response_models.addAll(BooksDao.INSTANCE.getBySupplier(null,AccessManager.getId(token)));
+                        else
+                            response_models.addAll(BooksDao.INSTANCE.getByUser(AccessManager.getId(token)));
                         return response_packet;
                     }
                 }
                 Books book = (Books) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        if (AccessManager.hasRequiredAccess(token, 2)) {
+                        if (AccessManager.hasRequiredAccess(token, 2))
                             response_models.addAll(BooksDao.INSTANCE.get(book));
-                        }
-                        else if (AccessManager.hasRequiredAccess(token, 1)) {
+                        else if (AccessManager.hasRequiredAccess(token, 1))
                             response_models.addAll(BooksDao.INSTANCE.getBySupplier(book, AccessManager.getId(token)));
-                        }
                     }
                     case Update -> {
                         if (AccessManager.hasRequiredAccess(token, 1)) {
@@ -108,6 +108,8 @@ public class QueryController {
                     }
                     case Create -> {
                         if (AccessManager.hasRequiredAccess(token, 0))
+                            if (AccessManager.getAccessLevel(token) == 0)
+                                book.setUser(AccessManager.getId(token));
                             if (BooksDao.INSTANCE.save(book))
                                 response_models.add(null);
                     }
