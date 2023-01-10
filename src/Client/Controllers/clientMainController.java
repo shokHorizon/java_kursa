@@ -106,14 +106,14 @@ public class clientMainController {
     @FXML
     public void initialize(){
         instance = this;
-        table.setCellValueFactory(new PropertyValueFactory<>("type"));
-        // Нет type
-        table.setCellValueFactory(new PropertyValueFactory<>("name"));
-        table.setCellValueFactory(new PropertyValueFactory<>("city"));
-        table.setCellValueFactory(new PropertyValueFactory<>("coordinates"));
-        table.setCellValueFactory(new PropertyValueFactory<>("price"));
-        table.setCellValueFactory(new PropertyValueFactory<>("supplier"));
-        
+//        table.setCellValueFactory(new PropertyValueFactory<>("type"));
+//        // Нет type
+//        table.setCellValueFactory(new PropertyValueFactory<>("name"));
+//        table.setCellValueFactory(new PropertyValueFactory<>("city"));
+//        table.setCellValueFactory(new PropertyValueFactory<>("coordinates"));
+//        table.setCellValueFactory(new PropertyValueFactory<>("price"));
+//        table.setCellValueFactory(new PropertyValueFactory<>("supplier"));
+
     }
 
 }
