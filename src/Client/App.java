@@ -57,8 +57,7 @@ public class App extends Application {
     }
     public static void setClientBooks(){
         setScene(clientBooks);
-
-        //clientBooksController.instance.
+        clientBooksController.instance.updateBooks();
     }
     public static void setManagerMain(){
         setScene(managerMain);

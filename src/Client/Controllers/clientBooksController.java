@@ -4,10 +4,12 @@ import Client.App;
 import Client.QueryController;
 import Models.Books;
 import Models.Travels;
+import Models.TravelsRepr;
 import Protocols.Packet;
 import Protocols.QueryMethod;
 import Protocols.QueryModel;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -34,6 +36,13 @@ public class clientBooksController {
         App.setClientMain(); // ?
     }
 
+    public void updateBooks(){
+        Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
+        List<Books> models = (List<Books>) QueryController.query_request(packet);
+        System.out.println("Че пришло " + models);
+        tourList.setItems(FXCollections.observableArrayList(models));
+    }
+
     @FXML
     void btnRemoveClick(Event event) {
 
@@ -49,7 +58,6 @@ public class clientBooksController {
     @FXML
     public void initialize(){
         instance = this;
-
 //        Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
 //        System.out.println("Я МЕНЯЮ TRAVELS");
 //        List<Books> models = (List<Books>) QueryController.query_request(packet);
