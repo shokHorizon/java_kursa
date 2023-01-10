@@ -151,8 +151,10 @@ public class QueryController {
             case Travels->{
                 if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
-                        if (AccessManager.getAccessLevel(token) == 2 || AccessManager.getAccessLevel(token) == 0)
+                        if (AccessManager.getAccessLevel(token) == 2 )
                             response_models.addAll(TravelsDao.INSTANCE.getAll());
+                        else if (AccessManager.getAccessLevel(token) == 0)
+                            response_models.addAll(TravelsDao.INSTANCE.getRepr(null));
                         else if (AccessManager.getAccessLevel(token) == 1)
                             response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     return response_packet;
@@ -160,8 +162,10 @@ public class QueryController {
                 Travels travel = (Travels) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        if (AccessManager.getAccessLevel(token) == 2 || AccessManager.getAccessLevel(token) == 0)
+                        if (AccessManager.getAccessLevel(token) == 2)
                             response_models.addAll(TravelsDao.INSTANCE.get(travel));
+                        else if (AccessManager.getAccessLevel(token) == 0)
+                            response_models.addAll(TravelsDao.INSTANCE.getRepr((TravelsRepr) packet.getModels().get(0)));
                         else if (AccessManager.getAccessLevel(token) == 1)
                             response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     }

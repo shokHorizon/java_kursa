@@ -89,11 +89,13 @@ public class TravelsDao implements IDao<Travels>{
             if (travels.getId() > 0)
                 parameters.add(" id = " + travels.getId());
             if (travels.getType() != null)
-                parameters.add(" type = " + travels.getType());
+                parameters.add(" travelType = " + travels.getType());
             if (travels.getName() != null)
                 parameters.add(" name = " + travels.getName());
             if (travels.getCity() != null)
                 parameters.add(" city = " + travels.getCity());
+            if (travels.getCountry() != null)
+                parameters.add(" country = " + travels.getCountry());
             if (travels.getImage() != null)
                 parameters.add(" image = " + travels.getImage());
             if (travels.getPrice() > 0)
@@ -116,11 +118,12 @@ public class TravelsDao implements IDao<Travels>{
             while (set.next()) {
                 travels = new TravelsRepr(
                         set.getInt("id"),
-                        set.getString("type"),
                         set.getString("name"),
                         set.getString("city"),
+                        set.getString("country"),
+                        set.getString("image"),
                         set.getInt("price"),
-                        set.getString("image")
+                        set.getString("travelType")
                         );
                 listTravels.add(travels);
                 System.out.println(travels);

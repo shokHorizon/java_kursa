@@ -3,10 +3,11 @@ package Models;
 import java.util.HashMap;
 
 public class TravelsRepr extends Model {
-    public TravelsRepr(int id, String name, String city, String image,  int price, String type) {
+    public TravelsRepr(int id, String name, String city, String country, String image,  int price, String type) {
         this.id = id;
         this.name = name;
         this.city = city;
+        this.country = country;
         this.image = image;
         this.price = price;
         this.type = type;
@@ -16,6 +17,7 @@ public class TravelsRepr extends Model {
     private int id;
     private String name;
     private String city;
+    private String country;
     private String image;
     private int price;
 
@@ -68,14 +70,20 @@ public class TravelsRepr extends Model {
         this.price = price;
     }
 
+    public String getCountry() {
+        return country;
+    }
 
-
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{id: " + id
                 + ", name: " + name
                 + ", city: " + city
+                + ", country: " + country
                 + ", image: " + image
                 + ", price: " + price
                 + "}";
