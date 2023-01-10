@@ -1,7 +1,7 @@
 package Models;
 
 public class Travels extends Model {
-    public Travels(int id, int type, String name, int city, String image, String coordinates, int price, String supplier) {
+    public Travels(int id, int type, String name, int city, String image, String coordinates, int price, int supplier) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -12,6 +12,10 @@ public class Travels extends Model {
         this.supplier = supplier;
     }
 
+    public Travels(int supplier) {
+        this.supplier = supplier;
+    }
+
     private int id;
     private int type;
     private String name;
@@ -19,7 +23,7 @@ public class Travels extends Model {
     private String image;
     private String coordinates;
     private int price;
-    private String supplier;
+    private int supplier;
 
     public int getId() {
         return id;
@@ -77,11 +81,11 @@ public class Travels extends Model {
         this.price = price;
     }
 
-    public String getSupplier() {
+    public int getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(String supplier) {
+    public void setSupplier(int supplier) {
         this.supplier = supplier;
     }
 

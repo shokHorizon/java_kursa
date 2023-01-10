@@ -72,42 +72,38 @@ public class QueryController {
                 // либо отправляем ему свою же модель, но с уровнем доступа -1
                 user = db_user.orElse(user);
                 response_models.add(user);
-                System.out.println("User.getHashedPassword() = " + user.getHashedPassword() + "  " + user.getAccessLevel());
                 // Добавляем токен, если пользователь успешно авторизовался
-                if (user.getAccessLevel() >= 0) {
-                    System.out.println("user has access level: " + user.getAccessLevel());
-                    user.setHashedPassword(AccessManager.generateToken(user.getLogin(), user.getHashedPassword(), user.getAccessLevel()));
-                }
+                if (user.getAccessLevel() >= 0)
+                    user.setHashedPassword(AccessManager.generateToken(user));
             }
             case Books->{
                 if (packet.getModels() == null){
-                    if (packet.getQueryMethod() == QueryMethod.Read)
-                        response_models.addAll(BooksDao.INSTANCE.getAll());
-                    return response_packet;
+                    if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 1)) {
+                        if (AccessManager.hasRequiredAccess(token, 2))
+                            response_models.addAll(BooksDao.INSTANCE.getAll());
+                        else
+                            response_models.addAll(BooksDao.INSTANCE.getBySupplier(AccessManager.getId(token)));
+                        return response_packet;
+                    }
                 }
                 Books book = (Books) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        if (AccessManager.hasRequiredAccess(token, 0)) {
+                        if (AccessManager.hasRequiredAccess(token, 2)) {
                             response_models.addAll(BooksDao.INSTANCE.get(book));
+                        }
+                        else if (AccessManager.hasRequiredAccess(token, 1)) {
+                            response_models.addAll(BooksDao.INSTANCE.getBySupplier(book, AccessManager.getId(token)));
                         }
                     }
                     case Update -> {
                         if (AccessManager.hasRequiredAccess(token, 1)) {
-                            if (!AccessManager.hasRequiredAccess(token, 2)){
-                                book.setId(0);
-                                book.setTravel(0);
-                                book.setUser(0);
-                            }
                             BooksDao.INSTANCE.update(book);
                         }
                     }
                     case Create -> {
-                        System.out.println("AM access: " + AccessManager.getAccessLevel(token) + " ");
                         if (AccessManager.hasRequiredAccess(token, 0))
                             BooksDao.INSTANCE.save(book);
-                        else
-                            System.out.println("Ебать ты лох " + token + " " + AccessManager.getAccessLevel(token));
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 0)) {
@@ -144,21 +140,31 @@ public class QueryController {
             case Travels->{
                 if (packet.getModels() == null){
                     if (packet.getQueryMethod() == QueryMethod.Read)
-                        response_models.addAll(TravelsDao.INSTANCE.getAll());
+                        if (AccessManager.getAccessLevel(token) >= 2)
+                            response_models.addAll(TravelsDao.INSTANCE.getAll());
+                        else if (AccessManager.getAccessLevel(token) == 1)
+                            response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     return response_packet;
                 }
                 Travels travel = (Travels) packet.getModels().get(0);
                 switch (packet.getQueryMethod()) {
                     case Read -> {
-                        response_models.addAll(TravelsDao.INSTANCE.get(travel));
+                        if (AccessManager.getAccessLevel(token) >= 2)
+                            response_models.addAll(TravelsDao.INSTANCE.get(travel));
+                        else if (AccessManager.getAccessLevel(token) == 1)
+                            response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     }
                     case Update -> {
-                        if (AccessManager.hasRequiredAccess(token, 1))
+                        if (AccessManager.getAccessLevel(token) >= 2)
                             TravelsDao.INSTANCE.update(travel);
+                        else if (AccessManager.getAccessLevel(token) == 1)
+                            TravelsDao.INSTANCE.update(new Travels(AccessManager.getId(token)));
                     }
                     case Create -> {
-                        if (AccessManager.hasRequiredAccess(token, 1))
+                        if (AccessManager.getAccessLevel(token) >= 2)
                             TravelsDao.INSTANCE.save(travel);
+                        else if (AccessManager.getAccessLevel(token) == 1)
+                            TravelsDao.INSTANCE.save(new Travels(AccessManager.getId(token)));
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 1))
