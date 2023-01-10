@@ -95,7 +95,7 @@ public class TravelsDao implements IDao<Travels>{
             if (travels.getCity() != null)
                 parameters.add(" city = " + travels.getCity());
             if (travels.getCountry() != null)
-                parameters.add(" city = " + travels.getCountry());
+                parameters.add(" country = " + travels.getCountry());
             if (travels.getImage() != null)
                 parameters.add(" image = " + travels.getImage());
             if (travels.getPrice() > 0)
