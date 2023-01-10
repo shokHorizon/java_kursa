@@ -125,7 +125,7 @@ public class managerController {
                         "Фото голого Ельцина",
                         combo6.getValue(),
                         Integer.parseInt(combo5.getValue()),
-                        combo4.getValue());
+                        Integer.parseInt(combo4.getValue()));
                 packet.setQueryModel(QueryModel.Travels);
                 packet.setModels(travel);
                 QueryController.query_request(packet);
@@ -252,6 +252,8 @@ public class managerController {
         combo5.setValue(travel.getCoordinates());
         combo6.setValue(Integer.toString(travel.getPrice()));
     }
+
+
 
     @FXML
     void travelsTabSelected(Event event) {

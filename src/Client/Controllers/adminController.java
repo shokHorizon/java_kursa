@@ -179,7 +179,7 @@ public class adminController {
                         "Фото голого Ельцина",
                         combo6.getValue(),
                         Integer.parseInt(combo5.getValue()),
-                        combo4.getValue());
+                        Integer.parseInt(combo4.getValue()));
                 packet.setQueryModel(QueryModel.Travels);
                 packet.setModels(travel);
                 QueryController.query_request(packet);
@@ -313,7 +313,7 @@ public class adminController {
                 travel.setType(Integer.parseInt(combo1.getValue()));
                 travel.setCity(Integer.parseInt(combo2.getValue()));
                 travel.setName(combo3.getValue());
-                travel.setSupplier(combo4.getValue());
+                travel.setSupplier(Integer.parseInt(combo4.getValue()));
                 travel.setPrice(Integer.parseInt(combo5.getValue()));
                 travel.setCoordinates(combo6.getValue());
                 QueryController.query_request(new Packet<>(QueryModel.Travels,QueryMethod.Update,travel));
@@ -530,7 +530,7 @@ public class adminController {
         combo1.setValue(Integer.toString(travel.getType()));
         combo2.setValue(Integer.toString(travel.getCity()));
         combo3.setValue(travel.getName());
-        combo4.setValue(travel.getSupplier());
+        combo4.setValue(Integer.toString(travel.getSupplier()));
         combo5.setValue(Integer.toString(travel.getPrice()));
         combo6.setValue(travel.getCoordinates());
 

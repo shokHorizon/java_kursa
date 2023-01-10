@@ -82,7 +82,7 @@ public class QueryController {
                         if (AccessManager.hasRequiredAccess(token, 2))
                             response_models.addAll(BooksDao.INSTANCE.getAll());
                         else
-                            response_models.addAll(BooksDao.INSTANCE.getBySupplier(AccessManager.getId(token)));
+                            response_models.addAll(BooksDao.INSTANCE.getBySupplier(null,AccessManager.getId(token)));
                         return response_packet;
                     }
                 }
