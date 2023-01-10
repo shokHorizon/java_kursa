@@ -92,7 +92,14 @@ public class QueryController {
                         return response_packet;
                     }
                 }
-                Books book = (Books) packet.getModels().get(0);
+                Books book = null;
+                BookRepr bookRepr = null;
+                if (packet.getModels().get(0) instanceof Books books)
+                    book = books;
+                else if (packet.getModels().get(0) instanceof BookRepr booksRepr) {
+                    bookRepr = booksRepr;
+                }
+
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         if (AccessManager.hasRequiredAccess(token, 2))
@@ -108,14 +115,21 @@ public class QueryController {
                     }
                     case Create -> {
                         if (AccessManager.hasRequiredAccess(token, 0))
-                            if (AccessManager.getAccessLevel(token) == 0)
+                            if (AccessManager.getAccessLevel(token) == 0){
+                                if (BooksDao.INSTANCE.get(new Books(0, book.getTravel(), AccessManager.getId(token), -1)).size() > 0)
+                                    return response_packet;
                                 book.setUser(AccessManager.getId(token));
+                            }
                             if (BooksDao.INSTANCE.save(book))
                                 response_models.add(null);
                     }
                     case Delete -> {
                         if (AccessManager.hasRequiredAccess(token, 0)) {
-                            if (BooksDao.INSTANCE.delete(book.getId())) {
+                            if (AccessManager.getAccessLevel(token) == 0){
+                                if (BooksDao.INSTANCE.delete(bookRepr.getId()))
+                                    response_models.add(null);
+                            }
+                            else if (BooksDao.INSTANCE.delete(book.getId())) {
                                 response_models.add(null);
                             }
                         }
@@ -161,22 +175,25 @@ public class QueryController {
                             response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     return response_packet;
                 }
-                Travels travel = (Travels) packet.getModels().get(0);
+                Travels travel = null;
+                TravelsRepr travelRepr = null;
+                if (packet.getModels().get(0) instanceof Travels travels)
+                    travel = travels;
+                else if (packet.getModels().get(0) instanceof TravelsRepr travelsRepr)
+                    travelRepr = travelsRepr;
                 switch (packet.getQueryMethod()) {
                     case Read -> {
                         if (AccessManager.getAccessLevel(token) == 2)
                             response_models.addAll(TravelsDao.INSTANCE.get(travel));
                         else if (AccessManager.getAccessLevel(token) == 0)
-                            response_models.addAll(TravelsDao.INSTANCE.getRepr((TravelsRepr) packet.getModels().get(0)));
+                            response_models.addAll(TravelsDao.INSTANCE.getRepr(travelRepr));
                         else if (AccessManager.getAccessLevel(token) == 1)
                             response_models.addAll(TravelsDao.INSTANCE.get(new Travels(AccessManager.getId(token))));
                     }
                     case Update -> {
-                        if (AccessManager.getAccessLevel(token) >= 2)
+                        if (AccessManager.getAccessLevel(token) >= 1
+                        )
                             if(TravelsDao.INSTANCE.update(travel))
-                                response_models.add(null);
-                        else if (AccessManager.getAccessLevel(token) == 1)
-                            if(TravelsDao.INSTANCE.update(new Travels(AccessManager.getId(token))))
                                 response_models.add(null);
                     }
                     case Create -> {

@@ -36,24 +36,27 @@ public class BooksDao implements IDao<Books> {
                 sb.append(" where");
                 for (String str: parameters)
                     sb.append(str).append(" and");
-                sb.delete(sb.length()-5,sb.length()-1);
+                sb.delete(sb.length()-4,sb.length());
                 query += sb.toString();
             }
         }
         ResultSet set;
+        System.out.println(query);
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
             //preparedStatement.setInt(1,id);
             set = preparedStatement.executeQuery(); // В save - аналог
-            books = new Books(
-                    set.getInt("id"),
-                    set.getInt("travel"),
-                    set.getInt("user"),
-                    set.getInt("status")
-            );
-            System.out.println(books);
-
+            while (set.next()) {
+                books = new Books(
+                        set.getInt("id"),
+                        set.getInt("travel"),
+                        set.getInt("user"),
+                        set.getInt("status")
+                );
+                listBook.add(books);
+                System.out.println(books);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } return listBook;
