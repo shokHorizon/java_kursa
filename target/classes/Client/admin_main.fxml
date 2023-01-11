@@ -31,7 +31,7 @@
                <content>
                   <TableView fx:id="tableTravels" onMouseClicked="#travelsClick" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn fx:id="travelsId" prefWidth="75.0" text="id" />
+                      <TableColumn fx:id="travelsId" prefWidth="75.0" text="type" />
                         <TableColumn fx:id="travelsCity" prefWidth="75.0" text="city" />
                         <TableColumn fx:id="travelsName" prefWidth="75.0" text="name" />
                         <TableColumn fx:id="travelsUser" prefWidth="75.0" text="user" />
