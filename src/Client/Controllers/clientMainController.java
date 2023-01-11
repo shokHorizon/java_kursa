@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import java.util.*;
 
 import static Client.SocketClient.log;
+import static Client.SocketClient.logWarning;
 
 public class clientMainController {
 
@@ -105,7 +106,7 @@ public class clientMainController {
             } catch (IllegalArgumentException e)
             {
                 tourImage.setImage(null);
-                log.warning("Плохая ссылка на изображение!");
+                logWarning("Плохая ссылка на изображение!");
             }
         }
     }

@@ -16,8 +16,7 @@ import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static Client.SocketClient.log;
-import static Client.SocketClient.logInfo;
+import static Client.SocketClient.*;
 
 
 public class MainServer extends Thread {

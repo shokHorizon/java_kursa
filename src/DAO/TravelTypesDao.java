@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static Client.SocketClient.log;
+import static Client.SocketClient.logWarning;
 
 
 public class TravelTypesDao implements IDao<TravelTypes> {

@@ -12,9 +12,9 @@ public class DBWorker {
 
     public static final DBWorker INSTANCE = new DBWorker();
     private Connection connection;
-    private static final String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_kursa_java";
-    private static final String USERNAME = "freedb_impostor"; // root
-    private static final String PASSWORD = "PVSuZx7b8PYA%a5";
+    private static final String URL = "jdbc:mysql://185.244.172.157:3306/freedb_kursa_java"; // sql.freedb.tech:3306
+    private static final String USERNAME = "trofim"; // root
+    private static final String PASSWORD = "Penis";
 
 
 

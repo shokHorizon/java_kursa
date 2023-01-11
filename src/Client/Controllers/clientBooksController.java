@@ -21,6 +21,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.List;
 
+import static Client.SocketClient.logInfo;
+
 public class clientBooksController {
 
     @FXML
@@ -51,6 +53,7 @@ public class clientBooksController {
             BookRepr bookRepr = tourList.getSelectionModel().getSelectedItem();
             QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Delete,bookRepr)).size();
             tourList.getItems().remove(bookRepr);
+            logInfo("Удалил" + bookRepr);
         }
     }
 

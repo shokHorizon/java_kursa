@@ -38,6 +38,9 @@ public class MainServerMulti {
     public static void logInfo(String logging) {
         log.info("\u001B[32m" + logging + "\u001B[0m");
     }
+    public static void logWarning(String logging) {
+        log.warning("\u001B[33m" + logging + "\u001B[0m");
+    }
     static final int PORT = 8000;
     static final int MAX_NUMBER_CONNECTIONS = 4;
 
@@ -56,7 +59,7 @@ public class MainServerMulti {
                 catch (IOException e) {
                     e.printStackTrace();
                     clientSocket.close();
-                    log.warning("Пойман exception! Сокет закрыт: " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
+                    logWarning("Пойман exception! Сокет закрыт: " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
                 }
             }
         }

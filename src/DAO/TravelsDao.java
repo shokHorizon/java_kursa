@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static Client.SocketClient.log;
+import static Client.SocketClient.logWarning;
 
 public class TravelsDao implements IDao<Travels>{
 
@@ -74,7 +75,7 @@ public class TravelsDao implements IDao<Travels>{
             }
 
         } catch (SQLException e) {
-            log.warning("Произошёл таймаут бездействия в базе данных.");
+            logWarning("Произошёл таймаут бездействия в базе данных.");
             //throw new RuntimeException(e);
         } return listTravels;
     }
@@ -133,7 +134,7 @@ public class TravelsDao implements IDao<Travels>{
             }
 
         } catch (SQLException e) {
-            log.warning("Произошёл таймаут бездействия в базе данных.");
+            logWarning("Произошёл таймаут бездействия в базе данных.");
             //throw new RuntimeException(e);
         } return listTravels;
     }
@@ -160,7 +161,7 @@ public class TravelsDao implements IDao<Travels>{
                 travelList.add(travels);
             }
         } catch (SQLException e) {
-            log.warning("Произошёл таймаут бездействия в базе данных.");
+            logWarning("Произошёл таймаут бездействия в базе данных.");
             //throw new RuntimeException(e);
         } return travelList;
     }
@@ -180,7 +181,7 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.setInt(8,travelsModel.getSupplier());
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.warning("Произошёл таймаут бездействия в базе данных.");
+            logWarning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -202,7 +203,7 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            log.warning("Произошёл таймаут бездействия в базе данных.");
+            logWarning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -217,7 +218,7 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            log.warning("Произошёл таймаут бездействия в базе данных.");
+            logWarning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;

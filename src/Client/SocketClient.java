@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
 import static java.lang.System.exit;
 
 public class SocketClient {
@@ -26,6 +25,10 @@ public class SocketClient {
     public static void logInfo(String logging) {
         log.info("\u001B[32m" + logging + "\u001B[0m");
     }
+    public static void logWarning(String warning) {
+        log.warning("\u001B[33m" + warning + "\u001B[0m");
+    }
+
 
     public static Packet<?> sendPacket(Packet<?> packet) {
         Socket clientSocket = null;
