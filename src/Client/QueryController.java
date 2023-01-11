@@ -11,8 +11,11 @@ public class QueryController {
     public static List<? extends Model> query_request(Packet<?> packet) {
         switch (packet.getQueryModel()) {
             case Users, Books, TravelTypes, Countries, Travels, Cities -> {
-                Packet received_packet = SocketClient.sendPacket(packet);
-                System.out.println("Модель от приложения: " + packet.getModels());
+                Packet received_packet = null;
+                for (boolean success = true; success; success = false) { // Защита от таймаутов в БД
+                    received_packet = SocketClient.sendPacket(packet);
+                    if (received_packet.getModels() != null) break;
+                }
                 return received_packet.getModels();
             }
         }

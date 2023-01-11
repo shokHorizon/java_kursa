@@ -11,13 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static Client.SocketClient.log;
+import static Client.SocketClient.logInfo;
+
 public class QueryController {
    public static Packet<? extends Model> query_request(Packet<? extends Model> packet){
        // Отбрасывание пакетов без указания модели
        if (packet.getQueryModel() == null) return packet;
 
        int token = packet.getToken();
-       System.out.println("Пришедший токен " + token);
+       logInfo("Пришедший токен " + token);
 
        // Минимизация дальнейшей работы путем раннего создания пакета
        List<Model> response_models = new ArrayList<>();
@@ -27,14 +30,14 @@ public class QueryController {
         switch (packet.getQueryModel()){
             case Users->{
                 if (packet.getModels() == null){
-                    System.out.println("Есть доступ? " + (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
-                    + " Читаем? " + (packet.getQueryMethod() == QueryMethod.Read) + " Только доступ? " + AccessManager.getAccessLevel(token));
+                    ///System.out.println("Есть доступ? " + (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
+                    ///+ " Читаем? " + (packet.getQueryMethod() == QueryMethod.Read) + " Только доступ? " + AccessManager.getAccessLevel(token));
                     // Чтобы получить ВСЕХ пользователей, фильтры не нужны -> модель не передается
                     if (packet.getQueryMethod() == QueryMethod.Read && AccessManager.hasRequiredAccess(token, 2))
                         response_models.addAll(UsersDao.INSTANCE.getAll());
                     return response_packet;
                 }
-                System.out.println("Модель пришла!");
+                //System.out.println("Модель пришла!");
                 Users user = (Users) packet.getModels().get(0);
                 // Вторичное хэширование пароля
                 user.hashPassword();

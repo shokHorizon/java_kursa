@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static Client.SocketClient.log;
+import static Client.SocketClient.logInfo;
+
 public class Packet <T> implements Serializable {
     List<T> models;
     QueryModel queryModel;
@@ -50,8 +53,8 @@ public class Packet <T> implements Serializable {
     }
 
     public void Print(){
-        System.out.println(this.queryModel);
-        System.out.println(this.models);
+        logInfo(String.valueOf(this.queryModel));
+        logInfo(String.valueOf(this.models));
 
     }
 

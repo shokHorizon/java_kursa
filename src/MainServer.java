@@ -16,6 +16,9 @@ import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static Client.SocketClient.log;
+import static Client.SocketClient.logInfo;
+
 
 public class MainServer extends Thread {
 
@@ -40,23 +43,24 @@ public class MainServer extends Thread {
             Packet response = QueryController.query_request(request);
 
             //response.Print();
-            System.out.println("[Server]");
-            System.out.println("Модель " + request.getQueryModel());
-            System.out.println("Метод " + request.getQueryMethod());
+            //System.out.println("[Server]");
+            //System.out.println("Модель " + request.getQueryModel());
+            //System.out.println("Метод " + request.getQueryMethod());
             writer.writeObject(response);
-            System.out.println("Объекты записаны");
+            //System.out.println("Объекты записаны");
             writer.flush();
             writer.close();
-            while (!clientSocket.isClosed()) {
-
-            }
+//            while (!clientSocket.isClosed()) {
+//
+//            }
             writer.flush();
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
         finally {
             try {
                 clientSocket.close();
-                System.out.println("Сокет закрыт: " + clientSocket.getPort());
+                logInfo("Сокет закрыт: " +  clientSocket.getInetAddress() + ":" + clientSocket.getPort());
             } catch (IOException e) {
+                log.warning("Сокет не закрылся: " +  clientSocket.getInetAddress() + ":" + clientSocket.getPort());
                 throw new RuntimeException(e);
             }
         }

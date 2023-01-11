@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static Client.SocketClient.log;
+
 public class TravelsDao implements IDao<Travels>{
 
     public static final TravelsDao INSTANCE = new TravelsDao();
@@ -48,7 +50,7 @@ public class TravelsDao implements IDao<Travels>{
                 sb.delete(sb.length()-4,sb.length());
                 query += sb.toString();
             }
-            System.out.println(query);
+            //System.out.println(query);
         }
         ResultSet set;
         try {
@@ -68,11 +70,12 @@ public class TravelsDao implements IDao<Travels>{
                         set.getInt("supplier")
                 );
                 listTravels.add(travels);
-                System.out.println(travels);
+                //System.out.println(travels);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listTravels;
     }
 
@@ -108,7 +111,7 @@ public class TravelsDao implements IDao<Travels>{
                 sb.delete(sb.length()-4,sb.length());
                 query += sb.toString();
             }
-            System.out.println(query);
+            //System.out.println(query);
         }
         ResultSet set;
         try {
@@ -126,11 +129,12 @@ public class TravelsDao implements IDao<Travels>{
                         set.getString("travelType")
                         );
                 listTravels.add(travels);
-                System.out.println(travels);
+                //System.out.println(travels);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listTravels;
     }
 
@@ -152,11 +156,12 @@ public class TravelsDao implements IDao<Travels>{
                         set.getInt("price"),
                         set.getInt("supplier")
                 );
-                System.out.println(travels);
+                //System.out.println(travels);
                 travelList.add(travels);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return travelList;
     }
 
@@ -175,6 +180,7 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.setInt(8,travelsModel.getSupplier());
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -196,6 +202,7 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -210,6 +217,7 @@ public class TravelsDao implements IDao<Travels>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;

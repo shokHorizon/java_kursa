@@ -21,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import static Client.SocketClient.log;
+
 public class adminController {
 
     @FXML
@@ -146,6 +148,8 @@ public class adminController {
     @FXML
     private VBox vbox;
 
+
+
     @FXML
     void btnAddClick(ActionEvent event) {
         Packet packet = new Packet<>(null, QueryMethod.Create, null);
@@ -167,7 +171,7 @@ public class adminController {
 
 
         if (tabTravel.isSelected()) {
-            System.out.println("Выбрана трэвэл");
+            //System.out.println("Выбрана трэвэл");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "") &&
@@ -192,7 +196,6 @@ public class adminController {
         }
 
         else if (tabTickets.isSelected()) {
-            System.out.println("Выбрана тикетс");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "") &&
@@ -209,7 +212,6 @@ public class adminController {
             }
         }
         else if (tabCities.isSelected()) {
-                System.out.println("Выбрана сити");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "")) {
@@ -225,7 +227,6 @@ public class adminController {
         }
 
         else if (tabCountries.isSelected()) {
-                System.out.println("Выбрана кантри");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "")) {
                 Countries countries = new Countries(
@@ -328,7 +329,6 @@ public class adminController {
         }
 
         else if (tabTickets.isSelected()) {
-            System.out.println("Выбрана тикетс");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "") &&
@@ -345,7 +345,6 @@ public class adminController {
         }
 
         else if (tabCities.isSelected()) {
-            System.out.println("Выбрана сити");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), ""))
@@ -360,7 +359,6 @@ public class adminController {
         }
 
         else if (tabCountries.isSelected()) {
-            System.out.println("Выбрана кантри");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), ""))
             {
@@ -394,7 +392,6 @@ public class adminController {
     void citiesClick(MouseEvent event) {
         if (tableCities.getSelectionModel().isEmpty()){
             clear_combos();
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
 
@@ -418,7 +415,6 @@ public class adminController {
         if (tabCities.isSelected())
         {
             clear_combos();
-            System.out.println("Switch to cities");
             switchToCities();
         }
     }
@@ -455,7 +451,6 @@ public class adminController {
     void countriesClick(MouseEvent event) {
         if (tableCountries.getSelectionModel().isEmpty()){
             clear_combos();
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
 
@@ -477,7 +472,6 @@ public class adminController {
         if (tabCountries.isSelected())
         {
             clear_combos();
-            System.out.println("Switch to countries");
             switchToCountries();
         }
     }
@@ -486,7 +480,6 @@ public class adminController {
     void ticketsClick(MouseEvent event) {
         if (tableTickets.getSelectionModel().isEmpty()){
             clear_combos();
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
 
@@ -512,7 +505,6 @@ public class adminController {
         if (tabTickets.isSelected())
         {
             clear_combos();
-            System.out.println("Switch to tickets");
             switchToTickets();
         }
     }
@@ -521,7 +513,6 @@ public class adminController {
     void travelsClick(MouseEvent event) {
         if (tableTravels.getSelectionModel().isEmpty()){
             clear_combos();
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
 
@@ -553,7 +544,6 @@ public class adminController {
         if (tabTravel.isSelected() && App.token != 0)
         {
             clear_combos();
-            System.out.println("Switch to travels");
             switchToTravels();
         }
     }
@@ -562,7 +552,6 @@ public class adminController {
     void usersClick(MouseEvent event) {
         clear_combos();
         if (tableUsers.getSelectionModel().isEmpty()){
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
         Users users = tableUsers.getSelectionModel().getSelectedItem();
@@ -586,7 +575,6 @@ public class adminController {
         if (tabUsers.isSelected())
         {
             clear_combos();
-            System.out.println("Switch to users");
             switchToUsers();
         }
     }
@@ -599,7 +587,6 @@ public class adminController {
         disable_combos();
         instance = this;
         travelsId.setCellValueFactory(new PropertyValueFactory<>("type"));
-        // Нет type
         travelsName.setCellValueFactory(new PropertyValueFactory<>("name"));
         travelsCity.setCellValueFactory(new PropertyValueFactory<>("city"));
         travelsCoordinates.setCellValueFactory(new PropertyValueFactory<>("coordinates"));
@@ -719,34 +706,34 @@ public class adminController {
 
     void updateTravelsTable(){
         Packet packet = new Packet(QueryModel.Travels, QueryMethod.Read,null);
-        System.out.println("Я МЕНЯЮ TRAVELS");
+        //System.out.println("Я МЕНЯЮ TRAVELS");
         List<Travels> models = (List<Travels>) QueryController.query_request(packet);
         tableTravels.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateTicketsTable(){
-        System.out.println("Я МЕНЯЮ TICKETS");
+        //System.out.println("Я МЕНЯЮ TICKETS");
         Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
         List <Books> models = (List<Books>) QueryController.query_request(packet);
         tableTickets.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateUserTable(){
-        System.out.println("Я МЕНЯЮ USER");
+        //System.out.println("Я МЕНЯЮ USER");
         Packet packet = new Packet(QueryModel.Users, QueryMethod.Read,null);
         List <Users> models = (List<Users>) QueryController.query_request(packet);
         tableUsers.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateCitiesTable(){
-        System.out.println("Я МЕНЯЮ CITIES");
+        //System.out.println("Я МЕНЯЮ CITIES");
         Packet packet = new Packet(QueryModel.Cities, QueryMethod.Read,null);
         List <Cities> models = (List<Cities>) QueryController.query_request(packet);
         tableCities.setItems(FXCollections.observableArrayList(models));
     }
     
     void updateCountriesTable(){
-        System.out.println("Я МЕНЯЮ COUNTRIES");
+        //System.out.println("Я МЕНЯЮ COUNTRIES");
         Packet packet = new Packet(QueryModel.Countries, QueryMethod.Read,null);
         List <Countries> models = (List<Countries>) QueryController.query_request(packet);
         tableCountries.setItems(FXCollections.observableArrayList(models));

@@ -11,7 +11,10 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
- // Фильтровать юзеров. То, что null - ск
+
+import static Client.SocketClient.log;
+
+// Фильтровать юзеров. То, что null - ск
 public class UsersDao implements IDao<Users>{
 
     public static final UsersDao INSTANCE = new UsersDao();
@@ -53,12 +56,13 @@ public class UsersDao implements IDao<Users>{
                         set.getInt("hashpassword"),
                         set.getInt("accessLevel")
                 );
-                System.out.println(users);
+                //System.out.println(users);
                 listUser.add(users);
                 set.next();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listUser;
     }
 
@@ -76,11 +80,12 @@ public class UsersDao implements IDao<Users>{
                         set.getInt("hashpassword"),
                         set.getInt("accessLevel")
                 );
-                System.out.println(users);
+                //System.out.println(users);
                 usersList.add(users);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return usersList;
     }
 
@@ -95,6 +100,7 @@ public class UsersDao implements IDao<Users>{
             preparedStatement.setInt(4,usersModel.getAccessLevel());
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -112,6 +118,7 @@ public class UsersDao implements IDao<Users>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -126,6 +133,7 @@ public class UsersDao implements IDao<Users>{
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -149,10 +157,11 @@ public class UsersDao implements IDao<Users>{
                         set.getInt("hashpassword"),
                         set.getInt("accessLevel")
                 );
-                System.out.println(users);
+                //System.out.println(users);
                 break;
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                log.warning("Произошёл таймаут бездействия в базе данных.");
+                //throw new RuntimeException(e);
             }
         }
         return Optional.of(users);

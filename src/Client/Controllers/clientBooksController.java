@@ -40,7 +40,7 @@ public class clientBooksController {
     public void updateBooks(){
         Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
         List<BookRepr> models = (List<BookRepr>) QueryController.query_request(packet);
-        System.out.println("Че пришло " + models);
+        //System.out.println("Че пришло " + models);
         tourList.setItems(FXCollections.observableArrayList(models));
     }
 
@@ -49,7 +49,7 @@ public class clientBooksController {
         if (!tourList.getSelectionModel().isEmpty())
         {
             BookRepr bookRepr = tourList.getSelectionModel().getSelectedItem();
-            System.out.println(QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Delete,bookRepr)).size());
+            QueryController.query_request(new Packet<>(QueryModel.Books,QueryMethod.Delete,bookRepr)).size();
             tourList.getItems().remove(bookRepr);
         }
     }

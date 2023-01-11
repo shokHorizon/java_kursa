@@ -14,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static Client.SocketClient.log;
+
 public class CitiesDao implements IDao<Cities> {
     
     public static final CitiesDao INSTANCE = new CitiesDao();
@@ -50,10 +52,11 @@ public class CitiesDao implements IDao<Cities> {
                     set.getString("name"),
                     set.getInt("country")
             );
-            System.out.println(cities);
+            //System.out.println(cities);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listCities;
     }
 
@@ -70,11 +73,12 @@ public class CitiesDao implements IDao<Cities> {
                         set.getString("name"),
                         set.getInt("country")
                 );
-                System.out.println(cities);
+                //System.out.println(cities);
                 citiesList.add(cities);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return citiesList;
     }
 
@@ -88,6 +92,7 @@ public class CitiesDao implements IDao<Cities> {
             preparedStatement.setInt(3,citiesModel.getCountry());
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -104,6 +109,7 @@ public class CitiesDao implements IDao<Cities> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -118,6 +124,7 @@ public class CitiesDao implements IDao<Cities> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;

@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static Client.SocketClient.log;
 
 
 public class TravelTypesDao implements IDao<TravelTypes> {
@@ -48,10 +49,11 @@ public class TravelTypesDao implements IDao<TravelTypes> {
                     set.getInt("id"),
                     set.getString("name")
             );
-            System.out.println(travelTypes);
+            //System.out.println(travelTypes);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listTravelTypes;
     }
 
@@ -67,11 +69,12 @@ public class TravelTypesDao implements IDao<TravelTypes> {
                         set.getInt("id"),
                         set.getString("name")
                 );
-                System.out.println(travelTypes);
+                //System.out.println(travelTypes);
                 travelTypesList.add(travelTypes);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return travelTypesList;
     }
 
@@ -85,6 +88,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
 
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -100,6 +104,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -114,6 +119,7 @@ public class TravelTypesDao implements IDao<TravelTypes> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;

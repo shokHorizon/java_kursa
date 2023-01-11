@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static Client.SocketClient.log;
+
 public class CountriesDao implements IDao<Countries> {
 
     public static final CountriesDao INSTANCE = new CountriesDao();
@@ -45,10 +47,11 @@ public class CountriesDao implements IDao<Countries> {
                     set.getInt("id"),
                     set.getString("name")
             );
-            System.out.println(countries);
+            //System.out.println(countries);
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listCountries;
     }
 
@@ -64,11 +67,12 @@ public class CountriesDao implements IDao<Countries> {
                         set.getInt("id"),
                         set.getString("name")
                 );
-                System.out.println(countries);
+                //System.out.println(countries);
                 countriesList.add(countries);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return countriesList;
     }
 
@@ -81,6 +85,7 @@ public class CountriesDao implements IDao<Countries> {
             preparedStatement.setString(2,countriesModel.getName());
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -96,6 +101,7 @@ public class CountriesDao implements IDao<Countries> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;
@@ -110,6 +116,7 @@ public class CountriesDao implements IDao<Countries> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
             return false;
         }
         return true;

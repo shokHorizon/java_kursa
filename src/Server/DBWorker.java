@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.Optional;
 import java.util.Properties;
 
+import static Client.SocketClient.log;
+import static Client.SocketClient.logInfo;
+
 
 public class DBWorker {
 
@@ -54,7 +57,7 @@ public class DBWorker {
 
             try {
                 connection = DriverManager.getConnection(URL,connectionsProps);
-                System.out.println("Соединение установлено");
+                logInfo("Соединение установлено");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

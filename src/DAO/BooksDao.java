@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static Client.SocketClient.log;
+
 public class BooksDao implements IDao<Books> {
 
     public static final BooksDao INSTANCE = new BooksDao();
@@ -41,7 +43,7 @@ public class BooksDao implements IDao<Books> {
             }
         }
         ResultSet set;
-        System.out.println(query);
+        //System.out.println(query);
         try {
 
             PreparedStatement preparedStatement = DBWorker.INSTANCE.prepareStatement(query);
@@ -55,10 +57,11 @@ public class BooksDao implements IDao<Books> {
                         set.getInt("status")
                 );
                 listBook.add(books);
-                System.out.println(books);
+                //System.out.println(books);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listBook;
     }
 
@@ -100,10 +103,11 @@ public class BooksDao implements IDao<Books> {
                         set.getInt("status")
                 );
                 listBook.add(books);
-                System.out.println(books);
+                //System.out.println(books);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listBook;
     }
 
@@ -129,7 +133,8 @@ public class BooksDao implements IDao<Books> {
                 );
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return listBook;
     }
 
@@ -147,11 +152,12 @@ public class BooksDao implements IDao<Books> {
                         set.getInt("user"),
                         set.getInt("status")
                 );
-                System.out.println(books);
+                //System.out.println(books);
                 usersList.add(books);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.warning("Произошёл таймаут бездействия в базе данных.");
+            //throw new RuntimeException(e);
         } return usersList;
     }
 
@@ -166,6 +172,7 @@ public class BooksDao implements IDao<Books> {
             preparedStatement.setInt(4,booksModel.getStatus());
             preparedStatement.execute();
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
            return false;
         }
         return true;
@@ -183,6 +190,7 @@ public class BooksDao implements IDao<Books> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
            return false;
         }
         return true;
@@ -197,6 +205,7 @@ public class BooksDao implements IDao<Books> {
             preparedStatement.execute();
 
         } catch (SQLException e) {
+            log.warning("Произошёл таймаут бездействия в базе данных.");
            return false;
         }
         return true;

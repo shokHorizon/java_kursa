@@ -109,7 +109,7 @@ public class managerController {
 
 
         if (tabTravels.isSelected()) {
-            System.out.println("Выбрана трэвэл");
+            //System.out.println("Выбрана трэвэл");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "") &&
@@ -133,7 +133,7 @@ public class managerController {
         }
 
         else if (tabTickets.isSelected()) {
-            System.out.println("Выбрана тикетс");
+            //System.out.println("Выбрана тикетс");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), "")) {
@@ -197,7 +197,7 @@ public class managerController {
         }
 
         else if (tabTickets.isSelected()) {
-            System.out.println("Выбрана тикетс");
+            //System.out.println("Выбрана тикетс");
             if (!Objects.equals(combo1.getValue(), "") &&
                     !Objects.equals(combo2.getValue(), "") &&
                     !Objects.equals(combo3.getValue(), ""))
@@ -246,7 +246,7 @@ public class managerController {
     void ticketsClicked(MouseEvent event) {
         if (tableTickets.getSelectionModel().isEmpty()){
             clear_combos();
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
+            //System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
 
@@ -269,7 +269,7 @@ public class managerController {
         if (tabTickets.isSelected())
         {
             clear_combos();
-            System.out.println("Switch to tickets");
+            //System.out.println("Switch to tickets");
             switchToTickets();
         }
     }
@@ -278,7 +278,7 @@ public class managerController {
     void travelsClicked(MouseEvent event) {
         if (tableTravels.getSelectionModel().isEmpty()){
             clear_combos();
-            System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
+            //System.out.println("Ай-ай-ай. Не нажимай на пустые поля");
             return;
         }
 
@@ -309,7 +309,7 @@ public class managerController {
         if (tabTravels.isSelected() && App.token != 0)
         {
             clear_combos();
-            System.out.println("Switch to travels");
+            //System.out.println("Switch to travels");
             switchToTravels();
         }
     }
@@ -407,13 +407,13 @@ public class managerController {
 
     void updateTravelsTable(){
         Packet packet = new Packet(QueryModel.Travels, QueryMethod.Read,null);
-        System.out.println("Я МЕНЯЮ TRAVELS");
+        //System.out.println("Я МЕНЯЮ TRAVELS");
         List<Travels> models = (List<Travels>) QueryController.query_request(packet);
         tableTravels.setItems(FXCollections.observableArrayList(models));
     }
 
     void updateTicketsTable(){
-        System.out.println("Я МЕНЯЮ TICKETS");
+        //System.out.println("Я МЕНЯЮ TICKETS");
         Packet packet = new Packet(QueryModel.Books, QueryMethod.Read,null);
         List <Books> models = (List<Books>) QueryController.query_request(packet);
         tableTickets.setItems(FXCollections.observableArrayList(models));

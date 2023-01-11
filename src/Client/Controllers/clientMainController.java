@@ -22,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.*;
 
+import static Client.SocketClient.log;
+
 public class clientMainController {
 
     @FXML
@@ -79,7 +81,7 @@ public class clientMainController {
     void countryAction(ActionEvent event) {
         if (Objects.equals(tourCountry.getValue(), "")) {
             tourCountry.setPromptText("Страна");
-            System.out.println(tourCountry.getPromptText() + " аааааааааааааааааааааааааааааааа");
+            //System.out.println(tourCountry.getPromptText() + " аааааааааааааааааааааааааааааааа");
         }
         comboUpdate();
     }
@@ -103,7 +105,7 @@ public class clientMainController {
             } catch (IllegalArgumentException e)
             {
                 tourImage.setImage(null);
-                System.out.println("Корявая ссылка");
+                log.warning("Плохая ссылка на изображение!");
             }
         }
     }
@@ -112,9 +114,9 @@ public class clientMainController {
     public void updateTravels(TravelsRepr travel){
         isUpdating = true;
         Packet packet = new Packet(QueryModel.Travels, QueryMethod.Read,travel);
-        System.out.println("Я МЕНЯЮ TRAVELS REPR");
+        //System.out.println("Я МЕНЯЮ TRAVELS REPR");
         List<TravelsRepr> models = (List<TravelsRepr>) QueryController.query_request(packet);
-        System.out.println("Че пришло " + models);
+        //System.out.println("Че пришло " + models);
         table.setItems(FXCollections.observableArrayList(models));
         updateCombos(models);
         isUpdating = false;
