@@ -10,8 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+
+import static Client.SocketClient.log;
+import static java.lang.System.exit;
 
 public class App extends Application {
 
@@ -28,8 +34,26 @@ public class App extends Application {
         launch(args);
     }
 
+    public static void createLogFile() {
+        FileHandler fh;
+        try {
+            File logFile = new File("Client.log");
+            if (!logFile.exists()) {
+                //System.out.println("Client.log doesn't exist.");
+                logFile = new File("./Client.log");
+            }
+            fh = new FileHandler("Client.log");
+            log.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        }
+        catch (SecurityException | IOException e) { e.printStackTrace(); }
+    }
+
+
     @Override
     public void start(Stage stage) {
+        createLogFile();
         AppStage = stage;
         try {
             loginPage = FXMLLoader.load(getClass().getResource("login.fxml"));

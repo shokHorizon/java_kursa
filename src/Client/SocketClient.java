@@ -3,11 +3,16 @@ package Client;
 import Protocols.Packet;
 import Server.DBWorker;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import static java.lang.System.exit;
 
 public class SocketClient {
 
