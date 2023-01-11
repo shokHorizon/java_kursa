@@ -31,7 +31,7 @@ public class SocketClient {
         Socket clientSocket = null;
         packet.setToken(App.token);
         try {
-            clientSocket = new Socket("127.0.0.1", 8000);
+            clientSocket = new Socket("185.244.172.157", 8000);
             logInfo("Сокет клиента создан");
             ObjectInputStream reader = new ObjectInputStream(clientSocket.getInputStream());;
             ObjectOutputStream writer = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -43,7 +43,7 @@ public class SocketClient {
                 //receive_packet.Print();
                 logInfo("Пакет передан");
             } catch (IOException | ClassNotFoundException e) {
-                log.warning("Пакет не был передан.");
+                log.severe("Пакет не был передан.");
                 //e.printStackTrace();
                 } finally {
                 try {
